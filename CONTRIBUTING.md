@@ -16,7 +16,7 @@ node scripts/check-docs.mjs
 npm test
 ```
 
-The existing installer suite has a host-dependent personal-directory assertion; see [known issues](docs/INSTALLATION.md). A missing dependency is not an application regression. Record exact commands, OS, failures and skips.
+The installer root-protection test uses a synthetic directory; Windows-only integrations still require Windows. See [known issues](docs/INSTALLATION.md). A missing dependency is not an application regression. Record exact commands, OS, failures and skips.
 
 For application work, from `payload/PersonalAI`:
 
