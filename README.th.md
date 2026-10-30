@@ -97,31 +97,31 @@
 
 ## เบนช์มาร์ก (เครื่องเดียว: Ryzen 5 3600, RAM 32 GB, RX 6600 8 GB)
 
-ผลที่วัดเองช่วง 20–30 ต.ค. 2026 ส่วนใหญ่วัดบนเวอร์ชันที่ใช้งานประจำ ตัวอย่างน้อยและมีเครื่องเดียว ให้ถือเป็นบันทึกจากการใช้งานจริง ไม่ใช่ตารางจัดอันดับ ใต้กราฟทุกรูปบอกวิธีวัดและวันที่ (กราฟเป็นภาษาอังกฤษ)
+ผลที่วัดเองช่วง 20–30 ต.ค. 2026 ส่วนใหญ่วัดบนเวอร์ชันที่ใช้งานประจำ ตัวอย่างน้อยและมีเครื่องเดียว ให้ถือเป็นบันทึกจากการใช้งานจริง ไม่ใช่ตารางจัดอันดับ ใต้กราฟทุกรูปบอกวิธีวัดและวันที่
 
 ทุกอย่างรันบน ROCm ของ AMD ใต้ Windows: llama.cpp รุ่น ROCm/HIP สำหรับโมเดลภาษา และ ComfyUI บน PyTorch ROCm สำหรับภาพและวิดีโอ ไม่ได้ใช้การ์ด NVIDIA เลย
 
-![ความเร็วโมเดล](docs/charts/01-model-speed.png)
+![ความเร็วโมเดล](docs/charts/th/01-model-speed.png)
 
-![หาจุด offload ของ MoE](docs/charts/02-moe-offload-sweep.png)
+![หาจุด offload ของ MoE](docs/charts/th/02-moe-offload-sweep.png)
 
 เคล็ดลับที่ทำให้โมเดล 26B ใช้งานได้บนการ์ด 8 GB: เก็บน้ำหนักส่วน Mixture-of-Experts ไว้ใน RAM ของระบบ (`-ncmoe`) แทนการแบ่งทั้งเลเยอร์, ใช้หัว MTP ช่วยเดาคำ และใช้ไฟล์ QAT Q4_0 ที่เล็กลงจนใส่ expert บนการ์ดได้มากขึ้น
 
-![ความแม่นในการแก้บั๊ก](docs/charts/03-coding-accuracy.png)
+![ความแม่นในการแก้บั๊ก](docs/charts/th/03-coding-accuracy.png)
 
-![ค่าตั้งสำหรับงานโค้ด](docs/charts/04-coding-settings.png)
+![ค่าตั้งสำหรับงานโค้ด](docs/charts/th/04-coding-settings.png)
 
-![อ่านเอกสารยาว](docs/charts/05-long-context.png)
+![อ่านเอกสารยาว](docs/charts/th/05-long-context.png)
 
-![ความหน่วงตอนโทร](docs/charts/06-call-latency.png)
+![ความหน่วงตอนโทร](docs/charts/th/06-call-latency.png)
 
-![เทียบโมเดลภาพ](docs/charts/10-image-models.png)
+![เทียบโมเดลภาพ](docs/charts/th/10-image-models.png)
 
-![เวลาสร้างภาพ](docs/charts/09-image-generation.png)
+![เวลาสร้างภาพ](docs/charts/th/09-image-generation.png)
 
-![VAE decode ของวิดีโอ](docs/charts/07-video-vae-decode.png)
+![VAE decode ของวิดีโอ](docs/charts/th/07-video-vae-decode.png)
 
-![เวลาสร้างวิดีโอจากภาพ](docs/charts/08-video-i2v-time.png)
+![เวลาสร้างวิดีโอจากภาพ](docs/charts/th/08-video-i2v-time.png)
 
 ### สร้างวิดีโอด้วย AI: ลองแล้ว เลิกใช้
 
