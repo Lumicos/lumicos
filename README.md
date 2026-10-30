@@ -1,5 +1,7 @@
 # Lumicos
 
+[ภาษาไทย](README.th.md)
+
 **A local-first personal AI that runs on one mid-range gaming PC.**
 Chat, voice, web search, a local knowledge library, image generation and background agents, with no cloud service in the loop.
 
@@ -120,6 +122,10 @@ The trick that made a 26B model usable on 8 GB: keep the Mixture-of-Experts weig
 ![VAE decode](docs/charts/07-video-vae-decode.png)
 
 ![Image to video](docs/charts/08-video-i2v-time.png)
+
+### AI video generation: tried, then dropped
+
+I spent a few days on Wan 2.2 5B Turbo (text-to-video and image-to-video) and stopped. On an 8 GB card a 4–5 second clip took 6 to 17 minutes, 832×480 crashed the GPU during decoding, and the results were not good enough: faces in text-to-video were poor, and image-to-video motion looked fast-forwarded rather than cinematic. Lumicos keeps editing tools for real footage (ffmpeg, DaVinci Resolve) instead of generating video.
 
 Things that did **not** help on this card: llama.cpp `--moe-cache-mib`, letting the model "think" for coding, a DRY sampler, and 16k/32k context for everyday chat.
 
