@@ -161,3 +161,16 @@ frame(ax, "Image generation: about 40 seconds per picture on 8 GB",
       "Source: Lumicos image-jobs log, 157 real images, 15-26 Oct 2026. Includes waiting for the GPU and occasional model loads; slowest single image 478 s.")
 save(fig, "09-image-generation.png")
 print("ok9")
+
+# 10 ── text-to-image model comparison (direct ComfyUI, warm) -------------------------------
+fig, ax = plt.subplots(figsize=(9.5, 4.3)); fig.subplots_adjust(left=0.36, right=0.95, top=0.79, bottom=0.17)
+labels = ["Flux.2 klein 4B  (Q4_K_M, 4 steps)", "Flux 3 klein 5.6B  (Q4_K_M, 4 steps)", "Z-Image Turbo  (INT8, 8 steps)",
+          "Moss Image  (INT8 + 4-step LoRA)", "Qwen-Image 2.1  (Q4_K_M, 6 steps)"]
+vals = [17.6, 24.0, 26.0, 26.0, 50.0]
+hbars(ax, labels, vals, [GRAY, BLUE, BLUE, BLUE, GRAY], lambda v: f"{v:.0f} s" if v != 50.0 else "45-55 s", 62)
+ax.set_xlabel("Seconds per 576x768 image, model already loaded")
+frame(ax, "Text-to-image models compared on the same 8 GB card",
+      "Blue = kept in Lumicos, grey = tested and dropped",
+      "Source: ComfyUI on PyTorch ROCm 10, warm runs, 19-21 Oct 2026. Flux 3 edit of one photo ~42 s, merge of 2 photos ~152 s incl. loading. Moss 1024x1024: 51 s.")
+save(fig, "10-image-models.png")
+print("ok10")

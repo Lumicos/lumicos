@@ -113,6 +113,8 @@ The trick that made a 26B model usable on 8 GB: keep the Mixture-of-Experts weig
 
 ![Call latency](docs/charts/06-call-latency.png)
 
+![Image models](docs/charts/10-image-models.png)
+
 ![Image generation](docs/charts/09-image-generation.png)
 
 ![VAE decode](docs/charts/07-video-vae-decode.png)
