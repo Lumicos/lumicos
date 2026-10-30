@@ -1,0 +1,6 @@
+mcp>=1.10,<2
+ddgs
+trafilatura
+httpx
+colorama
+tzdata

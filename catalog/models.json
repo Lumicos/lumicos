@@ -1,0 +1,84 @@
+[
+  {
+    "id": "call-e2b",
+    "group": "chat",
+    "repo": "google/gemma-4-E2B-it-qat-q4_0-gguf",
+    "revision": "675cff42a74c774d6cb76f76d8eacb49b48c9b93",
+    "page": "https://huggingface.co/google/gemma-4-E2B-it-qat-q4_0-gguf",
+    "license": "apache-2.0",
+    "files": [
+      {
+        "name": "gemma-4-E2B_q4_0-it.gguf",
+        "destination": "models/chat/gemma-4-E2B_q4_0-it.gguf",
+        "bytes": 3349516256,
+        "sha256": "fa401b55b07ee70a54c6dae3903c783a6e65064312529ea57175cb5f8dec6634",
+        "url": "https://huggingface.co/google/gemma-4-E2B-it-qat-q4_0-gguf/resolve/675cff42a74c774d6cb76f76d8eacb49b48c9b93/gemma-4-E2B_q4_0-it.gguf?download=true"
+      }
+    ]
+  },
+  {
+    "id": "chat-e4b",
+    "group": "chat",
+    "repo": "google/gemma-4-E4B-it-qat-q4_0-gguf",
+    "revision": "4b4a2c1d584be7264f87aac328a1bc739ce81b6c",
+    "page": "https://huggingface.co/google/gemma-4-E4B-it-qat-q4_0-gguf",
+    "license": "apache-2.0",
+    "files": [
+      {
+        "name": "gemma-4-E4B_q4_0-it.gguf",
+        "destination": "models/chat/gemma-4-E4B_q4_0-it.gguf",
+        "bytes": 5154941280,
+        "sha256": "676c35070db6dbe52f93e9c864ee0fba4eddea94b9c875d9cb10daff453fbaee",
+        "url": "https://huggingface.co/google/gemma-4-E4B-it-qat-q4_0-gguf/resolve/4b4a2c1d584be7264f87aac328a1bc739ce81b6c/gemma-4-E4B_q4_0-it.gguf?download=true"
+      }
+    ]
+  },
+  {
+    "id": "whisper",
+    "group": "stt",
+    "repo": "ggerganov/whisper.cpp",
+    "revision": "5359861c739e955e79d9a303bcbc70fb988958b1",
+    "page": "https://huggingface.co/ggerganov/whisper.cpp",
+    "license": "mit",
+    "files": [
+      {
+        "name": "ggml-large-v3-turbo-q5_0.bin",
+        "destination": "models/whisper/ggml-large-v3-turbo-q5_0.bin",
+        "bytes": 574041195,
+        "sha256": "394221709cd5ad1f40c46e6031ca61bce88931e6e088c188294c6d5a55ffa7e2",
+        "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo-q5_0.bin?download=true"
+      }
+    ]
+  },
+  {
+    "id": "image",
+    "group": "image",
+    "repo": "Comfy-Org/z_image_turbo",
+    "revision": "6fc90a3b1b653e935a0d175e260736de25b84df5",
+    "page": "https://huggingface.co/Comfy-Org/z_image_turbo",
+    "license": "apache-2.0",
+    "files": [
+      {
+        "name": "split_files/diffusion_models/z_image_turbo_bf16.safetensors",
+        "destination": "ComfyUI-Next/models/diffusion_models/z_image_turbo_bf16.safetensors",
+        "bytes": 12309866400,
+        "sha256": "2407613050b809ffdff18a4ac99af83ea6b95443ecebdf80e064a79c825574a6",
+        "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/6fc90a3b1b653e935a0d175e260736de25b84df5/split_files/diffusion_models/z_image_turbo_bf16.safetensors?download=true"
+      },
+      {
+        "name": "split_files/text_encoders/qwen_3_4b.safetensors",
+        "destination": "ComfyUI-Next/models/text_encoders/qwen_3_4b.safetensors",
+        "bytes": 8044982048,
+        "sha256": "6c671498573ac2f7a5501502ccce8d2b08ea6ca2f661c458e708f36b36edfc5a",
+        "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/6fc90a3b1b653e935a0d175e260736de25b84df5/split_files/text_encoders/qwen_3_4b.safetensors?download=true"
+      },
+      {
+        "name": "split_files/vae/ae.safetensors",
+        "destination": "ComfyUI-Next/models/vae/ae.safetensors",
+        "bytes": 335304388,
+        "sha256": "afc8e28272cd15db3919bacdb6918ce9c1ed22e96cb12c4d5ed0fba823529e38",
+        "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/6fc90a3b1b653e935a0d175e260736de25b84df5/split_files/vae/ae.safetensors?download=true"
+      }
+    ]
+  }
+]

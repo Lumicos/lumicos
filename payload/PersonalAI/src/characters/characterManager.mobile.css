@@ -1,0 +1,33 @@
+/* Character manager on phones: one column (character strip on top, form below), full-screen sheet. */
+@media (max-width: 780px) {
+  .modal-backdrop:has(.cm) { padding: 0; place-items: stretch; }
+  .modal-backdrop:has(.cm) .modal { max-width: none; width: 100%; height: 100dvh; max-height: none; border-radius: 0; border: 0; }
+  .cm { flex-direction: column; min-width: 0; width: 100%; }
+  .modal-backdrop:has(.cm) .modal-body { padding: 0; }
+  .cm-list { width: 100%; flex-direction: row; align-items: center; gap: 8px; padding: 10px 12px; border-right: 0; border-bottom: 1px solid var(--border); overflow-x: auto; overflow-y: hidden; flex-shrink: 0; scrollbar-width: none; }
+  .cm-list::-webkit-scrollbar { display: none; }
+  .cm-new { margin: 0; flex: none; white-space: nowrap; }
+  .cm-item { flex: none; width: auto; max-width: 160px; padding: 6px 12px 6px 6px; border: 1px solid var(--border); border-radius: 999px; }
+  .cm-item.active { border-color: var(--accent); background: var(--accent-soft); }
+  .cm-item-sub { display: none; }
+  .cm-main { flex: 1; min-height: 0; }
+  .cm-head { flex-wrap: wrap; padding: 12px 14px; gap: 10px; }
+  .cm-head-text { flex-basis: calc(100% - 60px); }
+  .cm-tabs { width: 100%; }
+  .cm-tabs button { flex: 1; justify-content: center; }
+  .cm-body { padding: 14px 14px 18px; }
+  .cm-identity { flex-direction: column; align-items: stretch; gap: 16px; }
+  .cm-avatar { align-self: center; }
+  .field-row { grid-template-columns: 1fr; }
+  .cm-actions { flex-wrap: wrap; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); }
+  .cm-actions .btn { flex: 1 1 auto; justify-content: center; }
+  .cm-actions .grow { display: none; }
+}
+
+/* Quick personality picks */
+.cm-presets { display: grid; gap: 8px; margin-bottom: 4px; }
+.cm-presets-label { font-size: 12.5px; color: var(--muted, #8b93a1); }
+.cm-presets-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.cm-chip { min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line, rgba(255,255,255,.14)); background: transparent; color: inherit; font: inherit; font-size: 13.5px; cursor: pointer; transition: background .15s, border-color .15s; }
+.cm-chip:hover { background: rgba(127,127,127,.14); }
+.cm-chip.on { background: var(--accent, #4fd1c5); border-color: var(--accent, #4fd1c5); color: #06201d; font-weight: 600; }

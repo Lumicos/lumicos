@@ -1,0 +1,146 @@
+/* Image Lab home: big template cards + floating prompt bar */
+.lab-home{display:flex;flex-direction:column;min-height:100%;padding:18px 16px 0;box-sizing:border-box}
+.lab-home h1{margin:0 0 4px;font-size:26px}
+.lab-home .lab-sub{margin:14px 2px 10px;font-size:15px;color:var(--text-2)}
+.lab-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:900px){.lab-grid{grid-template-columns:repeat(4,minmax(0,1fr));max-width:1100px}}
+.lab-card{position:relative;aspect-ratio:3/4;border:0;padding:0;border-radius:26px;overflow:hidden;cursor:pointer;text-align:left;color:#fff;
+  background:linear-gradient(150deg,color-mix(in srgb,var(--accent) 60%,#000),color-mix(in srgb,var(--accent-2) 32%,var(--bg)))}
+.lab-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.lab-card:hover img{transform:scale(1.04)}
+.lab-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,0) 55%)}
+.lab-card .lab-ico{position:absolute;left:14px;top:14px;z-index:1;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.2);backdrop-filter:blur(8px)}
+.lab-card .lab-bg-ico{position:absolute;right:-18px;top:30%;opacity:.16;z-index:0}
+.lab-card .lab-txt{position:absolute;left:18px;right:14px;bottom:16px;z-index:1}
+.lab-card h3{margin:0;font-size:20px;font-weight:650;line-height:1.2}
+.lab-card p{margin:5px 0 0;font-size:12.5px;line-height:1.4;opacity:.88}
+.lab-bar{position:sticky;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);margin-top:auto;padding-top:22px;z-index:5}
+.lab-pill{display:flex;align-items:center;gap:8px;padding:7px;border-radius:999px;background:color-mix(in srgb,var(--surface) 86%,transparent);backdrop-filter:blur(16px);border:1px solid var(--border-strong);box-shadow:var(--shadow);max-width:760px;margin:0 auto}
+.lab-pill input[type=text]{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:16px;padding:8px 6px}
+.lab-pill button,.lab-pill label.lab-round{flex:none;width:44px;height:44px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;background:var(--surface-2);color:var(--text)}
+.lab-pill button.go{background:var(--accent);color:var(--accent-contrast)}
+.lab-pill button:disabled{opacity:.45;cursor:default}
+.lab-home .form-error{margin:10px 2px 0}
+.imgedit-back{display:inline-flex;align-items:center;gap:2px;border:0;background:transparent;color:var(--text-2);font:inherit;cursor:pointer;padding:6px 8px 6px 2px;border-radius:12px}
+.imgedit-back:hover{background:var(--surface-2)}
+
+.imgedit-tpl{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 8px 8px 14px;border-radius:14px;background:var(--accent-soft);color:var(--accent);font-size:14px}
+.imgedit-tpl button{border:0;background:transparent;color:inherit;cursor:pointer;width:28px;height:28px;border-radius:50%}
+.imgedit-tpl button:hover{background:var(--surface-2)}
+
+/* Image Lab v2: tools row, horizontal template rows, stronger prompt pill */
+.lab-sec{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:22px 2px 10px}
+.lab-sec .lab-sub{margin:0}.lab-sec small{color:var(--text-3,var(--text-2));font-size:12.5px}
+.lab-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.lab-card.lab-tool{aspect-ratio:auto;height:150px;border-radius:22px}
+.lab-tool .lab-txt{left:12px;right:10px;bottom:12px}
+.lab-tool h3{font-size:16px}.lab-tool p{font-size:11.5px;margin-top:3px}
+.lab-tool .lab-ico{left:12px;top:12px;width:34px;height:34px}
+.lab-row{display:flex;gap:12px;overflow-x:auto;margin:0 -16px;padding:0 16px 4px;scrollbar-width:none;scroll-snap-type:x proximity}
+.lab-row::-webkit-scrollbar{display:none}
+.lab-card.lab-tpl{flex:0 0 140px;aspect-ratio:auto;height:190px;border-radius:22px;scroll-snap-align:start}
+.lab-tpl .lab-txt{left:14px;bottom:14px}.lab-tpl h3{font-size:16px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+@media (min-width:900px){.lab-tools{max-width:620px}}
+.lab-home{padding-bottom:6px}
+.lab-pill{background:var(--surface);border:1.5px solid var(--text-3,var(--border-strong));box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.lab-pill input[type=text]{color:var(--text)}
+.lab-pill input[type=text]::placeholder{color:var(--text-2);opacity:.9}
+.lab-pill button.go{background:var(--text);color:var(--bg)}
+/* the classic scrollbar ate 12px on the right and made the page look off-centre */
+.lab-home{scrollbar-width:none}
+.lab-home::-webkit-scrollbar{display:none}
+
+/* v3: pill no longer clipped (page was 100% + top bar tall), plain gradient tool cards, blurred busy preview */
+.lab-home{min-height:0;flex:1 1 0}
+.lab-tool.tool-edit{background:linear-gradient(160deg,#7c5cff,#3b2bb8)}
+.lab-tool.tool-extend{background:linear-gradient(160deg,#18a999,#0b5d66)}
+.lab-tool.tool-upscale{background:linear-gradient(160deg,#f08a3c,#b3392b)}
+.lab-tool .lab-bg-ico{right:-14px;top:auto;bottom:34px;opacity:.14}
+.imgedit-stage{overflow:hidden;border-radius:14px}
+.imgedit-stage > img{transition:filter .7s var(--ease),transform .7s var(--ease)}
+.imgedit-stage:has(.imgedit-busy) > img{filter:blur(22px) saturate(1.35) brightness(.95);transform:scale(1.06);animation:imgedit-pulse 2s ease-in-out infinite}
+.imgedit-stage .imgedit-busy{background:transparent;text-shadow:0 1px 10px rgba(0,0,0,.6);font-weight:600}
+
+/* v4: four tools (2×2), transparent cut-outs shown on a checkerboard */
+.lab-tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+.lab-card.lab-tool{height:128px}
+.lab-tool.tool-cutout{background:linear-gradient(160deg,#e0508f,#7a1f5c)}
+.imgedit-canvas.is-cutout .imgedit-compare,.imgedit-canvas.is-cutout .imgedit-after{background:repeating-conic-gradient(#8884 0 25%,#fff2 0 50%) 0 0/20px 20px}
+
+/* v5: job queue + album inside Image Lab + multi-select in the gallery */
+.lab-titlebar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lab-titlebar h1{margin:0}
+.lab-album{display:flex;flex-direction:column;flex:1;min-height:0}
+.lab-album .gallery{padding-top:8px}
+.lab-album-back{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;margin:10px 12px 0;width:auto;padding:0 12px 0 6px}
+.imgedit-queue{display:flex;flex-direction:column;gap:6px;margin:8px 0;padding:10px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.imgedit-queue-head{display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
+.imgedit-qitem{display:flex;align-items:center;gap:10px;min-width:0}
+.imgedit-qitem img,.imgedit-qitem .q-ph{width:44px;height:44px;flex:0 0 44px;border-radius:10px;object-fit:cover;background:var(--border)}
+.imgedit-qitem .q-main{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:none;border:0;padding:0;color:inherit;font:inherit}
+.imgedit-qitem .q-main:not(:disabled){cursor:pointer}
+.imgedit-qitem .q-label{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.9rem}
+.imgedit-qitem small{display:inline-flex;align-items:center;gap:4px;color:var(--muted)}
+.imgedit-qitem.q-done small{color:var(--accent,#18a999)}
+.imgedit-qitem.q-failed small{color:var(--danger,#d44)}
+.imgedit-qitem .q-x{flex:0 0 32px;height:32px;border-radius:999px;border:0;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer}
+.gallery-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 12px}
+.gallery-bulk-delete{background:var(--danger,#c93a3a);color:#fff}
+.gallery-grid figure.is-picked img{outline:3px solid var(--accent,#7c5cff);outline-offset:-3px}
+.gallery-check{position:absolute;top:8px;left:8px;width:26px;height:26px;border-radius:8px;border:2px solid #fff;background:rgba(0,0,0,.45);color:#fff;display:grid;place-items:center;padding:0;cursor:pointer}
+.gallery-check.on{background:var(--accent,#7c5cff);border-color:var(--accent,#7c5cff)}
+.gallery-edit{position:absolute;right:8px;bottom:42px;display:inline-flex;align-items:center;gap:4px}
+
+/* v6: merge mode (2-4 reference photos) */
+.lab-tool.tool-merge{grid-column:1/-1;background:linear-gradient(160deg,#3a7bd5,#1b3f8f)}
+.imgedit-merge{display:flex;flex-direction:column;gap:10px;width:100%}
+.imgedit-merge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.imgedit-merge-slot{position:relative;margin:0;border-radius:14px;overflow:hidden;aspect-ratio:3/4;background:var(--border)}
+.imgedit-merge-slot img{width:100%;height:100%;object-fit:cover;display:block}
+.imgedit-merge-n{position:absolute;left:8px;top:8px;min-width:24px;height:24px;border-radius:999px;background:rgba(0,0,0,.6);color:#fff;font-weight:700;font-size:.85rem;display:grid;place-items:center}
+.imgedit-merge-slot button{position:absolute;right:8px;top:8px;width:26px;height:26px;border-radius:999px;border:0;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center;cursor:pointer}
+.imgedit-merge-add{aspect-ratio:3/4;border:2px dashed var(--border-strong,var(--border));border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:10px;cursor:pointer;color:var(--muted)}
+.lab-tool.tool-ref{grid-column:1/-1;background:linear-gradient(160deg,#c2539b,#6b2a8a)}
+
+/* v7 polish (20 Oct): one even tool grid, consistent widths, calmer cards, softer motion */
+.lab-home{max-width:1120px;width:100%;margin-inline:auto}
+.lab-titlebar{margin-bottom:2px}
+.lab-home h1{font-size:28px;letter-spacing:-.01em}
+.lab-sec{margin:26px 2px 12px}
+.lab-sec .lab-sub{font-size:17px;font-weight:650;letter-spacing:-.005em;color:var(--text)}
+.lab-sec small{padding:3px 10px;border-radius:999px;background:var(--surface-2);color:var(--text-2);font-size:12px}
+.lab-tools{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;max-width:none}
+.lab-tool.tool-merge,.lab-tool.tool-ref{grid-column:auto}
+.lab-card.lab-tool{height:116px;border-radius:20px;box-shadow:0 6px 18px rgba(0,0,0,.22),inset 0 0 0 1px rgba(255,255,255,.08);transition:transform .22s var(--ease),box-shadow .22s var(--ease)}
+.lab-card.lab-tool:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.14)}
+.lab-card.lab-tool:active{transform:scale(.985)}
+.lab-card.lab-tool::after{background:linear-gradient(to top,rgba(0,0,0,.38),rgba(0,0,0,0) 70%)}
+.lab-tool .lab-ico{left:14px;top:14px;width:32px;height:32px}
+.lab-tool .lab-txt{left:14px;right:12px;bottom:12px}
+.lab-tool h3{font-size:16px;letter-spacing:-.005em}
+.lab-tool p{font-size:12px;line-height:1.35;opacity:.9}
+.lab-tool .lab-bg-ico{right:-10px;bottom:auto;top:-6px;opacity:.12;transform:scale(.8)}
+.lab-card.lab-tpl{border-radius:20px;box-shadow:0 6px 16px rgba(0,0,0,.2),inset 0 0 0 1px rgba(255,255,255,.07);transition:transform .22s var(--ease),box-shadow .22s var(--ease)}
+.lab-card.lab-tpl:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.3)}
+.lab-card.lab-tpl::after{background:linear-gradient(to top,rgba(0,0,0,.66),rgba(0,0,0,0) 52%)}
+.lab-card:focus-visible,.lab-pill button:focus-visible,.lab-pill label.lab-round:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.lab-bar::before{content:"";position:absolute;left:-16px;right:-16px;bottom:-14px;top:0;background:linear-gradient(to top,var(--bg) 40%,transparent);pointer-events:none;z-index:-1}
+.lab-pill{box-shadow:0 10px 28px rgba(0,0,0,.35);transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
+.lab-pill:focus-within{border-color:var(--accent);box-shadow:0 10px 28px rgba(0,0,0,.35),0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent)}
+.lab-pill button.go{transition:transform .15s var(--ease),opacity .15s var(--ease)}
+.lab-pill button.go:not(:disabled):hover{transform:scale(1.06)}
+@media (prefers-reduced-motion:reduce){.lab-card,.lab-card img,.lab-pill,.lab-pill button.go{transition:none!important}.lab-card:hover,.lab-card:active{transform:none!important}}
+@media (max-width:520px){.lab-tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.lab-card.lab-tool{height:108px}.lab-tool p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
+.lab-row{scroll-padding-inline:16px}
+/* v7: mode tabs never wrap their labels; the strip scrolls sideways when the window is narrow */
+.imgedit-modes{max-width:100%;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}
+.imgedit-modes::-webkit-scrollbar{display:none}
+.imgedit-modes button{flex:none;white-space:nowrap;transition:background .2s var(--ease),color .2s var(--ease)}
+.imgedit-modes button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+/* Minimal tool cards: follow the app theme instead of per-tool gradients */
+.lab-tools .lab-card.lab-tool{background:var(--surface);color:var(--text);box-shadow:none;border:1px solid var(--border-strong,var(--border))}
+.lab-tools .lab-card.lab-tool:hover{transform:none;box-shadow:none;border-color:var(--accent);background:var(--surface-2)}
+.lab-tools .lab-card.lab-tool::after,.lab-tools .lab-card.lab-tool .lab-bg-ico{display:none}
+.lab-tools .lab-card.lab-tool .lab-ico{background:var(--accent-soft);color:var(--accent);backdrop-filter:none}
+.lab-tools .lab-card.lab-tool p{color:var(--text-2);opacity:1}

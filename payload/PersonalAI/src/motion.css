@@ -1,0 +1,65 @@
+/* =====================================================================
+   Lumicos · motion polish. Loaded last; only animation/transition, no layout.
+   Softer easing, small press/hover feedback, gentler entrances.
+   prefers-reduced-motion is handled by the global rule in index.css.
+   ===================================================================== */
+html:root {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.35, 0.64, 1);
+}
+
+@keyframes m-rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes m-pop-right { from { opacity: 0; transform: translateX(10px) scale(0.97); } }
+@keyframes m-pop { from { opacity: 0; transform: translateY(6px) scale(0.97); } }
+@keyframes m-modal { from { opacity: 0; transform: translateY(14px) scale(0.965); } }
+@keyframes m-drawer { from { transform: translateX(-100%); } }
+@keyframes m-fade { from { opacity: 0; } }
+@keyframes m-wave { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
+
+/* ---- messages ---- */
+html .msg { animation: m-rise 0.4s var(--ease) both; }
+html .msg-user .bubble { transform-origin: 100% 100%; animation: m-pop-right 0.34s var(--ease) both; }
+html .typing span { animation: m-wave 1.15s ease-in-out infinite; }
+html .typing span:nth-child(2) { animation-delay: 0.14s; }
+html .typing span:nth-child(3) { animation-delay: 0.28s; }
+html .tool-item, html .mem-suggest-item { animation: m-rise 0.3s var(--ease) both; }
+html .confirm-card { animation: m-pop 0.3s var(--ease-spring) both; }
+
+/* ---- pages and overlays ---- */
+html .page { animation: m-rise 0.34s var(--ease) both; }
+html .modal-backdrop { animation: m-fade 0.2s ease both; }
+html .modal { animation: m-modal 0.34s var(--ease-spring) both; }
+html .popover, html .model-switcher-menu, html .char-menu { animation: m-pop 0.22s var(--ease) both; transform-origin: top left; }
+html .composer-attachments .model-switcher-menu { transform-origin: bottom left; }
+
+/* ---- press / hover feedback ---- */
+html .btn, html .icon-btn, html .act-btn, html .tool-btn, html .send-btn, html .fab,
+html .new-chat, html .side-nav button, html .history-item, html .chip, html .char-card, html .segmented button {
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease), transform 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+html .btn:active:not(:disabled), html .icon-btn:active:not(:disabled), html .act-btn:active:not(:disabled),
+html .tool-btn:active:not(:disabled), html .fab:active, html .new-chat:active, html .side-nav button:active,
+html .history-item:active, html .chip:active, html .char-card:active { transform: scale(0.97); }
+html .send-btn:hover:not(:disabled) { transform: scale(1.07); }
+html .send-btn:active:not(:disabled) { transform: scale(0.93); }
+html .char-card:hover { transform: translateY(-1px); }
+html .composer { transition: border-color 0.25s var(--ease), box-shadow 0.3s var(--ease); }
+html .switch, html .switch span { transition-timing-function: var(--ease-spring); transition-duration: 0.28s; }
+
+/* ---- sidebar: history rows glide in on first paint ---- */
+html .history-item { animation: m-rise 0.32s var(--ease) both; }
+html .history-item:nth-child(2) { animation-delay: 0.03s; }
+html .history-item:nth-child(3) { animation-delay: 0.06s; }
+html .history-item:nth-child(4) { animation-delay: 0.09s; }
+html .history-item:nth-child(5) { animation-delay: 0.12s; }
+html .history-item:nth-child(n+6) { animation-delay: 0.15s; }
+
+/* ---- phone drawer: real slide + soft scrim ---- */
+@media (max-width: 780px) {
+  html .sidebar:not(.sidebar-rail) { animation: m-drawer 0.32s var(--ease) both; }
+  html .scrim-left, html .scrim-right { animation: m-fade 0.28s ease both; }
+}
+
+/* ---- image edit page ---- */
+html .imgedit-reveal { animation-duration: 0.7s; animation-timing-function: var(--ease); }

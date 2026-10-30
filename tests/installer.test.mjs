@@ -1,0 +1,18 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {selectProfile} from '../src/profile.mjs';
+import {safeJoin,readJson} from '../src/io.mjs';
+import {verifyPayload,validateRoot} from '../src/install.mjs';
+const hardware=(name,vram=16,extra={})=>({arch:'X64',build:26100,ramGiB:32,cpu:'AMD Ryzen 9',cudaMax:'13.4',gpus:[{name,vramGiB:vram}],...extra});
+test('Ryzen CPU with NVIDIA GPU selects CUDA, not ROCm',()=>{const p=selectProfile(hardware('NVIDIA GeForce RTX 4070'));assert.equal(p.backend,'cuda');assert.equal(p.whisper,'whisper-cuda')});
+test('RX 9070 and RX 6600 get different kernel targets',()=>{assert.equal(selectProfile(hardware('AMD Radeon RX 9070')).target,'gfx1201');assert.equal(selectProfile(hardware('AMD Radeon RX 6600',8)).target,'gfx1032')});
+test('unknown VRAM does not use truncated AdapterRAM and keeps CPU voice available',()=>{const p=selectProfile(hardware('AMD Radeon RX 9070',null));assert.equal(p.voice,true);assert.ok(p.warnings.some(s=>s.includes('VRAM')))});
+test('CUDA 12 profile is separate from Blackwell and old drivers',()=>{assert.equal(selectProfile(hardware('NVIDIA GeForce RTX 3060',12,{cudaMax:'12.4'})).llama,'llama-cuda12');assert.equal(selectProfile(hardware('NVIDIA GeForce RTX 5090',32,{cudaMax:'12.4'})).backend,'vulkan');assert.equal(selectProfile(hardware('NVIDIA GeForce RTX 3060',12,{cudaMax:null})).images,false)});
+test('two adapters prefer dedicated GPU, user override is checked',()=>{const h=hardware('Intel UHD',0);h.gpus.push({name:'NVIDIA GeForce RTX 4070',vramGiB:12});assert.equal(selectProfile(h).gpuIndex,1);assert.equal(selectProfile(h,{gpuIndex:0}).backend,'vulkan');assert.throws(()=>selectProfile(h,{gpuIndex:8}))});
+test('CPU-only and unsupported OS do not claim GPU/full capability',()=>{const p=selectProfile(hardware('CPU',0,{gpus:[],build:19045}));assert.equal(p.backend,'cpu');assert.equal(p.images,false);assert.ok(p.errors.length)});
+test('traversal, rooted archive paths and ADS paths rejected',()=>{for(const n of ['../x','a/../../x','C:\\x','/tmp/x','a:stream','\\\\server\\x'])assert.throws(()=>safeJoin('C:/test',n));assert.ok(safeJoin('C:/test','a/b').endsWith(path.join('a','b')))});
+test('never install over live PersonalAI or a drive root',async()=>{await assert.rejects(validateRoot('C:/AI/PersonalAI'));await assert.rejects(validateRoot('C:\\'));await assert.rejects(validateRoot('C:/AI/unsafe&name'))});
+test('payload integrity and exclusion of personal state',async()=>{const files=await verifyPayload();assert.ok(files.length>100);for(const f of files){assert.doesNotMatch(f.path,/^PersonalAI\/(?:data|logs|\.git|node_modules|\.env|models)(?:\/|$)/);assert.doesNotMatch(f.path,/(?:^|\/)(?:owner-auth|conversations|memory)\.json$/i);assert.doesNotMatch(f.path,/\.(gguf|safetensors)$/i)}});
+test('runtime downloads are pinned hashes, models have exact revisions',async()=>{const downloads=await readJson(new URL('../catalog/downloads.json',import.meta.url));for(const x of Object.values(downloads)){assert.match(x.url,/^https:\/\//);assert.match(x.sha256,/^[a-f0-9]{64}$/)}const models=await readJson(new URL('../catalog/models.json',import.meta.url));for(const m of models){assert.match(m.revision,/^[a-f0-9]{40}$/);assert.ok(m.files.length);for(const f of m.files)assert.ok(f.url.includes(m.revision))}});

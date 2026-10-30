@@ -1,0 +1,9 @@
+{
+  "name": "lumicos-knowledge-embedding-runtime",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@huggingface/transformers": "3.8.1"
+  }
+}

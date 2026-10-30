@@ -1,0 +1,22 @@
+{
+  "id": "/",
+  "name": "Lumicos",
+  "short_name": "Lumicos",
+  "lang": "th",
+  "description": "Lumicos — Nova local AI assistant",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#171719",
+  "theme_color": "#171719",
+  "icons": [
+    {
+      "src": "/lumicos-logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "prefer_related_applications": false
+}

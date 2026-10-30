@@ -1,0 +1,58 @@
+{
+  "name": "personal-ai",
+  "private": true,
+  "version": "0.3.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:mock": "vite --mode mock",
+    "service": "node scripts/build-chat-runtime.mjs && node server/index.mjs",
+    "start": "node scripts/start-all.mjs",
+    "build": "tsc -b && vite build && node scripts/build-chat-runtime.mjs",
+    "test:sync": "node --test server/test/sync.test.mjs",
+    "remote:configure": "node scripts/configure-tailscale.mjs",
+    "build:mock": "tsc -b && vite build --mode mock",
+    "preview": "vite preview",
+    "test": "node --test server/test/service.test.mjs",
+    "test:all": "node scripts/run-tests.mjs",
+    "test:service": "node --test server/test/service.test.mjs",
+    "lint": "oxlint",
+    "mock-server": "node scripts/mock-llama-server.mjs 8080",
+    "test:parser": "node --test src/tools/toolCallParser.test.mjs",
+    "test:images": "node --test server/test/imageEdit.test.mjs src/chat/imageRequest.test.mjs",
+    "test:reasoning": "node scripts/build-chat-runtime.mjs && node --test server/test/reasoning.test.mjs"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "1.0.9",
+    "@pixiv/three-vrm": "3.5.5",
+    "@xmldom/xmldom": "^0.9.12",
+    "docx": "^9.7.2",
+    "exceljs": "^4.4.0",
+    "highlight.js": "^11.12.0",
+    "jszip": "^3.10.2",
+    "lucide-react": "^1.48.0",
+    "pdfjs-dist": "^6.3.289",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@types/three": "0.186.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  }
+}

@@ -1,0 +1,5 @@
+.roleplay-scene-btn{display:inline-flex;align-items:center;gap:6px;margin-left:10px;padding:5px 12px;border-radius:999px;
+  border:1px solid var(--border-strong,rgba(127,127,127,.4));background:var(--accent-soft,rgba(127,127,255,.15));color:var(--text);
+  font:inherit;font-size:13px;font-weight:600;cursor:pointer;vertical-align:middle;white-space:nowrap}
+.roleplay-scene-btn:hover:not(:disabled){background:var(--accent);color:var(--accent-contrast,#fff)}
+.roleplay-scene-btn:disabled{opacity:.5;cursor:default}

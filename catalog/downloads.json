@@ -1,0 +1,85 @@
+{
+  "uv": {
+    "url": "https://github.com/astral-sh/uv/releases/download/0.13.5/uv-x86_64-pc-windows-msvc.zip",
+    "sha256": "a38b8d1902b7cfbc76b423ba1bb456f623f42064cdc72628b6075b89afd1019a",
+    "bytes": 15264056,
+    "version": "0.13.5"
+  },
+  "llama-cuda12": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11723/llama-b11723-bin-win-cuda-12.4-x64.zip",
+    "sha256": "3310c11af312966eeaeb023a226547fc409c18b2e220c299ac0f8f0205dd0c08",
+    "bytes": 267489412,
+    "version": "b11723"
+  },
+  "llama-cuda13": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11723/llama-b11723-bin-win-cuda-13.4-x64.zip",
+    "sha256": "10a2b1f90fb068bdd7727d011a586d3355171b248be51ed1de4f4da4ef860bc8",
+    "bytes": 155120697,
+    "version": "b11723"
+  },
+  "cudart12": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11723/cudart-llama-bin-win-cuda-12.4-x64.zip",
+    "sha256": "8c79a9b226de4b3cacfd1f83d24f962d0773be79f1e7b75c6af4ded7e32ae1d6",
+    "bytes": 391443627,
+    "version": "b11723"
+  },
+  "cudart13": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11723/cudart-llama-bin-win-cuda-13.4-x64.zip",
+    "sha256": "738f8c251ac22b70c3ae6f83a10cf222725df0395246a2cf58f32bdb85fbe668",
+    "bytes": 423535356,
+    "version": "b11723"
+  },
+  "llama-rocm": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11723/llama-b11723-bin-win-rocm-10.0-x64.zip",
+    "sha256": "76ddf82c5b0a3d4f9c02efb232957c26c8ea99b5def6dc2c8ed38131ade098a2",
+    "bytes": 258819867,
+    "version": "b11723"
+  },
+  "llama-vulkan": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11723/llama-b11723-bin-win-vulkan-x64.zip",
+    "sha256": "60d0f9e505998808be9dfc9eed8f6d1a40a3e17d7fce193161b411b59e8c488c",
+    "bytes": 32315464,
+    "version": "b11723"
+  },
+  "llama-cpu": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11723/llama-b11723-bin-win-cpu-x64.zip",
+    "sha256": "d2c028bca1b948cb12a23008b6e37c37bea51459c0cb4fbed7a989133c244db0",
+    "bytes": 19667387,
+    "version": "b11723"
+  },
+  "whisper-cuda": {
+    "url": "https://github.com/ggml-org/whisper.cpp/releases/download/b5454/whisper-bin-win-cuda-12.4.0-x64.zip",
+    "sha256": "afef0b881c500958921c3f5523b50e59ee2ec9b6f5cbd25b324c51ed308a957a",
+    "bytes": 684913404,
+    "version": "b5454"
+  },
+  "whisper-cpu": {
+    "url": "https://github.com/ggml-org/whisper.cpp/releases/download/b5454/whisper-bin-x64.zip",
+    "sha256": "6ba69e3482d7826214f90a6a9c84ca07782aec1e1d0c6a7c30c994fd5d816ccb",
+    "bytes": 8928640,
+    "version": "b5454"
+  },
+  "node": {
+    "url": "https://nodejs.org/dist/v24.21.0/node-v24.21.0-win-x64.zip",
+    "sha256": "158f7685b44de51f6c0df1d153526cbcd3e1bc739a8dfc607721cef75de9e541",
+    "version": "v24.21.0"
+  },
+  "comfy": {
+    "url": "https://codeload.github.com/Comfy-Org/ComfyUI/zip/5cc4b870094c89090db54bd8d12649dcaf89f2ba",
+    "sha256": "f4fbac06cfefeb6b552b501a750596b8397e82039a866d16e9deba389bb684a2",
+    "bytes": 13499173,
+    "version": "5cc4b870094c89090db54bd8d12649dcaf89f2ba"
+  },
+  "gguf": {
+    "url": "https://codeload.github.com/city96/ComfyUI-GGUF/zip/6ea2651e7df66d7585f6ffee804b20e92fb38b8a",
+    "sha256": "aad273a0b774684285b4496f6edff7e2293bd29d71ef89926d6861bfdf4947ac",
+    "bytes": 38051,
+    "version": "6ea2651e7df66d7585f6ffee804b20e92fb38b8a"
+  },
+  "python-embed": {
+    "url": "https://www.python.org/ftp/python/3.13.9/python-3.13.9-embed-amd64.zip",
+    "sha256": "91d828c2da3a029b41699e918674a0cb379c02cf20dab9c501306885f837402a",
+    "bytes": 10926675,
+    "version": "3.13.9"
+  }
+}

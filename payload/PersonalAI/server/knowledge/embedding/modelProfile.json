@@ -1,0 +1,16 @@
+{
+  "id": "multilingual-e5-small-int8-761b726",
+  "modelId": "Xenova/multilingual-e5-small",
+  "modelRevision": "761b726dd34fb83930e26aab4e9ac3899aa1fa78",
+  "runtimeName": "@huggingface/transformers",
+  "runtimeVersion": "3.8.1",
+  "onnxRuntimeVersion": "1.21.0",
+  "dtype": "int8",
+  "dimension": 384,
+  "pooling": "mean",
+  "normalized": true,
+  "queryPrefix": "query: ",
+  "passagePrefix": "passage: ",
+  "modelFile": "onnx/model_int8.onnx",
+  "modelSha256": "4D24E2BC01A447951524466EF533E52944BF48509E6552810BCEE1A2711CB02C"
+}

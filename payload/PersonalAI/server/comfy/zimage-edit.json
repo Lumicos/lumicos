@@ -1,0 +1,192 @@
+{
+ "2": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen_3_4b.safetensors",
+   "type": "lumina2",
+   "device": "default"
+  }
+ },
+ "3": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "ae.safetensors"
+  }
+ },
+ "4": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "cyberrealisticZImage_v90_int8.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "5": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "A photorealistic nighttime photograph of Rose blackpink stepping out of a silver sports car in an underground parking garage. The driver's door is open and one foot is already on the ground while the other remains inside the car. One hand holds the door and the other holds a small black handbag. Accurate human anatomy, realistic hands and fingers, correct car geometry, detailed wheels, doors, windows and interior. Fluorescent ceiling lights reflected naturally across the metallic bodywork, slightly wet concrete floor with reflections, cinematic but realistic lighting, full-frame camera, 35mm lens, high detail.",
+   "clip": [
+    "2",
+    0
+   ]
+  }
+ },
+ "6": {
+  "class_type": "EmptySD3LatentImage",
+  "inputs": {
+   "width": 832,
+   "height": 832,
+   "batch_size": 1
+  }
+ },
+ "7": {
+  "class_type": "KSampler",
+  "inputs": {
+   "seed": 316116918853202,
+   "steps": 8,
+   "cfg": 1,
+   "sampler_name": "res_multistep",
+   "scheduler": "simple",
+   "denoise": 1,
+   "model": [
+    "22",
+    0
+   ],
+   "positive": [
+    "16",
+    0
+   ],
+   "negative": [
+    "13",
+    0
+   ],
+   "latent_image": [
+    "6",
+    0
+   ]
+  }
+ },
+ "10": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Lumicos",
+   "images": [
+    "24",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "7",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ]
+  }
+ },
+ "13": {
+  "class_type": "ConditioningZeroOut",
+  "inputs": {
+   "conditioning": [
+    "5",
+    0
+   ]
+  }
+ },
+ "14": {
+  "class_type": "ModelSamplingAuraFlow",
+  "inputs": {
+   "shift": 3,
+   "sampling": "flow",
+   "model": [
+    "4",
+    0
+   ]
+  }
+ },
+ "16": {
+  "class_type": "LumicosReleaseEncoderGPU",
+  "inputs": {
+   "conditioning": [
+    "5",
+    0
+   ]
+  }
+ },
+ "20": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "placeholder.png"
+  }
+ },
+ "21": {
+  "class_type": "LoadImageMask",
+  "inputs": {
+   "image": "placeholder.png",
+   "channel": "red"
+  }
+ },
+ "23": {
+  "class_type": "LoadImageMask",
+  "inputs": {
+   "image": "placeholder.png",
+   "channel": "red"
+  }
+ },
+ "30": {
+  "class_type": "ModelPatchLoader",
+  "inputs": {
+   "name": "Z-Image-Turbo-Fun-Controlnet-Union-2.1-lite-2602-8steps.safetensors"
+  }
+ },
+ "22": {
+  "class_type": "ZImageFunControlnet",
+  "inputs": {
+   "model": [
+    "14",
+    0
+   ],
+   "model_patch": [
+    "30",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ],
+   "strength": 1.0,
+   "inpaint_image": [
+    "20",
+    0
+   ],
+   "mask": [
+    "21",
+    0
+   ]
+  }
+ },
+ "24": {
+  "class_type": "ImageCompositeMasked",
+  "inputs": {
+   "destination": [
+    "20",
+    0
+   ],
+   "source": [
+    "12",
+    0
+   ],
+   "x": 0,
+   "y": 0,
+   "resize_source": false,
+   "mask": [
+    "23",
+    0
+   ]
+  }
+ }
+}

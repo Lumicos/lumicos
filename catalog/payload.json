@@ -1,0 +1,2027 @@
+[
+  {
+    "path": "Lumicos-Sandbox/runner/run.py",
+    "bytes": 2753,
+    "sha256": "1ed7a1fda128fd7977b513127dafd7634047be2506821a3ce37fdef8cc4d0c75"
+  },
+  {
+    "path": "Lumicos-Sandbox/setup/LumicosSandbox.cs",
+    "bytes": 11297,
+    "sha256": "bc8f2efa645c6fe203ac904edf032b8ed76c23c82a9d5e26ab8806c6f16ef62b"
+  },
+  {
+    "path": "LumicosSearchMCP/bridge.py",
+    "bytes": 4478,
+    "sha256": "4a1e8280e849e0c2066d70f357a98376ff2dd39cc921573cca19ca26a4b7776c"
+  },
+  {
+    "path": "LumicosSearchMCP/requirements.txt",
+    "bytes": 52,
+    "sha256": "8ac39e5ba09dce2dcf7894988a56276a4d964b08771502d321568e1a219a2196"
+  },
+  {
+    "path": "LumicosSearchMCP/search_core.py",
+    "bytes": 50974,
+    "sha256": "d0ec57c8be83ca9b7bc6c065a34eeee3e580eaa791adcb7611326599acb8098a"
+  },
+  {
+    "path": "PersonalAI/index.html",
+    "bytes": 1141,
+    "sha256": "d8493f84424d4c0efc61cdf133db86c209f34837fb6960e4b7dcee68b6a7f8a3"
+  },
+  {
+    "path": "PersonalAI/package-lock.json",
+    "bytes": 165267,
+    "sha256": "39cf08dcd6af70388e20056a5afd6d4253a54a736464accec3d5b7a8f2eb90e5"
+  },
+  {
+    "path": "PersonalAI/package.json",
+    "bytes": 1901,
+    "sha256": "032a0240faf7f60562bac0d6b3fc52be5f6e8f8a74bb908a83c94693aa7f11bb"
+  },
+  {
+    "path": "PersonalAI/public/favicon.ico",
+    "bytes": 73734,
+    "sha256": "5f12c7e84741d7bc2e8350aeccc0b8a8bd5df4004c721731f52799e02e52af0a"
+  },
+  {
+    "path": "PersonalAI/public/lumicos-logo.png",
+    "bytes": 1466476,
+    "sha256": "903c02d9c093176a473d2c81fac561cec4a968b9c9b1915740eb8b42d7b044c5"
+  },
+  {
+    "path": "PersonalAI/public/manifest.webmanifest",
+    "bytes": 480,
+    "sha256": "b71689de72cd17daaca7ff3422b9aedf9f3fc37f35b8e268d9ee8b7a2d82bb7d"
+  },
+  {
+    "path": "PersonalAI/public/sw.js",
+    "bytes": 1275,
+    "sha256": "2c8cce43398076b7b7e7880ffd6a91d0ba6a3fe39d5e57cedd6ad20e6dcc0ef0"
+  },
+  {
+    "path": "PersonalAI/scripts/build-chat-runtime.mjs",
+    "bytes": 386,
+    "sha256": "546954f9b16275f76f413681853c6fd618337159e5ac2937d61f8503516137ec"
+  },
+  {
+    "path": "PersonalAI/scripts/run-tests.mjs",
+    "bytes": 3547,
+    "sha256": "dc4d90ad8be5c7655408d41a93186c95724df56bd31468611709b1daca58d872"
+  },
+  {
+    "path": "PersonalAI/scripts/runtime.mjs",
+    "bytes": 6237,
+    "sha256": "21c77421d904e14ec86aaf9cb8990f0ff37eaca5866220913c2eca6d8d50a88e"
+  },
+  {
+    "path": "PersonalAI/scripts/stop-lumicos.ps1",
+    "bytes": 158,
+    "sha256": "8018d97bfb74d08ba9827b95e97dabfa61d6e913b4ddfd4157e394fc5146a05e"
+  },
+  {
+    "path": "PersonalAI/scripts/trace-turn.mjs",
+    "bytes": 11033,
+    "sha256": "ac9d6a0c6bd77d6e0b36f8fe6b5d6f483cc42140a04abc87deacbbed260ae781"
+  },
+  {
+    "path": "PersonalAI/server/agent/agentService.mjs",
+    "bytes": 59309,
+    "sha256": "aee46b7144bf6f0eb571ca98e32753e9e2abf0d08b6e1a47c973e91d36dfb5c2"
+  },
+  {
+    "path": "PersonalAI/server/agent/digest.mjs",
+    "bytes": 10890,
+    "sha256": "f3ad60b017bb2393f43ed329a6ff688bb2623329c790016f64096fd625665da6"
+  },
+  {
+    "path": "PersonalAI/server/agent/docxOut.mjs",
+    "bytes": 4699,
+    "sha256": "3381a0fb8c9d2451e68f592d3e8f1e420a353b42ff7c2495d93787977dc5683e"
+  },
+  {
+    "path": "PersonalAI/server/agent/notes.mjs",
+    "bytes": 5876,
+    "sha256": "abb0284838291dfce859a0c1195f85e8f790f8c57832a7d8c260e43019d1a9b8"
+  },
+  {
+    "path": "PersonalAI/server/agent/outputs.mjs",
+    "bytes": 1499,
+    "sha256": "a75f564010da241e50f9a7cfafba319c279366211fa8ee46de0e4ac2bd3fb9a6"
+  },
+  {
+    "path": "PersonalAI/server/agent/quiz.mjs",
+    "bytes": 19223,
+    "sha256": "b91ab1a2fabb57f6fe934f90dc1d7713c5c08424f6fd51b8b06eb8e3f44171c8"
+  },
+  {
+    "path": "PersonalAI/server/agent/research.mjs",
+    "bytes": 25004,
+    "sha256": "4a40141e6a8669ba710349051085bb3459b1bf20d064c26d0fd06af8c04c3803"
+  },
+  {
+    "path": "PersonalAI/server/agent/sales.mjs",
+    "bytes": 20050,
+    "sha256": "2b89a6e92687f1da7eb9fd723a380526fafa4567c459927f9a93f9458c80008a"
+  },
+  {
+    "path": "PersonalAI/server/agent/schedule.mjs",
+    "bytes": 18230,
+    "sha256": "2706690c81099938b53f88d99d980a4629de13c994a362bb69fc2eb31f0d80c6"
+  },
+  {
+    "path": "PersonalAI/server/agent/trip.mjs",
+    "bytes": 51124,
+    "sha256": "b2c9f286a9ff6aa66f09b1da2f2fea950473c0dbba38f613150ed61300564dc5"
+  },
+  {
+    "path": "PersonalAI/server/attachments/attachmentService.mjs",
+    "bytes": 3931,
+    "sha256": "1c744dcc37c6036f489608815e6ce23ce2cad0c2431de064d7b4686f3535ffe9"
+  },
+  {
+    "path": "PersonalAI/server/chat/chatService.mjs",
+    "bytes": 22491,
+    "sha256": "2aecce87129a60c14035d7da718c7ba838c28106128072ed39f93677744723c0"
+  },
+  {
+    "path": "PersonalAI/server/chat/conversationStore.mjs",
+    "bytes": 6021,
+    "sha256": "647815636729831c212737693b7c1e3808dba187eade9cff507dfa4d1c0fa538"
+  },
+  {
+    "path": "PersonalAI/server/chat/deviceSessions.mjs",
+    "bytes": 5527,
+    "sha256": "3d8ea0038cc8159e7ad7189283cbebda4698d5fcffd163bea3270d345caa3e53"
+  },
+  {
+    "path": "PersonalAI/server/comfy/comfyService.mjs",
+    "bytes": 46336,
+    "sha256": "24ccd76acc55fc5d993ac481cae6db6d027e66a3ef6130c046d46e14f0ce74e3"
+  },
+  {
+    "path": "PersonalAI/server/comfy/fluxEdit.mjs",
+    "bytes": 8039,
+    "sha256": "317fa8a7fb241173ec50cbec8dcf9597ebc2d838a96867676be7c0d086685b6e"
+  },
+  {
+    "path": "PersonalAI/server/comfy/imageAspect.mjs",
+    "bytes": 644,
+    "sha256": "259972387ad4dcbe9776f41e3ed9ffb1e4db200d021118c2691b751cf03e56a4"
+  },
+  {
+    "path": "PersonalAI/server/comfy/imageEdit.mjs",
+    "bytes": 9247,
+    "sha256": "341290463bc866a1b558941c24709028621c6ba2c5589392c8cc5d97af28eb22"
+  },
+  {
+    "path": "PersonalAI/server/comfy/imageInput.mjs",
+    "bytes": 3551,
+    "sha256": "7a2e6aa769b70ccae006391422f13ba0c7146b42224afdd8cac75e39adfe8185"
+  },
+  {
+    "path": "PersonalAI/server/comfy/imageProfiles.mjs",
+    "bytes": 9515,
+    "sha256": "abcd9fba2b4c3ce1c89d06725dbba77d4289334d8a009e7d594c56f3bff05add"
+  },
+  {
+    "path": "PersonalAI/server/comfy/imageSeed.mjs",
+    "bytes": 708,
+    "sha256": "149876c6a75d21e159ebc2f8aeb904ae5c125fb2b38878de4fc762f03641e9db"
+  },
+  {
+    "path": "PersonalAI/server/comfy/moss-image.json",
+    "bytes": 1678,
+    "sha256": "0bb4226a037473cc26e6dd089d18bb4002a1e0130395d53d2af3c79f38aa5e49"
+  },
+  {
+    "path": "PersonalAI/server/comfy/removeBg.mjs",
+    "bytes": 2166,
+    "sha256": "edb0dd62e36a615fe90945e910dabbbf5af49f3b247f906857ca0c631ce99701"
+  },
+  {
+    "path": "PersonalAI/server/comfy/removeBgChild.mjs",
+    "bytes": 2896,
+    "sha256": "8aabf96013f86ba89ba17bb5b2acc8ffd35237b05cf4c3966e84a16f2ad9903d"
+  },
+  {
+    "path": "PersonalAI/server/comfy/upscale.mjs",
+    "bytes": 1815,
+    "sha256": "588a2806ea5a6e6a439ec9cd6311703a3948c75deb705dd2338300de9536f549"
+  },
+  {
+    "path": "PersonalAI/server/comfy/workflows/z_image_generate.json",
+    "bytes": 1837,
+    "sha256": "1b2c92406a146dabadb53b25f120adec7a98f0448541e6850436f6f5abb70bd3"
+  },
+  {
+    "path": "PersonalAI/server/comfy/workflows/z_plus_generate.json",
+    "bytes": 1882,
+    "sha256": "6d087a70f37c8cf7840b7344a5a2e6ae23f299dc6bd10ad74957a98e87a07881"
+  },
+  {
+    "path": "PersonalAI/server/comfy/z-image.json",
+    "bytes": 1837,
+    "sha256": "1b2c92406a146dabadb53b25f120adec7a98f0448541e6850436f6f5abb70bd3"
+  },
+  {
+    "path": "PersonalAI/server/comfy/z-plus.json",
+    "bytes": 1882,
+    "sha256": "6d087a70f37c8cf7840b7344a5a2e6ae23f299dc6bd10ad74957a98e87a07881"
+  },
+  {
+    "path": "PersonalAI/server/comfy/zimage-edit.json",
+    "bytes": 3198,
+    "sha256": "32ac15682cd5491e42cc2e881c39222453c5e7eb6e85c0dd92850860ed6c7122"
+  },
+  {
+    "path": "PersonalAI/server/comfy/zimage-int8.json",
+    "bytes": 2518,
+    "sha256": "0cf0eb5e8aa892977757a3bef49488ae3b97f57ccdc49e290b1a3f50b00f7ed4"
+  },
+  {
+    "path": "PersonalAI/server/comfy/zimage-portable.json",
+    "bytes": 2506,
+    "sha256": "96c13f51285d7dcb66965aad72576212cb57d0269b7e4d1bccac13ebf05d3449"
+  },
+  {
+    "path": "PersonalAI/server/config.mjs",
+    "bytes": 2056,
+    "sha256": "2f1752184d89a96c4d6ca925a53830827a1995a90ebe563190f0757c352f5526"
+  },
+  {
+    "path": "PersonalAI/server/files/fileContext.mjs",
+    "bytes": 4753,
+    "sha256": "2892d4bc05aef8364ff0795e9b9209215b348945997bc9492c20bb744b8cd3e6"
+  },
+  {
+    "path": "PersonalAI/server/files/fileService.mjs",
+    "bytes": 10937,
+    "sha256": "0192d4b3589c87dad17c2f8e597450668b3bb585e1cf7a0a1a24ee25dd5aee34"
+  },
+  {
+    "path": "PersonalAI/server/files/formats/docx.mjs",
+    "bytes": 18290,
+    "sha256": "9c38ec5604931375daf89710ee528f74e50265df0dac5290177ea07fe97b15f1"
+  },
+  {
+    "path": "PersonalAI/server/files/formats/pdf.mjs",
+    "bytes": 5420,
+    "sha256": "a9de6d4d0e6bc81188cda0e7254a7ffa9f129ff0047188a08a4744412cc118b5"
+  },
+  {
+    "path": "PersonalAI/server/files/formats/text.mjs",
+    "bytes": 2292,
+    "sha256": "c245f2449b5366bea7c8b32e4572fe89732e1e17c7aa72314b698d5fe716584a"
+  },
+  {
+    "path": "PersonalAI/server/files/formats/xlsx.mjs",
+    "bytes": 9116,
+    "sha256": "c21812c3450bf5bf0dcb0b561b199c82c09c2b5a4be4e355d21581fb62652289"
+  },
+  {
+    "path": "PersonalAI/server/files/paths.mjs",
+    "bytes": 3644,
+    "sha256": "d85c91c4d91af4d963a1c44e3d0ef7ef867c82de16dc9963ec5d84496ffe112a"
+  },
+  {
+    "path": "PersonalAI/server/http/app.mjs",
+    "bytes": 29052,
+    "sha256": "44c4dafc05a82fafbbc2db3ad269a429158a285551bca7ac4f7a24f22781d703"
+  },
+  {
+    "path": "PersonalAI/server/http/remoteGateway.mjs",
+    "bytes": 5130,
+    "sha256": "ae3b53e75c6d2459db689862b2b7650dc4fe398201b512eea2a5b4d34b84f372"
+  },
+  {
+    "path": "PersonalAI/server/idleShutdown.mjs",
+    "bytes": 4393,
+    "sha256": "6192b889c7dc6caa17d60048c1c1bbf972f6eed64e3311db805da65b186db221"
+  },
+  {
+    "path": "PersonalAI/server/index.mjs",
+    "bytes": 3417,
+    "sha256": "eb839a6206b6efc94b5d9cc390837c211b5c765ca09a856d70a67cb803fd34f4"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/adapters/localRetrieverAdapter.mjs",
+    "bytes": 407,
+    "sha256": "3261ba8e74a426b4275e917e840c4e4d6ee7c736866785c37453c6b785d1b992"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/adapters/memoryRetrieverAdapter.mjs",
+    "bytes": 389,
+    "sha256": "f773a4d5889ce927c46088789e09ec4c1a2a34c7012905c001e67e62a247e55f"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/askWords.mjs",
+    "bytes": 4946,
+    "sha256": "76037b0a50cd9359ea84e90422520c1b616f3281bb9a0d326c34da95a9764e14"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/chat/citations.mjs",
+    "bytes": 2686,
+    "sha256": "27e9fe0771e25272db9363f796425ae5528a586c9d22f66840530c2d80a543bb"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/chat/factory.mjs",
+    "bytes": 2767,
+    "sha256": "6fef7f5b981c188f494613a101d9b1dda26617624430d4274f020136a11bf763"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/chat/integration.mjs",
+    "bytes": 11977,
+    "sha256": "62bbe712345707964ee47d8a6c7e1009ef0d0a7f71fb1993184f35dc0ae3a21d"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/config.mjs",
+    "bytes": 1854,
+    "sha256": "8ac3b2ddcec809b62dadab18927678db96335515872c8d23ad9ec7f353e4a343"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/embedding/embedder.mjs",
+    "bytes": 1328,
+    "sha256": "c101fd173a646db78a3800704c05d4a229aa348a0060730c48e069cabdecf1d5"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/embedding/modelProfile.json",
+    "bytes": 532,
+    "sha256": "dfc8a7c03462a0c96686ff9d409b38ea7d292bc9c5ea04cfc20670c2d54b0399"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/embedding/queue.mjs",
+    "bytes": 2175,
+    "sha256": "8b9b0480d5ee2d1d5056bd843f2558f3836e9eac4c0db85cbdd0dab38bd69e5f"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/embedding/transformersEmbedder.mjs",
+    "bytes": 2120,
+    "sha256": "9929aef297e34e4b2384104af9b8269293a0e8648779edca2b9a5c7910c4fc74"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/embedding/vectorCodec.mjs",
+    "bytes": 964,
+    "sha256": "dfe95a1f2e7564fba624f691eae0b3a3157f52448104af9c6932fc7a168bedae"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/ingest/chunker.mjs",
+    "bytes": 1872,
+    "sha256": "84898e565ce62b7b3358d6a084de89cecdf8cbef6fa0a151725d4c373e8140e8"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/ingest/extractor.mjs",
+    "bytes": 3157,
+    "sha256": "95596f607109495804142bb40cdca84f77907200d1af81f93d8f27231027e085"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/ingest/fileLifecycleAdapter.mjs",
+    "bytes": 675,
+    "sha256": "3859faf8f6f6df41929ef6801f760416bde0dac93ef24d7e219ca3b2cffddf66"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/ingest/worker.mjs",
+    "bytes": 2815,
+    "sha256": "9e766170f2fe732490d1d80ba13cc1bbfce09be8fbabb1d9b30782c85c6a1c8e"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/library.mjs",
+    "bytes": 20287,
+    "sha256": "204d452ef675626cc78071a0003b9dd37e5fada70558767b20a2365ba6e743ee"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/retrieval/hybridRetriever.mjs",
+    "bytes": 1265,
+    "sha256": "58c8710dfec929dd8800d3a8109d6bfc82b0894640e2cdb941ac9a54ee554568"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/retrieval/vectorScanWorker.mjs",
+    "bytes": 444,
+    "sha256": "13560b1120137540264baca4cb7065d262ccfaf6f4f17ed7db29fb9df507f0eb"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/retrieval/vectorSearch.mjs",
+    "bytes": 849,
+    "sha256": "b0ca42043db39b8b280b772c71dec169dd2cb19cab06c1f9bb9a77541291bd7d"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/router/executor.mjs",
+    "bytes": 2249,
+    "sha256": "950b3f574bfcd13446d18a4afd6f944d06e3916de6ed7fcc6cc42f35725d2cd9"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/router/followUp.mjs",
+    "bytes": 5334,
+    "sha256": "8cb417cad8920dea020e2e0795ece7d3476610611739c73e56de5432c69bac78"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/router/router.mjs",
+    "bytes": 22822,
+    "sha256": "71aff6d0cce2e8510738fb395a25105d442b702f676cfd12ca011c96a717829c"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/router/routes.mjs",
+    "bytes": 312,
+    "sha256": "b3541955e0ce5c24813ee66a0eee9ff783094f48930cbe67b8244bb3a932c683"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/runtime/embeddingChild.mjs",
+    "bytes": 1909,
+    "sha256": "925d3b9ed03ea67c35bc977e155eed603c2e4fcd1dd05c96bf5c6bb131cc6c56"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/runtime/package-lock.json",
+    "bytes": 38300,
+    "sha256": "e1bc31ba8f1f9cb8b01b739f431d554b907bb811da9185ecdd1a43c4649a94a9"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/runtime/package.json",
+    "bytes": 179,
+    "sha256": "a3c6479ce4bb48adb8442414dcc63b57e8196709b757288ba88466bb8ae3235d"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/runtime/smoke.mjs",
+    "bytes": 1091,
+    "sha256": "41212c861e5b531323d701c435640ab7e3f7dc08210b6992e4e645fe3e389fed"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/storage/migrations/0001_init.sql",
+    "bytes": 2111,
+    "sha256": "7dea1e794018d833ff7d211db06435d67111a45e4d91b22f85675723ce0fc486"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/storage/migrations/0002_ingestion.sql",
+    "bytes": 529,
+    "sha256": "f630924a8aa77ef9d6999ae329ca758dc07300513e28b2ce08b0469c1d7d544b"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/storage/migrations/0003_embeddings.sql",
+    "bytes": 1616,
+    "sha256": "04f59f988edced07eebdb8ae8b816f5c8503b1b5e7aee5faeef0671bc02592ad"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/storage/sourceRepository.mjs",
+    "bytes": 7731,
+    "sha256": "046377ab0fcaca40d7b949d519d65e65d96223852fc7131689be04336e2d431a"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/storage/sqliteStore.mjs",
+    "bytes": 2793,
+    "sha256": "a7b1b2c1f336d30ff02469dc431ab76b3eb93e81db7193220cc475046dff6d31"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/storage/store.mjs",
+    "bytes": 378,
+    "sha256": "7697f7267c2cac016870bf29c8b60974edbb723a771b96fd61f5935ad26cdee3"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/storage/vectorRepository.mjs",
+    "bytes": 4295,
+    "sha256": "6609622798c1fd8a31ddea8e7c5a5b021492614f6633f7fc2f8c890034acccb8"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/text/normalize.mjs",
+    "bytes": 350,
+    "sha256": "63f26d9b989304e75c1b26cbcb221015ef1113767be0cc3edac370b55991a1ee"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/text/tokens.mjs",
+    "bytes": 445,
+    "sha256": "f163967c7877a7016a3f98fb39d8f38ec7f03b89c183b86f1e988fba4b4cf0a2"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/cache.mjs",
+    "bytes": 844,
+    "sha256": "1120234c6af6f0c003dc54ab492ecd7c4be02c6d63f0ecbdd1e3fa10f85ba97f"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/existingProvider.mjs",
+    "bytes": 1150,
+    "sha256": "3334a535baecaa32cf57f9e0b7516c27e343eb7afff3d4725a777ed553755f49"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/freshness.mjs",
+    "bytes": 584,
+    "sha256": "ed10be34f6688ecb98617801fcef4260aa7d2ed171a3a407127e9f8c40a85235"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/gateway.mjs",
+    "bytes": 6768,
+    "sha256": "4638b55b08b3d5f3fff7b8b30c60d4d270927db4f9d33378c27fda6321403e8f"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/privacy.mjs",
+    "bytes": 1150,
+    "sha256": "8113dacd2bda3a364d5f7ee8fcf07594259f61d9fb59041bfc846b4bd0b4e54e"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/provider.mjs",
+    "bytes": 2504,
+    "sha256": "9332ffded7596e2c3c513cde3d1076c30c1caf446eb40abc667b9a6a62fdd2e5"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/queryRewrite.mjs",
+    "bytes": 15251,
+    "sha256": "9102321b66c720345b1c639e02add90708cae8514a2f76dbcee195e91898479c"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/tool.mjs",
+    "bytes": 2686,
+    "sha256": "ef118d957b13ddce08934e7508521bf3be8ddf9cb12ca5f35bab2b0f76cf417e"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/unavailableProvider.mjs",
+    "bytes": 774,
+    "sha256": "4f02ce7e01924cf17c017cf3e9bc262d08fbc9df091fe9d7f645ec911f6e8a88"
+  },
+  {
+    "path": "PersonalAI/server/knowledge/web/urlGuard.mjs",
+    "bytes": 1934,
+    "sha256": "2654bd75779050810814b72f61f69ff09aac880593dd78de30f7cec2875d500c"
+  },
+  {
+    "path": "PersonalAI/server/llama/benchmark.mjs",
+    "bytes": 3110,
+    "sha256": "7ad42414d7995897ce2544eab3112f14b85fe49e7410a28302b66927191f343a"
+  },
+  {
+    "path": "PersonalAI/server/llama/capabilities/compatibility.mjs",
+    "bytes": 1363,
+    "sha256": "a23d9782766a78e62d1506f71c79729c8869c360899969a7d20143b8cc80794c"
+  },
+  {
+    "path": "PersonalAI/server/llama/capabilities/fingerprint.mjs",
+    "bytes": 788,
+    "sha256": "123371421493bee74b105797c4d339c16dd7e057b99c6bfcbfdf3529e86a48f2"
+  },
+  {
+    "path": "PersonalAI/server/llama/capabilities/probe.mjs",
+    "bytes": 1454,
+    "sha256": "0b0894ed7397e34097bac5588bf3de235e4c2b8975e630c2a4eb661a06016810"
+  },
+  {
+    "path": "PersonalAI/server/llama/capabilities/profileBuilder.mjs",
+    "bytes": 4458,
+    "sha256": "3d0c7f996abcc873d772a47d4a6fa9314062b9d758b3d02511d80ce0f4f06347"
+  },
+  {
+    "path": "PersonalAI/server/llama/capabilities/profileStore.mjs",
+    "bytes": 1925,
+    "sha256": "7a4bedde037d8852530492d87802955053be2d587e61d29d84a576ea895190e9"
+  },
+  {
+    "path": "PersonalAI/server/llama/capabilities/schema.mjs",
+    "bytes": 2226,
+    "sha256": "fa502eca86865deef2ecabe8ec3e6c84c3f34404d6cd004f5733c4d9248d187a"
+  },
+  {
+    "path": "PersonalAI/server/llama/capabilities/service.mjs",
+    "bytes": 2402,
+    "sha256": "9a167dfd1604e5c2696f890107c04856eab50940cfe0254ff61443f646999b7d"
+  },
+  {
+    "path": "PersonalAI/server/llama/gguf.mjs",
+    "bytes": 7961,
+    "sha256": "78d8201b9a17132cdd7279ee1a316dca6d12198405a7a556a86d0cbdc4ff3a37"
+  },
+  {
+    "path": "PersonalAI/server/llama/manager.mjs",
+    "bytes": 21271,
+    "sha256": "ba7f4d8da770a9a8e48d5f072d8219cb10f613049ec783d8f804b74b56fd0c05"
+  },
+  {
+    "path": "PersonalAI/server/llama/modelConfig.mjs",
+    "bytes": 16777,
+    "sha256": "d2f29e6404ec85d6c5d79dcfd6573500d4537de3183841ec4562c318c3f160c5"
+  },
+  {
+    "path": "PersonalAI/server/llama/modelConfig.mjs.bak-20261025-moe",
+    "bytes": 16536,
+    "sha256": "dc084f503dbc98557922ce06507b820da733974af28547f9df6dcce83775bdef"
+  },
+  {
+    "path": "PersonalAI/server/llama/modelService.mjs",
+    "bytes": 21055,
+    "sha256": "48ac52c642f6849dd5932e41f290c18a792566b552f856f8312c463489165ce6"
+  },
+  {
+    "path": "PersonalAI/server/memory/candidates.mjs",
+    "bytes": 7201,
+    "sha256": "fc67dfb976fd306a43701bab84651e86a6b4d1fe309525267667b5f59f423b34"
+  },
+  {
+    "path": "PersonalAI/server/memory/memoryStore.mjs",
+    "bytes": 5806,
+    "sha256": "b834979a94febf96cf27a6cc198c5cfef768a60703e160b219ba438fea3df4de"
+  },
+  {
+    "path": "PersonalAI/server/memory/retriever.mjs",
+    "bytes": 3566,
+    "sha256": "db37d346f6b33a06fd0f93c67f28a74267bd72b1a70a73c9142a68078bbaf4f3"
+  },
+  {
+    "path": "PersonalAI/server/memory/text.mjs",
+    "bytes": 3685,
+    "sha256": "d023b36a8c98bca7dc63ca34592af9af8d0937ef245970efe77391dac37a61e3"
+  },
+  {
+    "path": "PersonalAI/server/roleplay/roleplayStore.mjs",
+    "bytes": 8406,
+    "sha256": "3da93cfb334dfbae372f24a3de9fa5b0aac5a827314126fa5c9ae6cebd02553c"
+  },
+  {
+    "path": "PersonalAI/server/sandbox/sandboxService.mjs",
+    "bytes": 8181,
+    "sha256": "d4a0650f26e67d85d66b51fb3712c46d45434cc9db109ec990816a9aa67da1d6"
+  },
+  {
+    "path": "PersonalAI/server/security/ownerAuth.mjs",
+    "bytes": 2287,
+    "sha256": "ef81ab92b7f3021b4f75224153e9903be169836e2a8f497e4ce1353986a5bdf8"
+  },
+  {
+    "path": "PersonalAI/server/selfcheck/bugReport.mjs",
+    "bytes": 6192,
+    "sha256": "a02b3908e32e2674b803b2baf005c2f96667aa039ffdbc41dd272729c7e61105"
+  },
+  {
+    "path": "PersonalAI/server/selfcheck/selfcheck.mjs",
+    "bytes": 21932,
+    "sha256": "b9d89bf9f778ef4b6ba337090e924517abb8e8514d8f7f77e9206975dfbf37ac"
+  },
+  {
+    "path": "PersonalAI/server/service.mjs",
+    "bytes": 6514,
+    "sha256": "4f0883b173a9bd94396f4187c41f5339de702cf01708594e4ea0d65fa4b45443"
+  },
+  {
+    "path": "PersonalAI/server/test/agentFiles.claude.test.mjs",
+    "bytes": 42475,
+    "sha256": "e4ec4dfdd3f9402ba7933a8673d14cfc3f0ef5450a0272aadf86725eab8978c0"
+  },
+  {
+    "path": "PersonalAI/server/test/agentJobs.claude.test.mjs",
+    "bytes": 38083,
+    "sha256": "2436a9b240b0e182f8fb98a316d061d481de3cfbf9bb732ef9c23e58af6023b7"
+  },
+  {
+    "path": "PersonalAI/server/test/agentSchedule.claude.test.mjs",
+    "bytes": 13461,
+    "sha256": "27a133b1a79ee5ce1dd4ef5c861ad0a14dbc632840f6d33e17f167809718df14"
+  },
+  {
+    "path": "PersonalAI/server/test/askWords.claude.test.mjs",
+    "bytes": 6441,
+    "sha256": "9af0ded4c29ebd73e1f77c95ce8e8ca7bb61d0407131f3f83cf7b8cbf58bb255"
+  },
+  {
+    "path": "PersonalAI/server/test/bugReport.claude.test.mjs",
+    "bytes": 7148,
+    "sha256": "d0ae4ec52d51f5a6584e1e7bc797bae4fb0805dc40e01b96ea56725e9080d262"
+  },
+  {
+    "path": "PersonalAI/server/test/buildInfo.claude.test.mjs",
+    "bytes": 1587,
+    "sha256": "bc2b498228f17f5f7934ff562fbbaa5a77e1409d2537479870c4f5ec6bd10c49"
+  },
+  {
+    "path": "PersonalAI/server/test/chatRegression.test.mjs",
+    "bytes": 12984,
+    "sha256": "b58d5d18f22f85bad0233f970b6f3e597fe69b33e2eed4ff26440101ea554d8d"
+  },
+  {
+    "path": "PersonalAI/server/test/chatSkill.claude.test.mjs",
+    "bytes": 5139,
+    "sha256": "1e1a2f4de171a1cdd08bdc3042dc082d19d95fbc4f9a9c4699c675a70579e299"
+  },
+  {
+    "path": "PersonalAI/server/test/comfyStartup.test.mjs",
+    "bytes": 568,
+    "sha256": "c8e57b33163d1dbce6430532d00436a321ed0cedec30d013561bbaa35f2ee726"
+  },
+  {
+    "path": "PersonalAI/server/test/contextBudget.grok.test.mjs",
+    "bytes": 2906,
+    "sha256": "f4b3ad366eac80fa981503e2d367d035f1f6f16a6d9f1071b3079f5e1a60bde3"
+  },
+  {
+    "path": "PersonalAI/server/test/conversationReliability.claude.test.mjs",
+    "bytes": 29083,
+    "sha256": "79d57d823721f5f5eb14c56a1d5b8b6428bab753c165c9f00c980189f67d6039"
+  },
+  {
+    "path": "PersonalAI/server/test/dataSnapshot.claude.test.mjs",
+    "bytes": 6218,
+    "sha256": "1ced6d393bf27fb987d6084c7f81694a39c1ce87fc743c695be04532b41b7b9a"
+  },
+  {
+    "path": "PersonalAI/server/test/fixtures/kapook-gasprice-20261024.html",
+    "bytes": 15201,
+    "sha256": "491db2a325328ee007daee5f3bcc65bf077044a8ecc4182a64f71fd726b53315"
+  },
+  {
+    "path": "PersonalAI/server/test/fluxEdit.claude.test.mjs",
+    "bytes": 5571,
+    "sha256": "ae147e29e6bd00ea8bae03cdf639c49ee9dbb927f6691d53f30f25707290529e"
+  },
+  {
+    "path": "PersonalAI/server/test/followUpDays.claude.test.mjs",
+    "bytes": 2932,
+    "sha256": "fae752dd8004faec5065b079246fa3e2da68305011e3e82586a4adfe5d480adf"
+  },
+  {
+    "path": "PersonalAI/server/test/fuelPrices.claude.test.mjs",
+    "bytes": 6546,
+    "sha256": "32a3e912274b1cb356ec01dc5d87ac5ba232650faaf077e3863aea80584f7b0b"
+  },
+  {
+    "path": "PersonalAI/server/test/gateway.test.mjs",
+    "bytes": 3965,
+    "sha256": "a501e1724de19f6a92d7b47084a5fbd27755d6de16fcc1a0457af67efe2007f4"
+  },
+  {
+    "path": "PersonalAI/server/test/idleShutdown.claude.test.mjs",
+    "bytes": 4703,
+    "sha256": "a9d53ce1fb733ba08caead412a866e1d192d47c3cbc74e5d73d2966db80e0759"
+  },
+  {
+    "path": "PersonalAI/server/test/imageAspect.test.mjs",
+    "bytes": 1733,
+    "sha256": "f220d7eb371ab6ba56f0d5839f21818598433b7b77eef560f0aac1f5b0265f99"
+  },
+  {
+    "path": "PersonalAI/server/test/imageEdit.claude.test.mjs",
+    "bytes": 6294,
+    "sha256": "5a83686dbbd3e76b89419c59adc34d369f4060b34ec20d9078f1a2f13dbb752c"
+  },
+  {
+    "path": "PersonalAI/server/test/imageEdit.test.mjs",
+    "bytes": 6007,
+    "sha256": "da4b65fc4f7b0ab8594099c121156de8b70114f68cb9c06107e4d5c7fd2bb339"
+  },
+  {
+    "path": "PersonalAI/server/test/imageModelSelection.test.mjs",
+    "bytes": 3476,
+    "sha256": "52f8d2c543c709eedee7fde463bfd7fc8ec210cb004acd93cb52b41d7da22916"
+  },
+  {
+    "path": "PersonalAI/server/test/imagePresets.test.mjs",
+    "bytes": 3095,
+    "sha256": "0c61a323d6121b2cdf30ad148fc1c5a0e5d958d883a16b6186bd7f04c6d78706"
+  },
+  {
+    "path": "PersonalAI/server/test/imagePrimary.claude.test.mjs",
+    "bytes": 2534,
+    "sha256": "396b7b95a72df504ecbf2e63343e209d8e24a84cc64aa6a6a5ac86f87f16249b"
+  },
+  {
+    "path": "PersonalAI/server/test/imageProfiles.test.mjs",
+    "bytes": 7171,
+    "sha256": "24905397655e2150d160ac6abd64c319bf98d618e47cc3426a22c1bf74a215c0"
+  },
+  {
+    "path": "PersonalAI/server/test/imageTool.test.mjs",
+    "bytes": 1887,
+    "sha256": "6140b6e53fc35b5bad786b5dfe5f7485a6662f7434e40a5789c98e9648d8d7fa"
+  },
+  {
+    "path": "PersonalAI/server/test/imageToolAspect.claude.test.mjs",
+    "bytes": 1047,
+    "sha256": "ea413e3dcd45c5d07ff5d3e6c3d9382f294cd77982a03579096a2780e0b4c8c3"
+  },
+  {
+    "path": "PersonalAI/server/test/knowledgeChatIntegration.test.mjs",
+    "bytes": 7382,
+    "sha256": "6f6d9e61c41a5dd339c95155ef3a3a161ee9d9d0b9f6938451d323689bb6d926"
+  },
+  {
+    "path": "PersonalAI/server/test/knowledgeCitations.test.mjs",
+    "bytes": 3337,
+    "sha256": "18370641e698257ba5c677479adda83e0a39860758779e14222c8cd2be859b8d"
+  },
+  {
+    "path": "PersonalAI/server/test/knowledgeFoundation.test.mjs",
+    "bytes": 4677,
+    "sha256": "f7b2c6914852e528cd15db19ef8cbc59d96562d1a96bd051015751117eea4cb1"
+  },
+  {
+    "path": "PersonalAI/server/test/knowledgeIngestion.test.mjs",
+    "bytes": 8172,
+    "sha256": "f097928f1124069461a976dddc85aefa427b7a6c05efe669cbb5fe3908d98437"
+  },
+  {
+    "path": "PersonalAI/server/test/knowledgeRetrieval.test.mjs",
+    "bytes": 5060,
+    "sha256": "a699cbcb0b92b22f8ff6538f523f1e7ea4db8ac46859f49e13e5e03e207ad932"
+  },
+  {
+    "path": "PersonalAI/server/test/knowledgeRouter.test.mjs",
+    "bytes": 12173,
+    "sha256": "6d7457907120d1d812853bf5026c9621bf48c2058fe4d6e70065ebb0e58f962d"
+  },
+  {
+    "path": "PersonalAI/server/test/localFold.claude.test.mjs",
+    "bytes": 4180,
+    "sha256": "39acd2a95ffff053c36d89db085ec04ce7b0346a58269317994a93800c90f3e8"
+  },
+  {
+    "path": "PersonalAI/server/test/memoryAgentSplit.claude.test.mjs",
+    "bytes": 1522,
+    "sha256": "4a8e2ab4f1c18ad10b3c677428e8a043c62d6b54d09c6ff7a253f094f57deaad"
+  },
+  {
+    "path": "PersonalAI/server/test/modelCapabilities.test.mjs",
+    "bytes": 7891,
+    "sha256": "848a8e133df18b47e4e1ba6f67c1f6040fc57b0bf748d2b7c761df019061d67c"
+  },
+  {
+    "path": "PersonalAI/server/test/models.test.mjs",
+    "bytes": 8494,
+    "sha256": "5bd6a2ac2681de0881fb789630b2df792181580955e588379d1b0a1e611ec114"
+  },
+  {
+    "path": "PersonalAI/server/test/noWebNote.claude.test.mjs",
+    "bytes": 6789,
+    "sha256": "3c3e61cbc369dc5aab6f3cf437412f4e3dfe2f4fd08ba27a1014736edecdddcf"
+  },
+  {
+    "path": "PersonalAI/server/test/ownerAuth.test.mjs",
+    "bytes": 5724,
+    "sha256": "3b5a5f4e4bd3bb0c849d751e5982bde574fcc1b54f2a11950bb8c7c50d269708"
+  },
+  {
+    "path": "PersonalAI/server/test/reasoning.test.mjs",
+    "bytes": 9809,
+    "sha256": "b79fa9baed167d85165e8d7c589da539a79e1217b147c18b1c62f91c31bc8ec8"
+  },
+  {
+    "path": "PersonalAI/server/test/repeatRetry.claude.test.mjs",
+    "bytes": 3865,
+    "sha256": "252d2698ebc8aa79ca26e73640d8440e2ddec2c3965ada0e36faa4b6233f6d3e"
+  },
+  {
+    "path": "PersonalAI/server/test/replyLength.claude.test.mjs",
+    "bytes": 1947,
+    "sha256": "3f24054cdd6ebb92eed02c69cea7b0e1d06e2a69f5b71172c8d3d5d8f48f7df1"
+  },
+  {
+    "path": "PersonalAI/server/test/researchAgent.claude.test.mjs",
+    "bytes": 31654,
+    "sha256": "36be19198a1259444f448b0cf61ff69f17a9846aace7be650637d747cb8cd629"
+  },
+  {
+    "path": "PersonalAI/server/test/retryNudges.claude.test.mjs",
+    "bytes": 5376,
+    "sha256": "a1659cdfcf61e18b5f055b0499d1de2137903feb55180e110d1d4153fd87b6a8"
+  },
+  {
+    "path": "PersonalAI/server/test/rocmPresets.test.mjs",
+    "bytes": 1382,
+    "sha256": "3d13cbc96da1f797c40bab611391e961659c624f8f0ccc1c05d598734252697a"
+  },
+  {
+    "path": "PersonalAI/server/test/roleplay.claude.test.mjs",
+    "bytes": 8116,
+    "sha256": "134cae7b4ae4e4d135dbdc7e0a9cbf01d847564f4b8a98bce9a55c67ba10f8e5"
+  },
+  {
+    "path": "PersonalAI/server/test/roleplayFlow.claude.test.mjs",
+    "bytes": 11806,
+    "sha256": "3f2a5d36ed39db7af49ef87c267f01ecac7abce582ec4687de8baa502600124f"
+  },
+  {
+    "path": "PersonalAI/server/test/routerAttachLibrary.claude.test.mjs",
+    "bytes": 5265,
+    "sha256": "e94686751b32a390f863f9cafa094bdb6c581f0f76ac086f905a7bce37d76435"
+  },
+  {
+    "path": "PersonalAI/server/test/routerConversion.claude.test.mjs",
+    "bytes": 2803,
+    "sha256": "ac717328ee4571e2c4fcd22d94840dbffd85abee01ef7d8cbc112b0d331d4b98"
+  },
+  {
+    "path": "PersonalAI/server/test/routerDateTime.claude.test.mjs",
+    "bytes": 5540,
+    "sha256": "46c4dfeaab8aa1ee01a7b72df5445e9f29b6db5f3a1de2a7d65580378d500405"
+  },
+  {
+    "path": "PersonalAI/server/test/routerSweep.claude.test.mjs",
+    "bytes": 11007,
+    "sha256": "ec3e9e9a135dccbf9e26af0b5037897bfd7f06d9ae3754b112f8b455a673ff2f"
+  },
+  {
+    "path": "PersonalAI/server/test/routerThanks.claude.test.mjs",
+    "bytes": 1025,
+    "sha256": "1cba7dafe61b007b7433a61d08a190ca2752dbe67d7a2294bee4fdecb6184060"
+  },
+  {
+    "path": "PersonalAI/server/test/runPythonHint.claude.test.mjs",
+    "bytes": 2831,
+    "sha256": "0a23cf4ca26170946d06b6670376017e5edf9ebf16a3a0a71956fc605d16a6b6"
+  },
+  {
+    "path": "PersonalAI/server/test/searchRetry.claude.test.mjs",
+    "bytes": 2118,
+    "sha256": "4dbe1f67a4e3b1aba6b97a9a9435fc7560e11a33df882bb658c5375ab32be618"
+  },
+  {
+    "path": "PersonalAI/server/test/selfcheck.claude.test.mjs",
+    "bytes": 10049,
+    "sha256": "6ca4ec0d1440660b4ab8acc10c7e7d6bd4b80a43cf0d09ec3221c244c6ed9bab"
+  },
+  {
+    "path": "PersonalAI/server/test/service.test.mjs",
+    "bytes": 25649,
+    "sha256": "afb1337814ddcec5efd340629cb887bfd9faccdf5d24171df137e76529b475e1"
+  },
+  {
+    "path": "PersonalAI/server/test/skillMatch.claude.test.mjs",
+    "bytes": 13971,
+    "sha256": "5ecc70eaeb9c29af92b89855b5ce77a0a36ec0cb3059799bd3af98df4cf9983f"
+  },
+  {
+    "path": "PersonalAI/server/test/skillScripts.claude.test.mjs",
+    "bytes": 5531,
+    "sha256": "b9157d4b9c161fc2d388fee21da4b189815a4dda661114a3b2028bf56048d4f6"
+  },
+  {
+    "path": "PersonalAI/server/test/sportsScores.claude.test.mjs",
+    "bytes": 2130,
+    "sha256": "bd5e66513625a577317d225f75ba0444571efeece04e42d2b94966932e15a4d7"
+  },
+  {
+    "path": "PersonalAI/server/test/sync.test.mjs",
+    "bytes": 7699,
+    "sha256": "a5ad9777223b252b17fe654c970cb02ea1610655b3c44e66e852ba0085d0a108"
+  },
+  {
+    "path": "PersonalAI/server/test/toolArgsNull.claude.test.mjs",
+    "bytes": 2993,
+    "sha256": "e6f7225a5401b3197bc621f41ced22e23f4dd9836f712a06c0979db3df5ba033"
+  },
+  {
+    "path": "PersonalAI/server/test/toolDecider.claude.test.mjs",
+    "bytes": 8578,
+    "sha256": "4ec230cc15fb209338f532681451f6aa5629d49046383553b11ae10c8311e77a"
+  },
+  {
+    "path": "PersonalAI/server/test/traceTurn.claude.test.mjs",
+    "bytes": 8687,
+    "sha256": "7f432140c6910793b3f0c446d98ab3fc87272672f3afc4e07d8e4f1aaacd3d0e"
+  },
+  {
+    "path": "PersonalAI/server/test/upscale.test.mjs",
+    "bytes": 862,
+    "sha256": "3ac5230e9ac059785d3e53744e33c15d18a21c9dd744835bd5257d81f64fc957"
+  },
+  {
+    "path": "PersonalAI/server/test/voice.test.mjs",
+    "bytes": 7341,
+    "sha256": "1b389aba3d61afb8d0b5d1ea761b2225d63139541f0125c5dd8709e02d367278"
+  },
+  {
+    "path": "PersonalAI/server/test/web.test.mjs",
+    "bytes": 3090,
+    "sha256": "e901a9f681f56d9a209d67d3d666e747cef16c6efd6d0156e47b78cc6d78eb19"
+  },
+  {
+    "path": "PersonalAI/server/tools/fileTools.mjs",
+    "bytes": 27003,
+    "sha256": "54a9d906a6957297884a37e5197132df280641eb56bbb20519128277a504d087"
+  },
+  {
+    "path": "PersonalAI/server/tools/imageTools.mjs",
+    "bytes": 4179,
+    "sha256": "64bf886080307dd01d2b03604d5488377ccab51b580da4c999753408a7e1b8da"
+  },
+  {
+    "path": "PersonalAI/server/tools/registry.mjs",
+    "bytes": 8366,
+    "sha256": "2bfc62919718dbf97168c6449e07b4738216ed18817f7511d0f44eca0169c32e"
+  },
+  {
+    "path": "PersonalAI/server/tools/sandboxTools.mjs",
+    "bytes": 11945,
+    "sha256": "5588d5cc1902dc668f32b09b5239cfc6b84ff78e459933c7660e7a53e5bf4398"
+  },
+  {
+    "path": "PersonalAI/server/tools/skillMatch.mjs",
+    "bytes": 4052,
+    "sha256": "a91f35dd0333a837b6190aeae44e9ad47ca2486e981a3ca8ea0914c0100082ca"
+  },
+  {
+    "path": "PersonalAI/server/util/atomicWrite.mjs",
+    "bytes": 1760,
+    "sha256": "73706c0f2ba264649d8cf2075fc1cb872ba69c7461e2b9d24488e06db19fba88"
+  },
+  {
+    "path": "PersonalAI/server/util/buildInfo.d.mts",
+    "bytes": 53,
+    "sha256": "0fbbc627c536cf71ed2d58c208c9083bf7401d04c876cf96d69a33c8db9ded28"
+  },
+  {
+    "path": "PersonalAI/server/util/buildInfo.mjs",
+    "bytes": 1127,
+    "sha256": "d5649d8c6d6a3dc258cc87854dafe605d1140b3dff7db5bb335f01415191712a"
+  },
+  {
+    "path": "PersonalAI/server/util/dataSnapshot.mjs",
+    "bytes": 8003,
+    "sha256": "70d354fe8f77aeed505b6bc66455009fa01f06c6a980b66f8e9ee294da24c00a"
+  },
+  {
+    "path": "PersonalAI/server/util/hiddenPython.mjs",
+    "bytes": 1419,
+    "sha256": "1271b307d7cea6ab09880a897e4c89d7eca77039980c1a01634b2a4bdeccb070"
+  },
+  {
+    "path": "PersonalAI/server/voice/f5Worker.mjs",
+    "bytes": 4353,
+    "sha256": "f53e12d0c6a5e1bb27856a508c8be5f6284ed11fd75801d00fd24b016fb73c16"
+  },
+  {
+    "path": "PersonalAI/server/voice/localTts.mjs",
+    "bytes": 4086,
+    "sha256": "4c47e384112054e6f221f12c837a07abb005c01724ac464731b6ff5925543dca"
+  },
+  {
+    "path": "PersonalAI/server/voice/rocmVoiceBackends.mjs",
+    "bytes": 15139,
+    "sha256": "ba57351c455709103ebfcc495550bb61ee004d1f7c58db341b88ede05306c641"
+  },
+  {
+    "path": "PersonalAI/server/voice/vachana_worker.py",
+    "bytes": 2336,
+    "sha256": "9377ad0c2c74c5b061f042b76990646f6bb391f9b80bb84df6316f0054729aea"
+  },
+  {
+    "path": "PersonalAI/server/voice/voiceService.mjs",
+    "bytes": 20837,
+    "sha256": "39c332f36c8d37a719ff29412df2838e7fc714a4e74a36c8cceb0117d58d4048"
+  },
+  {
+    "path": "PersonalAI/server/voice/whisperWorker.mjs",
+    "bytes": 4322,
+    "sha256": "ac561986a12a10aaa6a9af0c5e3929da49685c9b8e6a391f76a8045fd24f1e6c"
+  },
+  {
+    "path": "PersonalAI/server/voice/windowsTts.ps1",
+    "bytes": 2205,
+    "sha256": "c19a68a0e8bd721a12e05c6939317ae0796e0b7918bc76424f33cace3445f99a"
+  },
+  {
+    "path": "PersonalAI/server/web/fuelPrices.mjs",
+    "bytes": 8087,
+    "sha256": "1eddc3c083737bd646c6b82da44bd38045f0970e87b043719a15ea5c4866d9cb"
+  },
+  {
+    "path": "PersonalAI/server/web/searchV6Service.mjs",
+    "bytes": 10131,
+    "sha256": "8bd4a58866d482435f343e4a99716dba2944ebcbfe8f071f7bc1fad7e4e901b3"
+  },
+  {
+    "path": "PersonalAI/server/web/sportsScores.mjs",
+    "bytes": 4050,
+    "sha256": "687c5e163f096522d1823a950a1ceb716aee9ad14e6a41cd8332f959f07c84ba"
+  },
+  {
+    "path": "PersonalAI/src/App.tsx",
+    "bytes": 19905,
+    "sha256": "2fdc006bc6ff3cec047dc2c9ec91c6803c5b177131fee635481dcc59f940e3f6"
+  },
+  {
+    "path": "PersonalAI/src/characters/CharacterManager.tsx",
+    "bytes": 18532,
+    "sha256": "51a1a3ffec3a39ac95de6b0816b43307af203cdeccb8fef57d781472df3f252b"
+  },
+  {
+    "path": "PersonalAI/src/characters/avatarImage.ts",
+    "bytes": 1037,
+    "sha256": "bac284479abf3e15405b2b79911ab52054a72d09898cca1808feda2818e84819"
+  },
+  {
+    "path": "PersonalAI/src/characters/characterManager.mobile.css",
+    "bytes": 2344,
+    "sha256": "e6285e721cd01d7bc16c4b4b42a9fad2948dd8a2790d3dddb4e8f0bd945f8ee7"
+  },
+  {
+    "path": "PersonalAI/src/characters/personalityPresets.ts",
+    "bytes": 4779,
+    "sha256": "9de56ce8e17c5a7cbf07dbb3aafab2bdc8d1da4423666cef97da85b6929faf31"
+  },
+  {
+    "path": "PersonalAI/src/characters/useCharacters.ts",
+    "bytes": 2299,
+    "sha256": "7afc56789dfecb733c6636210169da562b8ed8dba53658747cb87e09e80296ca"
+  },
+  {
+    "path": "PersonalAI/src/chat/BugReportButton.tsx",
+    "bytes": 3241,
+    "sha256": "3c554345b069f93555855ddbbb5529f2c2bccec8fa3e0ce9e28197a404d8174b"
+  },
+  {
+    "path": "PersonalAI/src/chat/ChatInput.tsx",
+    "bytes": 7919,
+    "sha256": "6ba873e4f6c650f560463d5c956ac3f95b68bdb401374808536c79ab61580503"
+  },
+  {
+    "path": "PersonalAI/src/chat/ChatView.tsx",
+    "bytes": 10029,
+    "sha256": "9e6e4a8e0533ed1f8389c585ffd268619119878cdf1858ade3ce811560186b4a"
+  },
+  {
+    "path": "PersonalAI/src/chat/KnowledgeSuggestion.tsx",
+    "bytes": 2431,
+    "sha256": "7998050f5815a667ce56b5320fac2114c69391640f90fa6d57c9e8d159e48970"
+  },
+  {
+    "path": "PersonalAI/src/chat/Markdown.tsx",
+    "bytes": 1919,
+    "sha256": "dcc8cf4048bda26f78508b65bd72809cdfbf4f17314c564a9bc0334270aef029"
+  },
+  {
+    "path": "PersonalAI/src/chat/MemorySuggestions.tsx",
+    "bytes": 5443,
+    "sha256": "23fddca5e5abfd5ebd255c07307ef61c04034dfed10fe751e0c831de0ec95446"
+  },
+  {
+    "path": "PersonalAI/src/chat/MessageItem.tsx",
+    "bytes": 10399,
+    "sha256": "87223dab3746f5b3ccc3cb69a985e9eb474a5ef3da874d7e93224a8aea9ffa18"
+  },
+  {
+    "path": "PersonalAI/src/chat/MessagePart.tsx",
+    "bytes": 9022,
+    "sha256": "daabc02972a256909271ebfdb7992ca5974b8aca4942573fbaa544eff03a1f50"
+  },
+  {
+    "path": "PersonalAI/src/chat/ToolActivity.tsx",
+    "bytes": 5082,
+    "sha256": "16e893721b439ed834182a9e5e994ec27eaa953aecf7cd2f286daf7df2032596"
+  },
+  {
+    "path": "PersonalAI/src/chat/chatActions.tsx",
+    "bytes": 1348,
+    "sha256": "f0e81cff0604de69c50d80f8a647275b3f573b0d334ed53d2c48c8959ade1444"
+  },
+  {
+    "path": "PersonalAI/src/chat/closeness.d.mts",
+    "bytes": 230,
+    "sha256": "357e5a5f9a8065e7092b74b92fe7e744cd12e961ada4173a41d8cf14d4a05c40"
+  },
+  {
+    "path": "PersonalAI/src/chat/closeness.mjs",
+    "bytes": 885,
+    "sha256": "13c03babe2b116ae82834f92e1643e1ea72e26b124ddc96c72bbf1cc4f1f1fcc"
+  },
+  {
+    "path": "PersonalAI/src/chat/closeness.test.mjs",
+    "bytes": 860,
+    "sha256": "1a63de534728c6703ce9751ef03ed824bfabbc4ca45e71c2c4db1bccb0d0dd10"
+  },
+  {
+    "path": "PersonalAI/src/chat/existingImage.d.mts",
+    "bytes": 165,
+    "sha256": "e91901c7680f4ec2fa2b49bca8073901206b4bb49c7c2e6b3fb78b31fd72e8d4"
+  },
+  {
+    "path": "PersonalAI/src/chat/existingImage.mjs",
+    "bytes": 2841,
+    "sha256": "0df4f684659d73dbce5669f07b53ac4b4a4c30cb315a1a12a493f945e6b3c3e1"
+  },
+  {
+    "path": "PersonalAI/src/chat/existingImage.test.mjs",
+    "bytes": 1307,
+    "sha256": "d41d6f7d0c4a363cf0a7558673ce2f3deb42bcb31a7c647efc62c2416781d1f4"
+  },
+  {
+    "path": "PersonalAI/src/chat/fileDataUrl.ts",
+    "bytes": 647,
+    "sha256": "30832697ecafa71269876703373f68e4894d63b502e90f1794c0dfd116738b33"
+  },
+  {
+    "path": "PersonalAI/src/chat/foldNotes.claude.test.mjs",
+    "bytes": 6569,
+    "sha256": "9a259c3c9738128fbeab64173e102848f8e6c71bb51f46e96550153b74b97a48"
+  },
+  {
+    "path": "PersonalAI/src/chat/foldNotes.ts",
+    "bytes": 2266,
+    "sha256": "0a9fc0c59ebded45e27df7b9b4538d36882ad4674c140666673c61d05ba8cbe3"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageClaim.d.mts",
+    "bytes": 162,
+    "sha256": "4ae4d42b2afdda8e4de58c481a24d3808b7abb76f87d3238f5397d34800e5a61"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageClaim.mjs",
+    "bytes": 823,
+    "sha256": "d4eea7f4621cbe1f59c3229d6c43662d573d22fb8aab99da276a6178fd3af11d"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageClaim.test.mjs",
+    "bytes": 917,
+    "sha256": "385394d7aa680566823a5f31976550c29a6f355ec1725a3fdb79f0bc813fc920"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageEditPlan.test.mjs",
+    "bytes": 3545,
+    "sha256": "6dc15b693d0de9b2f431a201150415221381302731ade9aaec8125a624c51d56"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageEditPlan.ts",
+    "bytes": 7963,
+    "sha256": "9fa4c0f5a30ca0183db5640abc2a3131f9f6008993ec710416b3153514e508d3"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageIntentGuard.test.mjs",
+    "bytes": 1522,
+    "sha256": "a7a0d37d7c9d0ee970c4c5901be78d29071b26bca120e852815b8083163cf469"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageJob.test.mjs",
+    "bytes": 1609,
+    "sha256": "1c0cb972cd639bd45f688249b45d12e261ec17261817c249e4a45d519a627aae"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageJob.ts",
+    "bytes": 7123,
+    "sha256": "c2a8080576e81c6a35060fcec18fd047b094ec11a1098009545e9a137c5f3bd3"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageQuality.d.mts",
+    "bytes": 82,
+    "sha256": "004a302dc154a8eb7ecf3a66a64a844a7ef27615a700cf53d8e95231424e9b80"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageQuality.mjs",
+    "bytes": 331,
+    "sha256": "9ee69cb10e865c8893f8e31f1ead77c13c13a3325c61096632b9c5282c3772da"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageRequest.test.mjs",
+    "bytes": 6088,
+    "sha256": "fad1abf1e4d8bc80ac14396d9e30c313b3556c8cc149fa3d9d08a4871179e379"
+  },
+  {
+    "path": "PersonalAI/src/chat/imageRequest.ts",
+    "bytes": 9565,
+    "sha256": "85bb39a865ed1297393aae3a12d41e98abbf14febc99b28e37b45749530061f8"
+  },
+  {
+    "path": "PersonalAI/src/chat/longChat.claude.test.mjs",
+    "bytes": 9116,
+    "sha256": "ea016daa86da2c6a22118ee98036a30c23b4b1b06157881dc207a388428ebe9f"
+  },
+  {
+    "path": "PersonalAI/src/chat/messageOrder.d.mts",
+    "bytes": 155,
+    "sha256": "cdaf1d750968b6d4c5ca2ce86f2448fcaa90f49ce2057367c1a2079b3114cb6b"
+  },
+  {
+    "path": "PersonalAI/src/chat/messageOrder.mjs",
+    "bytes": 1533,
+    "sha256": "6a6481b9cf18220972b7e41a48f4cd2a680926011a55bd242ddc87aac88f2258"
+  },
+  {
+    "path": "PersonalAI/src/chat/messageUtils.ts",
+    "bytes": 1312,
+    "sha256": "298cc7035c2a0c026d269e226cdde3c1059ea8ec5b011f48448e7cfda9884c4d"
+  },
+  {
+    "path": "PersonalAI/src/chat/reasoningRouter.d.mts",
+    "bytes": 179,
+    "sha256": "80b08d44abc59aa51ddf316f584c39cd725cf5d237f2eb1acdd207d0f1860463"
+  },
+  {
+    "path": "PersonalAI/src/chat/reasoningRouter.mjs",
+    "bytes": 604,
+    "sha256": "6cd75557ec0a0aec4e348a96be727514133e6c12a968093e276f845566c57cdf"
+  },
+  {
+    "path": "PersonalAI/src/chat/repeatGuard.ts",
+    "bytes": 2297,
+    "sha256": "2342d6ee42231f4ece94dbe89f5f79d26d1be96d3fa936784b9d514402c50483"
+  },
+  {
+    "path": "PersonalAI/src/chat/replyChecks.claude.test.mjs",
+    "bytes": 2082,
+    "sha256": "61a2a90793041dfef6eb5d7e29003b0671f2342bc0ed44e6debaed2dce4d2282"
+  },
+  {
+    "path": "PersonalAI/src/chat/replyChecks.ts",
+    "bytes": 3021,
+    "sha256": "3d4d8b7d07f0051805e9046a2ff3ee2eaad610e594bef2a7bd1d8ee5ffd5b7b2"
+  },
+  {
+    "path": "PersonalAI/src/chat/roleplayScene.css",
+    "bytes": 514,
+    "sha256": "f889052575fd86a22f66358c8a3e98af4b91a9c9e756c286d9f02151a1c076f0"
+  },
+  {
+    "path": "PersonalAI/src/chat/roleplayScenePrompt.d.mts",
+    "bytes": 302,
+    "sha256": "4cfd7b184c33c0d550fb35cd3abc29627c58c23a6c38e719e9ce9bf1e1c44f83"
+  },
+  {
+    "path": "PersonalAI/src/chat/roleplayScenePrompt.mjs",
+    "bytes": 2073,
+    "sha256": "21addffdec38799f71168502df16bf74b61902a6bf111ec6c9f759f728f08e96"
+  },
+  {
+    "path": "PersonalAI/src/chat/roleplayScenePrompt.test.mjs",
+    "bytes": 1607,
+    "sha256": "42ba626abb60b477ccbfd9a13974458bb65211912a1deab562e69e0c7fbc8a6f"
+  },
+  {
+    "path": "PersonalAI/src/chat/roleplaySelfAsk.claude.test.mjs",
+    "bytes": 3176,
+    "sha256": "c8256943789e1edbb278fcdc07afec555261bbf6a9f09841be23c853f51a1648"
+  },
+  {
+    "path": "PersonalAI/src/chat/runChatReply.ts",
+    "bytes": 48482,
+    "sha256": "6a8abf32ebd66a0c7cf768412b71bf38744604c65c767c4bcd304a210485f847"
+  },
+  {
+    "path": "PersonalAI/src/chat/serverEntry.ts",
+    "bytes": 1134,
+    "sha256": "c46481264e4dd468d436d00b89b533d0a68d660b2dcb774ca3bcf8cf7b2a1590"
+  },
+  {
+    "path": "PersonalAI/src/chat/skillOutput.claude.test.mjs",
+    "bytes": 3359,
+    "sha256": "6d5971bc9bd14913a4b9724fbd967e307288266fed265b0f999ad89e391834de"
+  },
+  {
+    "path": "PersonalAI/src/chat/skillOutput.ts",
+    "bytes": 1554,
+    "sha256": "5eeaafee483ba5b6d7ee741fdb9287573482ea06c31bd56e4b4dad5a1ed26175"
+  },
+  {
+    "path": "PersonalAI/src/chat/translateImagePrompt.test.mjs",
+    "bytes": 2750,
+    "sha256": "5e19f6ae4ee95ac2cf469689bd8d6a966211536de22c2a18f93eef0c296ad40e"
+  },
+  {
+    "path": "PersonalAI/src/chat/translateImagePrompt.ts",
+    "bytes": 3568,
+    "sha256": "dd7be77224905a54324497ca800bf3abbfe8d797c0834a9176626f51f81db5af"
+  },
+  {
+    "path": "PersonalAI/src/chat/useChat.ts",
+    "bytes": 31089,
+    "sha256": "9bee279ad00aabab8f6c4043d8591936f2fa7e7f0a685c13e96b4031d94a22e3"
+  },
+  {
+    "path": "PersonalAI/src/components/Avatar.tsx",
+    "bytes": 1422,
+    "sha256": "a96007352cdb5d0b9a412bc3b8d0082921901182e2f3f119ad67aa0d1853c909"
+  },
+  {
+    "path": "PersonalAI/src/components/BuildStamp.tsx",
+    "bytes": 1438,
+    "sha256": "5040e62f768859d9fb3e8ca2200d65cb0cfb4f0265b62286d1e82cc59aaf7cf9"
+  },
+  {
+    "path": "PersonalAI/src/components/ChatReasoningControl.tsx",
+    "bytes": 672,
+    "sha256": "6bb8a780c6d3dd363e276d4b70114d157f5795f255da452f1edbb66cf091dca3"
+  },
+  {
+    "path": "PersonalAI/src/components/ConnectionStatus.tsx",
+    "bytes": 634,
+    "sha256": "da6749c3779774b2407d525d1d400f68384b2325abe41d76ed74abf8395b3097"
+  },
+  {
+    "path": "PersonalAI/src/components/Gallery.tsx",
+    "bytes": 8491,
+    "sha256": "0192459310792f778dc44f92f159f3d32224b0ecdf691177b73b158e7844e3d7"
+  },
+  {
+    "path": "PersonalAI/src/components/ImageEditPage.tsx",
+    "bytes": 52647,
+    "sha256": "c641f78b84e8815aa8bfee93db4a63e102182c30abd723abe58e546471be21a4"
+  },
+  {
+    "path": "PersonalAI/src/components/LumicosLogo.tsx",
+    "bytes": 257,
+    "sha256": "ee7012e2eb34095243fadf1a7de541ac52d58905f7e9f769253a4513f2e4fcde"
+  },
+  {
+    "path": "PersonalAI/src/components/Modal.tsx",
+    "bytes": 2120,
+    "sha256": "c8d424c3f364500b2d13287236310b4707b8b26dcd5ab836ae71b1ed033caca6"
+  },
+  {
+    "path": "PersonalAI/src/components/ModelSwitcher.tsx",
+    "bytes": 7702,
+    "sha256": "6bb28aaebf672d322a63496e77b7e4998c421278133f01e0afec06889f1e065d"
+  },
+  {
+    "path": "PersonalAI/src/components/PromptDialog.tsx",
+    "bytes": 1853,
+    "sha256": "efa3df35b777008e1fc73c7475ef0405d66f4ae02a422a22f0918e5b8463ad90"
+  },
+  {
+    "path": "PersonalAI/src/components/RightPanel.tsx",
+    "bytes": 2073,
+    "sha256": "b71f0b42d1572f11e759a66a2864cf66855b60276795a84676c3bea216c0131d"
+  },
+  {
+    "path": "PersonalAI/src/components/Sidebar.tsx",
+    "bytes": 13506,
+    "sha256": "ac71dc0d21ad5cfc372714a46dd4ea3f46434c2ad17c201eba9b2238de14eac8"
+  },
+  {
+    "path": "PersonalAI/src/components/avatar-stage/reactionChat.test.mjs",
+    "bytes": 1979,
+    "sha256": "0ede9f8a03fb3583365fe2333d986424969dfdb6fa231235a290461430a4a69a"
+  },
+  {
+    "path": "PersonalAI/src/components/avatar-stage/reactionIntent.d.mts",
+    "bytes": 1041,
+    "sha256": "26b2491d7d4fa9728a3a14964021ddcf191c40722e2c621358a500ff179f325c"
+  },
+  {
+    "path": "PersonalAI/src/components/avatar-stage/reactionIntent.mjs",
+    "bytes": 2576,
+    "sha256": "ad58d785c586a3b02193aa8a8426ab12785333d45092ef81d1c611ba23c555c0"
+  },
+  {
+    "path": "PersonalAI/src/components/avatar-stage/reactionSignal.d.mts",
+    "bytes": 255,
+    "sha256": "fb253c694a737777deedcfce6bdb7df468308d3b24b63951823cab5868179e9a"
+  },
+  {
+    "path": "PersonalAI/src/components/avatar-stage/reactionSignal.mjs",
+    "bytes": 292,
+    "sha256": "0a3723de012a0ac63db030e206e9b09ecc8d3bc5fbbdb1dc5d99546ef33c8752"
+  },
+  {
+    "path": "PersonalAI/src/components/avatar-stage/types.ts",
+    "bytes": 381,
+    "sha256": "9deff4973044023c7ddfecdb42bdf8f7108c37e3eedbe61629770fd7cf88b2f3"
+  },
+  {
+    "path": "PersonalAI/src/components/avatar-stage/visemeTimeline.d.mts",
+    "bytes": 395,
+    "sha256": "0546dfb56f2654064b0d79de04b3a1b4853274c76f6b6198416595c9e1e420e3"
+  },
+  {
+    "path": "PersonalAI/src/components/avatar-stage/visemeTimeline.mjs",
+    "bytes": 4556,
+    "sha256": "f9ce18d9863d234868b556009e94aeb1b86f45b45f2aad9350a79617c1df272e"
+  },
+  {
+    "path": "PersonalAI/src/config/defaults.ts",
+    "bytes": 3690,
+    "sha256": "af9f4e41558699292509c9ef9c8b15106e688b9c5e0d272f9792cc815df45af8"
+  },
+  {
+    "path": "PersonalAI/src/hooks/useLocalService.ts",
+    "bytes": 1427,
+    "sha256": "bf0082ad0c0e8c10da42bdb83dfd6b621c417264a584f18fca81d0e3b974497b"
+  },
+  {
+    "path": "PersonalAI/src/hooks/useServerStatus.ts",
+    "bytes": 1146,
+    "sha256": "3595c61cb1f9c61e7017edede03e17b97dd0e5adfb04c365c3db89f1050c001a"
+  },
+  {
+    "path": "PersonalAI/src/i18n.ts",
+    "bytes": 39936,
+    "sha256": "5cff9c7ddf451d9ff163665810f0bba4fe2f7d124784f815ebc9937335a14067"
+  },
+  {
+    "path": "PersonalAI/src/identity/lumicosIdentity.d.mts",
+    "bytes": 349,
+    "sha256": "1d728b60782b6d1ce98ac53a462d9c12af6b5ab271c9966730a0711de3f3cf48"
+  },
+  {
+    "path": "PersonalAI/src/identity/lumicosIdentity.mjs",
+    "bytes": 319,
+    "sha256": "f38774c7a037f4670b395dc0bb530e96bd86e5d8986219fa32bf2a43a9e6f3b6"
+  },
+  {
+    "path": "PersonalAI/src/imageEdit.css",
+    "bytes": 12078,
+    "sha256": "f18942101d36712bd943a657e7d405897abe93ef28a10b253be9df28305f3d64"
+  },
+  {
+    "path": "PersonalAI/src/imageLab/templates.ts",
+    "bytes": 3123,
+    "sha256": "a00ee386ab1bc17703b44981b4743c81fbe98dc8bcfbfdd74c241ba111c44e34"
+  },
+  {
+    "path": "PersonalAI/src/imageLab.css",
+    "bytes": 13343,
+    "sha256": "21640ced5f48d3ea56242ba63e1d32d42a438a473e6a052414d771e5681c31e7"
+  },
+  {
+    "path": "PersonalAI/src/index.css",
+    "bytes": 75935,
+    "sha256": "efcc375b2a1d544f90278e1e590992e1841cc05828b4bf3e9a873531f6297118"
+  },
+  {
+    "path": "PersonalAI/src/lumicos.css",
+    "bytes": 33067,
+    "sha256": "023c1308afdd930bc8ee6a711da484810a5dd898c1ea48d36e05c4a47dbb4e47"
+  },
+  {
+    "path": "PersonalAI/src/main.tsx",
+    "bytes": 2102,
+    "sha256": "d86e618e136f93f73f3b664fbbe73972e71f32d7be6f9208af876c44fee55549"
+  },
+  {
+    "path": "PersonalAI/src/memory/MemoryPage.tsx",
+    "bytes": 14944,
+    "sha256": "5a94cbd7a168e38ab9ae4fd031d2abd7fff9c5f4914970959dcc9ac7eb276029"
+  },
+  {
+    "path": "PersonalAI/src/memory/labels.ts",
+    "bytes": 283,
+    "sha256": "53d34c65cda132fdc57183c74d48f82acfb888bfed29da0ad0b69c116ea7bec5"
+  },
+  {
+    "path": "PersonalAI/src/mobile-header.css",
+    "bytes": 455,
+    "sha256": "840a1545a3f99118107a7532266bda5e99097aec286611b1c0fccb91daa33e6a"
+  },
+  {
+    "path": "PersonalAI/src/motion.css",
+    "bytes": 3926,
+    "sha256": "d8aed5491d11bbcd008a4860ec00ab05c798a9c327981d4a39045118336ec7ee"
+  },
+  {
+    "path": "PersonalAI/src/prompt/assistantMode.claude.test.mjs",
+    "bytes": 1556,
+    "sha256": "2d1d83b9dc0697f97daf4279f1900a42b345eeb2ab0e2dd0fdaa4a341aaa4a02"
+  },
+  {
+    "path": "PersonalAI/src/prompt/dateTime.claude.test.mjs",
+    "bytes": 4588,
+    "sha256": "6a6d1d34d0264d1441ae1d615f7cb2e3409be5b2f3243db0a03257762e3e5a92"
+  },
+  {
+    "path": "PersonalAI/src/prompt/dateTime.ts",
+    "bytes": 4410,
+    "sha256": "4596e6eb41e0e55c5323b649d14225fa15601806309ce3c15a5b4b4af7b34ca8"
+  },
+  {
+    "path": "PersonalAI/src/prompt/lumicosPersona.d.mts",
+    "bytes": 209,
+    "sha256": "c7678bcb6cd2590d7571d3d189f33a4dce4971c26ba23732b519252324060829"
+  },
+  {
+    "path": "PersonalAI/src/prompt/lumicosPersona.mjs",
+    "bytes": 760,
+    "sha256": "f3d3f0c420db9b8489ca8e2f3baabfc284f43f83df9b0556ea9fc1a7aaab174c"
+  },
+  {
+    "path": "PersonalAI/src/prompt/memoryExtraction.ts",
+    "bytes": 2314,
+    "sha256": "fee71f6b7c14eea4282e0f7d67acbf4c717ac7d834e2ddf98920ae8aec624d09"
+  },
+  {
+    "path": "PersonalAI/src/prompt/promptBuilder.ts",
+    "bytes": 46148,
+    "sha256": "c16ca6ee360979f9ce8201be142f03c769f38f327456c328734fb5a8b1608c0f"
+  },
+  {
+    "path": "PersonalAI/src/prompt/replyLength.ts",
+    "bytes": 4829,
+    "sha256": "227eaffde171fcd0a46acfc51ad3e7b38f90f4a7528d7037f41393419d52777d"
+  },
+  {
+    "path": "PersonalAI/src/prompt/skillSection.claude.test.mjs",
+    "bytes": 2187,
+    "sha256": "b1401410ce650463e636dd0b1eea90e959649ee7e6e5e727550e9c36c6b1f438"
+  },
+  {
+    "path": "PersonalAI/src/prompt/toolsSection.ts",
+    "bytes": 7852,
+    "sha256": "a985994d56de03485b61f659f619d8bd5fae6976802402da42d158bf57ff2a0d"
+  },
+  {
+    "path": "PersonalAI/src/providers/index.ts",
+    "bytes": 786,
+    "sha256": "d57879ce507d96f28f504d01cf03bdde085475635057ec053874033a71c7eb0d"
+  },
+  {
+    "path": "PersonalAI/src/providers/llamaCppProvider.ts",
+    "bytes": 6558,
+    "sha256": "0a01b74c67076ee665e0d1ebd4ec691a6e0e8789ffe02120507d9f45c5884209"
+  },
+  {
+    "path": "PersonalAI/src/providers/mock/mockProvider.ts",
+    "bytes": 1548,
+    "sha256": "3fa32bead0b4e106bfb42391efc111269aa815789c66a9e6b820e761b754d555"
+  },
+  {
+    "path": "PersonalAI/src/providers/sse.ts",
+    "bytes": 1152,
+    "sha256": "965000279f34f8bb5b775714fe11c1ef51635770a4ff52b773b835f4e878ac87"
+  },
+  {
+    "path": "PersonalAI/src/providers/types.ts",
+    "bytes": 1704,
+    "sha256": "9e7cefec36aa3f730d10807e98b645729bcb917b3ffa3b08cbc2c4a6710de919"
+  },
+  {
+    "path": "PersonalAI/src/pwa/InstallAppButton.tsx",
+    "bytes": 1189,
+    "sha256": "4b14e3d743864e8bde2ecdf02111a1af9c2e886ed6e275e024c18b3e80c8d0b6"
+  },
+  {
+    "path": "PersonalAI/src/pwa/install.d.mts",
+    "bytes": 447,
+    "sha256": "3387c80f6fa960eae6fa5bcfca2710db5e36fcfbfff250a40df8c1b77a2b3497"
+  },
+  {
+    "path": "PersonalAI/src/pwa/install.mjs",
+    "bytes": 1506,
+    "sha256": "8378aaf8f53e3220cce0e98f8ee830e1a3397080e4318baac7e210fb59ea4796"
+  },
+  {
+    "path": "PersonalAI/src/pwa/install.test.mjs",
+    "bytes": 3028,
+    "sha256": "058588eb2e4817bbee05243774222a986d59597e0554fab69dca7da11eb820a6"
+  },
+  {
+    "path": "PersonalAI/src/services/chatEvents.ts",
+    "bytes": 1306,
+    "sha256": "0b8903d744a1d3349fe4b71590b2738524757d0782a06383ad513d7e684b0084"
+  },
+  {
+    "path": "PersonalAI/src/services/deviceIdentity.ts",
+    "bytes": 539,
+    "sha256": "7fbb68882be90a6569c492dbb4fc8dcccc4f80e25502db733cc07e44d01286ba"
+  },
+  {
+    "path": "PersonalAI/src/services/localService.ts",
+    "bytes": 13184,
+    "sha256": "67a2725794da0bc8b4182f527f4345d7c623efa35e66f1e7ab33499a4e91f3a6"
+  },
+  {
+    "path": "PersonalAI/src/services/models.ts",
+    "bytes": 1698,
+    "sha256": "008a6931c4e3ac5b926280529f406d2ca1bd2e4a4f100af0643bc64de7d4bb36"
+  },
+  {
+    "path": "PersonalAI/src/services/sync.ts",
+    "bytes": 5833,
+    "sha256": "2a8b776ee6d09eaa870f20e10c95afd122005f96301d02f2437544b88a859f87"
+  },
+  {
+    "path": "PersonalAI/src/settings/ModelManager.tsx",
+    "bytes": 7460,
+    "sha256": "d7253224e326e0d096ef134c51e47c485f30be7a5481171d39d7dd57b7dac548"
+  },
+  {
+    "path": "PersonalAI/src/settings/OwnerAccess.tsx",
+    "bytes": 3058,
+    "sha256": "3ca1498db27c96169872b7298776dc04bfd71cf565312eedabcf0230a5a03ddf"
+  },
+  {
+    "path": "PersonalAI/src/settings/SelfCheck.tsx",
+    "bytes": 2899,
+    "sha256": "6110ae660530b4e9a2fcc4159c86eb1761bfd6ed40c64917ba1e5fe8a2c3f254"
+  },
+  {
+    "path": "PersonalAI/src/settings/SettingsModal.tsx",
+    "bytes": 32208,
+    "sha256": "79ad579c41f8df3a40ca4d2c8a5ed79739dccdac2f1c6260273fd20fa2b738e9"
+  },
+  {
+    "path": "PersonalAI/src/settings/WebSettings.tsx",
+    "bytes": 1855,
+    "sha256": "bd390b0d6b45855bce64d2c7f0fba6a1f05b03d6429c2cae82bc2aa27a71fb95"
+  },
+  {
+    "path": "PersonalAI/src/settings/useSettings.ts",
+    "bytes": 2214,
+    "sha256": "a7216cef08bd793f38aabc89935779951d5a96779c0778e71e00d4516bd4f253"
+  },
+  {
+    "path": "PersonalAI/src/storage/storageService.ts",
+    "bytes": 10808,
+    "sha256": "9bc5b81ac6ef3a13d71974b547ece761f65925a02d68f5843c577e39faa7961a"
+  },
+  {
+    "path": "PersonalAI/src/theme/ThemeLibrary.tsx",
+    "bytes": 3418,
+    "sha256": "abb7051241c7d889dab606edfae4368365ba4713a5aafaaf5ad97695b89b1d02"
+  },
+  {
+    "path": "PersonalAI/src/theme/ThemeUndo.tsx",
+    "bytes": 1193,
+    "sha256": "212720e5ea8faa499cd640185c4d2c8f6ce0193da05f9afcfa108d22d3925546"
+  },
+  {
+    "path": "PersonalAI/src/theme/customTheme.ts",
+    "bytes": 9520,
+    "sha256": "913af56078623d5768bbb36003ca76f4af92de3048432ca7f9d382dc844b7dd8"
+  },
+  {
+    "path": "PersonalAI/src/theme-clean.css",
+    "bytes": 16185,
+    "sha256": "9311c99b06ec35ff3b09d64224b6e6fe6e7b3a60031a373bc124535755bae2d3"
+  },
+  {
+    "path": "PersonalAI/src/theme-mono.css",
+    "bytes": 841,
+    "sha256": "7012eae1729e240794dd0d028b9f645798183722ecd01ed12652de5483f7f04c"
+  },
+  {
+    "path": "PersonalAI/src/tools/toolCallParser.test.mjs",
+    "bytes": 4789,
+    "sha256": "06f954b778046999e5644ef98bd9058463fa270da48ee1fae0d4e8478efed795"
+  },
+  {
+    "path": "PersonalAI/src/tools/toolCallParser.ts",
+    "bytes": 7060,
+    "sha256": "476f098c14224954b4e6795479868b213e97bd6e6fd3f8922cbca6e6eb3b1732"
+  },
+  {
+    "path": "PersonalAI/src/touch-fix.css",
+    "bytes": 5076,
+    "sha256": "4fdd5090effe9ea5a45f0a1351e0e217e3c5f619120c0d65f66c23dab6316bbd"
+  },
+  {
+    "path": "PersonalAI/src/types/index.ts",
+    "bytes": 13741,
+    "sha256": "831ad5bbfcce956318f6256a9ae1d51ff354f4bb649504b5135b662954fcc36f"
+  },
+  {
+    "path": "PersonalAI/src/vite-env.d.ts",
+    "bytes": 369,
+    "sha256": "adf8ecf9b5ca043d3ea86923c6fed56b3e0234cab07394d1474d96e7b3b70411"
+  },
+  {
+    "path": "PersonalAI/src/voice/ComposerCall.tsx",
+    "bytes": 1593,
+    "sha256": "b1b7b1eee47bed1fd8fede80ec5dd0bd4c629ec77e017f8b84bba2bfb8454763"
+  },
+  {
+    "path": "PersonalAI/src/voice/MicrophoneButton.tsx",
+    "bytes": 5322,
+    "sha256": "900204e6408bae415f0404bae4d1b7824b246049142c53745222fd4f00f868b5"
+  },
+  {
+    "path": "PersonalAI/src/voice/PCMPlayer.test.mjs",
+    "bytes": 1616,
+    "sha256": "260f81849a4eb4cff0e2b2c65418f8304afd295b956220de21eda0162139945d"
+  },
+  {
+    "path": "PersonalAI/src/voice/PCMPlayer.ts",
+    "bytes": 4434,
+    "sha256": "53705341f4d88d1a9dc4de789595df3f2ae15d893434c13e97ace8de375c146a"
+  },
+  {
+    "path": "PersonalAI/src/voice/SpeechCall.tsx",
+    "bytes": 10892,
+    "sha256": "4b8f8cc2a0186ef026b9095d86ec53c3833b753a64a1674cdc5291be6a0cf1e0"
+  },
+  {
+    "path": "PersonalAI/src/voice/SpokenChunks.test.mjs",
+    "bytes": 3751,
+    "sha256": "f741b324c300d451fa0d31e2505312102efa5ccfc8f2be9ec5eb77a22f451b57"
+  },
+  {
+    "path": "PersonalAI/src/voice/SpokenChunks.ts",
+    "bytes": 1597,
+    "sha256": "403e0ada2e4a3c9eb088c8b2eaef6a7d05dc2a20db862a16c01cd5ad089d3f3f"
+  },
+  {
+    "path": "PersonalAI/src/voice/Voice.tsx",
+    "bytes": 9466,
+    "sha256": "cee9a2f5ffd0c151ad7a6642fbf8bc682f95ae259bc9d3a7cfff9301032269a4"
+  },
+  {
+    "path": "PersonalAI/src/voice/WaitingCue.test.mjs",
+    "bytes": 2598,
+    "sha256": "a6079bc333e08961568c055fee26ee14b9430bb07d023c5e49ad93f6b152d8a4"
+  },
+  {
+    "path": "PersonalAI/src/voice/WaitingCue.ts",
+    "bytes": 248,
+    "sha256": "d61fe28daf59f9398c1c47033941ef61520ad2bcd1d43f0df9b74f3d01f81154"
+  },
+  {
+    "path": "PersonalAI/src/voice/callTones.ts",
+    "bytes": 1580,
+    "sha256": "efe3b147a7b386f5eade21448531ea1e725f3a08eba34f0f21345cffc90d53a7"
+  },
+  {
+    "path": "PersonalAI/src/voice/capture.ts",
+    "bytes": 1639,
+    "sha256": "2d3aa5c6adc0fe39a7e026c63745754f59a165a754ef243b1d6904a07e18802d"
+  },
+  {
+    "path": "PersonalAI/src/voice/playbackSignal.d.mts",
+    "bytes": 336,
+    "sha256": "3a9a120f2f700a7bc5074642872c85dbaf999079659fa19c527370854f9c8e9b"
+  },
+  {
+    "path": "PersonalAI/src/voice/playbackSignal.mjs",
+    "bytes": 1202,
+    "sha256": "29917e00a1c46148954246305595acf8b1a5b4cab80d95b4d5e9eae244ec2d43"
+  },
+  {
+    "path": "PersonalAI/src/voice/silence.test.mjs",
+    "bytes": 866,
+    "sha256": "8371736d38eff86f034c42d24112622865c115dd00ddbd8bc69b2cf870a70846"
+  },
+  {
+    "path": "PersonalAI/src/voice/silence.ts",
+    "bytes": 1572,
+    "sha256": "415341345587b968a98ef41ce27752bbf23097b6ac4e93b1e5e0ef07f947baf8"
+  },
+  {
+    "path": "PersonalAI/src/workspace/FilePreview.tsx",
+    "bytes": 5798,
+    "sha256": "5a8ced854a9b57c6df45aebe2043f77979c908175cd361dd2e51b5f899079c2d"
+  },
+  {
+    "path": "PersonalAI/src/workspace/WorkspacePage.tsx",
+    "bytes": 11347,
+    "sha256": "002fdade356c5f2c4e7c29c1f191ac87a4902792d2dc78c1d624ebedbf8625af"
+  },
+  {
+    "path": "PersonalAI/src/workspace/format.ts",
+    "bytes": 899,
+    "sha256": "f730fd96b1f1e73adc752910ee309a88a83b56be3aa89df305ba61a61388349c"
+  },
+  {
+    "path": "PersonalAI/tsconfig.app.json",
+    "bytes": 655,
+    "sha256": "8e5d12ba330e7d86409edec74b95451e0db22ee09b9426c94b5bf817571eddb0"
+  },
+  {
+    "path": "PersonalAI/tsconfig.json",
+    "bytes": 119,
+    "sha256": "770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808"
+  },
+  {
+    "path": "PersonalAI/tsconfig.node.json",
+    "bytes": 558,
+    "sha256": "d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8"
+  },
+  {
+    "path": "PersonalAI/vite.config.ts",
+    "bytes": 2499,
+    "sha256": "5dedbe8cf8d1efea94110eba4e6c652cfaf7ac82af6b36bb51f2272e2fbb0325"
+  },
+  {
+    "path": "custom_nodes/Lumicos-GPU-Handoff/__init__.py",
+    "bytes": 1291,
+    "sha256": "cf41119f278815ab7781df3f15bfe889a55d3a54acee88ce34751512ba988a8c"
+  },
+  {
+    "path": "custom_nodes/Lumicos-VAE-Handoff/__init__.py",
+    "bytes": 1703,
+    "sha256": "b25db610b625811343fffba1164a5f0216392de743cbc011bb77b8a39936a867"
+  },
+  {
+    "path": "skills/bmi/SKILL.md",
+    "bytes": 1597,
+    "sha256": "b633215a8387877388ba426920a6d910e431ea4c740f7957c09e7e4ee2d1d75c"
+  },
+  {
+    "path": "skills/bmi/script.py",
+    "bytes": 1300,
+    "sha256": "5d3bc556abcc4a3fe17f734db3ac835d97e15133df0063b4d23794324afdb52a"
+  },
+  {
+    "path": "skills/calculate-loan-installment/SKILL.md",
+    "bytes": 2045,
+    "sha256": "f719331e33f63dd770164c4b515092fe661922c99b66bdb9e55b37faf3d90fad"
+  },
+  {
+    "path": "skills/calculate-loan-installment/calculate_loan.py",
+    "bytes": 1016,
+    "sha256": "2829707dbe84f079fd82bd2293bae3760cc42cd1074b0e2c1f1f5a0c5eb85af5"
+  },
+  {
+    "path": "skills/csv-quick-stats/SKILL.md",
+    "bytes": 1670,
+    "sha256": "954e60c3716f3c92d44a2a2b604e7cf701012ae3bbf53111d921b85dc266b28f"
+  },
+  {
+    "path": "skills/csv-quick-stats/script.py",
+    "bytes": 1065,
+    "sha256": "8d246d0a01ec8d02b10ac491ac909b5af43d41829933f4a5d8e9e01fd6861554"
+  },
+  {
+    "path": "skills/percent-calc/SKILL.md",
+    "bytes": 2358,
+    "sha256": "a000f82efdc284a58150ca75c3cf1f2795fdfb2a9592cf39ec13a49fb32682fa"
+  },
+  {
+    "path": "skills/percent-calc/script.py",
+    "bytes": 2603,
+    "sha256": "2846b7a7effdb67f51c1b697ec99b037a91f799c27dac2898b67a3213f5ac552"
+  },
+  {
+    "path": "skills/power-cost/SKILL.md",
+    "bytes": 3536,
+    "sha256": "8e8eba8979ddff0336ce15176b8fc6830492eaaaf0802dca7dc1d1bb9b4de4d2"
+  },
+  {
+    "path": "skills/power-cost/script.py",
+    "bytes": 3818,
+    "sha256": "52a5967bfdc09dd32a54cb5f02efb9c0c8a6adffd57d92c231b0a8636aaa4b8a"
+  },
+  {
+    "path": "skills/savings-growth/SKILL.md",
+    "bytes": 3324,
+    "sha256": "b8d025c3b109f362d14f8237fcf2ab1f4944ca6e7921a8f5e24bdad5e317465e"
+  },
+  {
+    "path": "skills/savings-growth/script.py",
+    "bytes": 3757,
+    "sha256": "68f118e6e31e89f667869d194d427804a1dd31e62bf650d1d6877ea92c0f2a84"
+  },
+  {
+    "path": "skills/split-bill/SKILL.md",
+    "bytes": 2620,
+    "sha256": "1f4d9f2c004f185ebc53479b64fd122d3e6e05269aa2edf1096929b597a437fd"
+  },
+  {
+    "path": "skills/split-bill/script.py",
+    "bytes": 4164,
+    "sha256": "2cb42b3a028add4b2138906545bac9712d2bda8dc33e82d40b2b3f0950bc3eb9"
+  },
+  {
+    "path": "skills/thai-baht-text/SKILL.md",
+    "bytes": 1560,
+    "sha256": "8ca7301858f20381590ac11b855ed0b8268983ef771eff31e6facf22153256b9"
+  },
+  {
+    "path": "skills/thai-baht-text/script.py",
+    "bytes": 1817,
+    "sha256": "8edeb04f18a39c6b5ced0742d2854b85c389d9117c19262b50ba8352e4306b36"
+  },
+  {
+    "path": "skills/thai-date-tools/SKILL.md",
+    "bytes": 1571,
+    "sha256": "4170dad84e23e0a5826b0797ceec3478e33eb6f039af580d65c3342000f5fc7f"
+  },
+  {
+    "path": "skills/thai-date-tools/script.py",
+    "bytes": 853,
+    "sha256": "5f43781dc0585fefe468e764d5161c1f6b4e85c0731256ef121b67ebd6fc7665"
+  },
+  {
+    "path": "skills/trip-fuel-cost/SKILL.md",
+    "bytes": 2116,
+    "sha256": "e3589fb2d5b63f7a99e788f80b65e9cace1ce75db75ff7e80758dd23d6046b47"
+  },
+  {
+    "path": "skills/trip-fuel-cost/script.py",
+    "bytes": 2232,
+    "sha256": "29a48a02378908cf267175cb39b995ac01eb62ab885ea99236d1ed7f42bcec22"
+  },
+  {
+    "path": "skills/unit-convert/SKILL.md",
+    "bytes": 1563,
+    "sha256": "de382db8e36b6fa2b5f63330e4afb71f433a2de06f533c96abce96bc05aabe70"
+  },
+  {
+    "path": "skills/unit-convert/script.py",
+    "bytes": 1037,
+    "sha256": "ba8d55e9a6d4d0a6ad4630fa2c128b67f2f769b8bef77c0420320592785560bd"
+  },
+  {
+    "path": "skills/unit-price/SKILL.md",
+    "bytes": 2180,
+    "sha256": "a6179fa1be65d69c397595104760f4620573e26110c588bf8f1f0bf6c683dd86"
+  },
+  {
+    "path": "skills/unit-price/script.py",
+    "bytes": 3561,
+    "sha256": "27bfa70556edc83810501bd77ac87b633323fe186b6a336fe1f06ac6d8f833ba"
+  },
+  {
+    "path": "skills/vat-and-discount/SKILL.md",
+    "bytes": 1610,
+    "sha256": "149c820e13694694492afaa27ccd5402c4481e71b8617e6384f261ddce45513a"
+  },
+  {
+    "path": "skills/vat-and-discount/script.py",
+    "bytes": 717,
+    "sha256": "ed5e5c3264b4d35ce4d6f2e1505c285dac08d50e2b5e1ae92dbcd39b4b4e6588"
+  },
+  {
+    "path": "skills/world-time/SKILL.md",
+    "bytes": 7822,
+    "sha256": "27e582e141d6373fada17240115f8be9f0a932bd27043e2efc5abafcfb1931a7"
+  },
+  {
+    "path": "skills/world-time/script.py",
+    "bytes": 17401,
+    "sha256": "089dedd8b3a7ec10ab9c6c8e0ecbcada23d76f28f54e0552dd49e4d3e691f3cb"
+  }
+]

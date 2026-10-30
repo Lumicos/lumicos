@@ -1,0 +1,116 @@
+/* Image Edit page */
+.imgedit { padding: 22px 28px 32px; overflow: auto; max-width: 1180px; margin: 0 auto; width: 100%; }
+.imgedit-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.imgedit-head h1 { margin: 0; font-size: 22px; }
+.imgedit-modes { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); }
+.imgedit-modes button { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 0; border-radius: 999px; background: transparent; color: var(--text-2); cursor: pointer; font: inherit; font-size: 14px; }
+.imgedit-modes button:hover:not(:disabled) { color: var(--text); }
+.imgedit-modes button.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--accent-contrast); font-weight: 600; }
+.imgedit-body { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start; }
+.imgedit-canvas { display: flex; flex-direction: column; gap: 12px; align-items: center; padding: 20px; border: 1px solid var(--border); border-radius: 18px; background: var(--bg-elev); min-height: 360px; justify-content: center; }
+.imgedit-drop { display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center; width: 100%; min-height: 320px; border: 2px dashed var(--border-strong); border-radius: 14px; color: var(--text-2); cursor: pointer; transition: border-color .15s, background .15s; }
+.imgedit-drop:hover { border-color: var(--accent); background: var(--accent-soft); }
+.imgedit-drop-icon { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); }
+.imgedit-stage { position: relative; display: inline-block; max-width: 100%; touch-action: none; user-select: none; }
+.imgedit-stage.drawable { cursor: crosshair; }
+.imgedit-stage img { display: block; max-width: 100%; max-height: 66vh; border-radius: 10px; box-shadow: var(--shadow); }
+.imgedit-box { position: absolute; border: 2px solid var(--accent); background: rgba(139, 156, 255, .22); border-radius: 4px; pointer-events: none; }
+.imgedit-busy { position: absolute; inset: 0; display: flex; gap: 8px; align-items: center; justify-content: center; background: var(--scrim); color: #fff; border-radius: 10px; text-align: center; padding: 12px; z-index: 5; }
+.imgedit-extend { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 18px 16px 4px; overflow: visible; }
+.imgedit-frame { position: relative; flex: none; border-radius: 10px; outline: 1px dashed rgba(255,255,255,.28); outline-offset: 0; transition: width .18s ease; touch-action: none; user-select: none; }
+.imgedit-fill { position: absolute; inset: 0; overflow: hidden; border-radius: 10px; background: var(--surface-2); }
+.imgedit-fill img { position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover; filter: blur(26px) saturate(1.25) brightness(.92); opacity: .95; }
+.imgedit-fill::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.28)); }
+.imgedit-fill.pulse img { animation: imgedit-pulse 1.8s ease-in-out infinite; }
+@keyframes imgedit-pulse { 0%, 100% { filter: blur(26px) saturate(1.25) brightness(.92); } 50% { filter: blur(34px) saturate(1.5) brightness(1.08); } }
+.imgedit-reveal { animation: imgedit-reveal .9s ease-out both; }
+@keyframes imgedit-reveal { from { filter: blur(18px) brightness(.9); transform: scale(1.02); } to { filter: blur(0); transform: scale(1); } }
+.imgedit-frame > img { position: absolute; display: block; object-fit: fill; box-shadow: 0 0 0 1px rgba(255,255,255,.12), var(--shadow); border-radius: 2px; }
+.imgedit-edge { position: absolute; display: grid; place-items: center; z-index: 3; touch-action: none; }
+.imgedit-edge.edge-left, .imgedit-edge.edge-right { width: 26px; cursor: ew-resize; margin: 0 -13px; }
+.imgedit-edge.edge-left { left: auto; }
+.imgedit-edge.edge-top, .imgedit-edge.edge-bottom { height: 26px; cursor: ns-resize; margin: -13px 0; }
+.imgedit-edge .grip { display: block; border-radius: 999px; background: var(--accent); border: 2px solid #fff; box-shadow: 0 2px 12px rgba(0,0,0,.55); opacity: .95; transition: opacity .15s, transform .15s; }
+.imgedit-edge.edge-left .grip, .imgedit-edge.edge-right .grip { width: 10px; height: 64px; }
+.imgedit-edge.edge-top .grip, .imgedit-edge.edge-bottom .grip { height: 10px; width: 64px; }
+.imgedit-edge:hover .grip, .imgedit-edge.on .grip { opacity: 1; transform: scale(1.15); background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+.imgedit-edge em { position: absolute; font-style: normal; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--accent); color: var(--accent-contrast); white-space: nowrap; pointer-events: none; }
+.edge-left em { left: 22px; } .edge-right em { right: 22px; } .edge-top em { top: 22px; } .edge-bottom em { bottom: 22px; }
+.imgedit-note { margin: 0; font-size: 12.5px; color: var(--muted); text-align: center; line-height: 1.5; }
+.imgedit-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.imgedit-panel { display: flex; flex-direction: column; gap: 12px; padding: 18px; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); position: sticky; top: 12px; }
+.imgedit-hint { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text-2); }
+.imgedit-panel textarea { width: 100%; resize: vertical; background: var(--bg-elev); color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; font: inherit; }
+.imgedit-panel textarea:focus { outline: none; border-color: var(--accent); }
+.imgedit-presets { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--bg-elev); color: var(--text-2); cursor: pointer; font: inherit; font-size: 13px; }
+.chip:hover:not(:disabled) { border-color: var(--accent); color: var(--text); }
+.chip.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.imgedit-go { justify-content: center; padding: 11px 16px; }
+@media (max-width: 860px) { .imgedit { padding: 14px 12px 28px; } .imgedit-body { grid-template-columns: 1fr; } .imgedit-panel { position: static; } .imgedit-canvas { padding: 12px; } }
+
+.imgedit-compare-wrap { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.imgedit-compare { position: relative; overflow: hidden; border-radius: 10px; box-shadow: var(--shadow); cursor: pointer; touch-action: none; user-select: none; }
+.imgedit-compare img { position: absolute; display: block; object-fit: fill; }
+.imgedit-compare .imgedit-after { inset: 0; width: 100%; height: 100%; }
+.imgedit-before { position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease; background: repeating-conic-gradient(var(--surface-2) 0% 25%, var(--surface) 0% 50%) 0 0 / 20px 20px; }
+.imgedit-compare.show-before .imgedit-before { opacity: 1; }
+.imgedit-tag { position: absolute; top: 10px; left: 10px; padding: 3px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(0,0,0,.55); color: #fff; pointer-events: none; }
+.imgedit-seg { display: inline-flex; padding: 3px; gap: 2px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); }
+.imgedit-seg button { padding: 5px 18px; border: 0; border-radius: 999px; background: transparent; color: var(--text-2); cursor: pointer; font: inherit; font-size: 13px; transition: background .25s, color .25s; }
+.imgedit-seg button.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+.imgedit-paint { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .6; cursor: none; touch-action: none; border-radius: 10px; }
+.imgedit-ring { position: absolute; border: 2px solid #fff; border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; box-shadow: 0 0 0 1px rgba(0,0,0,.5); }
+.imgedit-brush { display: flex; flex-direction: column; gap: 8px; }
+.imgedit-brush label { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--text-2); }
+.chip { display: inline-flex; align-items: center; gap: 5px; }
+
+/* ===== v9 layout polish: จัดคอลัมน์/บรรทัดหน้าทำงาน Image Lab ===== */
+.imgedit-body { grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: stretch; }
+.imgedit-canvas { justify-content: flex-start; align-items: stretch; }
+.imgedit-panel { gap: 14px; padding: 20px; align-self: start; }
+.imgedit-hint { font-size: 13.5px; line-height: 1.7; color: var(--text-2); padding-bottom: 14px; border-bottom: 1px solid var(--border); text-wrap: pretty; }
+.imgedit-panel textarea { line-height: 1.6; min-height: 112px; }
+.imgedit-go {
+  width: 100%; height: 46px; padding: 0 18px; font-size: 0.95rem; font-weight: 650; border-radius: 14px;
+  background: var(--accent); color: var(--accent-contrast); border: 0;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 8px 20px -8px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.imgedit-go:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-1px); }
+.imgedit-go:disabled { background: var(--surface-2); color: var(--muted); box-shadow: none; cursor: not-allowed; }
+.imgedit-panel > small.muted { display: block; text-align: center; font-size: 12.5px; line-height: 1.6; text-wrap: balance; }
+.imgedit-note, .imgedit-merge > small { text-align: left; }
+.imgedit-merge > small { display: block; font-size: 12.5px; line-height: 1.6; padding-top: 2px; }
+.imgedit-merge-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.imgedit-merge-add b { font-size: 0.92rem; text-align: center; line-height: 1.4; padding: 0 10px; text-wrap: balance; }
+.imgedit-merge-add small { font-size: 12px; color: var(--muted); }
+.imgedit-actions { justify-content: flex-start; }
+@media (max-width: 860px) {
+  .imgedit-body { grid-template-columns: 1fr; }
+  .imgedit-hint { padding-bottom: 12px; }
+  .imgedit-go { height: 50px; }
+}
+
+.lab-genbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:0 4px 8px}
+.lab-seg{display:inline-flex;border:1px solid var(--border-strong);border-radius:999px;overflow:hidden;background:var(--bg-elev)}
+.lab-seg button{border:0;background:transparent;color:var(--text-2);padding:7px 14px;font:inherit;font-size:13px;cursor:pointer}
+.lab-seg button.on{background:var(--accent-soft);color:var(--accent)}
+.lab-genbar select{border:1px solid var(--border-strong);border-radius:999px;background:var(--bg-elev);color:var(--text);padding:7px 12px;font:inherit;font-size:13px}
+.lab-round.on{color:var(--accent);background:var(--accent-soft)}
+
+.ratio-wrap{position:relative}
+.ratio-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-strong);border-radius:999px;background:var(--bg-elev);color:var(--text);padding:7px 14px;font:inherit;font-size:13px;cursor:pointer}
+.ratio-ico{display:inline-block;border-radius:3px;background:var(--text-2);opacity:.85}
+.ratio-menu{position:absolute;bottom:calc(100% + 8px);left:0;z-index:30;list-style:none;margin:0;padding:6px;min-width:150px;border-radius:18px;background:var(--surface);border:1px solid var(--border-strong);box-shadow:0 10px 30px #0006}
+.ratio-menu button{width:100%;display:flex;align-items:center;gap:12px;border:0;background:transparent;color:var(--text);padding:10px 12px;border-radius:12px;font:inherit;cursor:pointer;text-align:left}
+.ratio-menu button:hover{background:var(--surface-2)}
+.ratio-menu .ratio-ico{width:auto}
+.ratio-menu span:not(.ratio-ico){flex:1}
+
+.lab-genbar{flex-wrap:nowrap;gap:6px;overflow-x:auto;scrollbar-width:none}
+.lab-genbar>*{flex:none}
+.lab-seg button{padding:7px 11px}
+.lab-genbar select,.ratio-btn{padding:7px 10px}
+.lab-genbar{overflow:visible}
+.ratio-menu{z-index:60}

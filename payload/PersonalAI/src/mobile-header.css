@@ -1,0 +1,7 @@
+/* Phone header: only the menu button (left) and the temporary-chat button (right).
+   The "..." menu and the extra new-chat button are hidden (New chat lives in the drawer). */
+html .workspace-brand, html .mobile-new-chat { display: none !important; }
+@media (max-width: 780px) {
+  html .workspace-top > .workspace-top-actions { display: flex !important; margin-left: auto; }
+  html .workspace-top-actions .private-toggle { display: grid !important; }
+}

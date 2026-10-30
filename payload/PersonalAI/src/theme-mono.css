@@ -1,0 +1,23 @@
+/* Accent = the colour of the moon in the Lumicos logo (no purple). Loaded after theme-clean.css,
+   last. */
+html:root[data-theme="dark"] {
+  --accent: #ececf1;
+  --accent-2: #c9ccd6;
+  --accent-soft: rgba(236, 236, 241, .12);
+  --accent-contrast: #121214;
+  --logo-moon: #ececf1;
+  --logo-star: #b9c0ce;
+}
+html:root[data-theme="light"] {
+  --accent: #242424;
+  --accent-2: #4a4a50;
+  --accent-soft: rgba(36, 36, 36, .07);
+  --accent-contrast: #ffffff;
+  --logo-moon: #242424;
+  --logo-star: #afb5c0;
+}
+
+/* Safety net: text on accent-filled controls is always readable, whatever the theme value is. */
+html:root { --accent-contrast: #121214; }
+html .imgedit-modes button.active { background: var(--text) !important; color: var(--bg) !important; }
+html .imgedit-modes button.active svg { color: var(--bg) !important; stroke: currentColor; }

@@ -1,0 +1,343 @@
+// Model Manager configuration: data/models.json (the user's own choices, never shipped).
+//
+// Safety rules (enforced for every change, from the UI or from the file):
+//   - Only an executable named exactly llama-server(.exe) inside the configured
+//     llama.cpp folder is ever started. No other program, no shell, no custom arguments.
+//   - Model and projector files must be .gguf files with a valid GGUF header, inside
+//     the llama.cpp folder or a model folder the user added.
+//   - Only known options are turned into arguments (context, GPU layers, port,
+//     projector, chat-template file), always as an argument array.
+import fs from 'node:fs';
+import fsp from 'node:fs/promises';
+import path from 'node:path';
+import { randomUUID } from 'node:crypto';
+import { writeAtomic } from '../util/atomicWrite.mjs';
+import { projectorMatches, readGgufInfo } from './gguf.mjs';
+
+export const EXE_NAME = process.platform === 'win32' ? 'llama-server.exe' : 'llama-server';
+export const DEFAULT_LLAMA_DIR = process.platform === 'win32' ? 'C:\\AI\\llama.cpp-b11723-rocm10\\bin' : '';
+/** Ports PersonalAI must never take: the web UI, the service, ComfyUI. */
+export const RESERVED_PORTS = [5173, 4173, 8787, 8188];
+
+export const PRESETS = {
+  balanced: { label: 'Balanced (RX 6600 8 GB)', ctx: 8192, ngl: 99 },
+  'low-vram': { label: 'Low VRAM', ctx: 4096, ngl: 99 },
+  'safe-fallback': { label: 'Safe fallback (part on CPU)', ctx: 4096, ngl: 24 },
+};
+
+const err = (message, status = 400, code = 'MODEL_CONFIG') => Object.assign(new Error(message), { status, code });
+
+// oxlint-disable-next-line no-control-regex -- rejecting control characters is the point
+const BAD_CHARS = /[\x00-\x1f"<>|?*]/;
+
+/** An absolute, local (not network) path without odd characters. */
+export function checkAbsPath(p, what) {
+  const s = String(p ?? '').trim();
+  if (!s) throw err(`${what}: no path given.`);
+  if (BAD_CHARS.test(s.replace(/^[A-Za-z]:/, ''))) throw err(`${what}: the path contains characters that are not allowed.`);
+  if (s.startsWith('\\\\') || s.startsWith('//')) throw err(`${what}: network paths are not allowed; use a folder on this PC.`);
+  if (!path.isAbsolute(s)) throw err(`${what}: use a full path, e.g. C:\\AI\\llama.cpp-b11723-rocm10\\models\\model.gguf`);
+  return path.resolve(s);
+}
+
+const inside = (file, dir) => {
+  const rel = path.relative(dir, file);
+  return !!rel && !rel.startsWith('..') && !path.isAbsolute(rel);
+};
+
+export async function checkLlamaDir(dir) {
+  const abs = checkAbsPath(dir, 'llama.cpp folder');
+  const st = await fsp.stat(abs).catch(() => null);
+  if (!st?.isDirectory()) throw err(`llama.cpp folder not found: ${abs}`, 404, 'NO_LLAMA_DIR');
+  const exe = path.join(abs, EXE_NAME);
+  const est = await fsp.stat(exe).catch(() => null);
+  if (!est?.isFile()) throw err(`${EXE_NAME} was not found in ${abs}. Choose the folder that contains ${EXE_NAME}.`, 404, 'NO_LLAMA_EXE');
+  return { dir: abs, exe };
+}
+
+const defaults = () => ({
+  version: 1,
+  llamaDir: DEFAULT_LLAMA_DIR,
+  modelDirs: [],
+  port: 8080,
+  autoStart: false,
+  retryWithoutVision: true,
+  sleepIdleSeconds: 15,
+  selectedId: null,
+  models: [],
+});
+
+export class ModelConfigStore {
+  constructor(file) {
+    this.file = file;
+    this.data = defaults();
+    this.firstRun = !fs.existsSync(file);
+    if (!this.firstRun) {
+      try {
+        this.data = { ...defaults(), ...JSON.parse(fs.readFileSync(file, 'utf8')) };
+      } catch (e) {
+        const aside = `${file}.corrupt-${Date.now()}`;
+        fs.renameSync(file, aside);
+        console.warn(`[models] models.json is not valid JSON (${e.message}); kept aside as ${path.basename(aside)}. Starting with defaults.`);
+      }
+      // A hand-edited file is checked like input from the UI: a bad or reserved port
+      // (e.g. ComfyUI's 8188) falls back to 8080, and odd template paths are dropped.
+      const port = Number(this.data.port);
+      if (!Number.isInteger(port) || port < 1024 || port > 65535 || RESERVED_PORTS.includes(port)) {
+        console.warn(`[models] port ${this.data.port} in models.json is not allowed; using 8080.`);
+        this.data.port = 8080;
+      }
+      const sleepIdleSeconds=Number(this.data.sleepIdleSeconds);
+      if(!Number.isInteger(sleepIdleSeconds)||sleepIdleSeconds<5||sleepIdleSeconds>60){console.warn(`[models] sleepIdleSeconds ${this.data.sleepIdleSeconds} is not allowed; using 15.`);this.data.sleepIdleSeconds=15}
+      if (Array.isArray(this.data.models)) {
+        for (const m of this.data.models) {
+          if (m?.chatTemplateFile) {
+            try {
+              checkAbsPath(m.chatTemplateFile, 'Chat template file');
+            } catch {
+              m.chatTemplateFile = null;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  get() {
+    return structuredClone(this.data);
+  }
+
+  async save() {
+    await writeAtomic(this.file, JSON.stringify(this.data, null, 2), { backup: true });
+  }
+
+  /** Folders where model files may live. */
+  roots() {
+    const list = [];
+    if (this.data.llamaDir) list.push(path.resolve(this.data.llamaDir));
+    for (const d of this.data.modelDirs ?? []) list.push(path.resolve(d));
+    return list;
+  }
+
+  /** A .gguf inside an allowed folder, with a readable header. */
+  async checkGguf(p, what, { projector }) {
+    const abs = checkAbsPath(p, what);
+    if (path.extname(abs).toLowerCase() !== '.gguf') throw err(`${what} must be a .gguf file.`);
+    if (!this.roots().some((r) => inside(abs, r))) {
+      throw err(`${what} must be inside the llama.cpp folder or a model folder you added (Settings → AI Models → Model folders).`, 403, 'OUTSIDE_ROOTS');
+    }
+    const real = await fsp.realpath(abs).catch(()=>abs);
+    const roots = await Promise.all(this.roots().map(r=>fsp.realpath(r).catch(()=>r)));
+    if(!roots.some(r=>inside(real,r)))throw err('Model symlink resolves outside allowed folders.',403);
+    const st = await fsp.stat(abs).catch(() => null);
+    if (!st?.isFile()) throw err(`${what} not found: ${abs}`, 404);
+    let info;
+    try {
+      info = await readGgufInfo(abs);
+    } catch (e) {
+      throw err(`${what}: ${e.message}`, 422, 'BAD_GGUF');
+    }
+    if (projector && !info.isProjector) throw err(`${what}: this is a language model, not a vision projector (mmproj).`, 422);
+    if (!projector && info.isProjector) throw err(`${what}: this is a vision projector (mmproj). Choose it as the projector, not as the model.`, 422);
+    return { path: abs, size: st.size, info };
+  }
+
+  async setGeneral(patch) {
+    const next = { ...this.data };
+    if (patch.llamaDir !== undefined) next.llamaDir = (await checkLlamaDir(patch.llamaDir)).dir;
+    if (patch.modelDirs !== undefined) {
+      if (!Array.isArray(patch.modelDirs) || patch.modelDirs.length > 10) throw err('modelDirs must be a list (max 10).');
+      next.modelDirs = [];
+      for (const d of patch.modelDirs) {
+        const abs = checkAbsPath(d, 'Model folder');
+        if (!(await fsp.stat(abs).catch(() => null))?.isDirectory()) throw err(`Model folder not found: ${abs}`, 404);
+        next.modelDirs.push(abs);
+      }
+    }
+    if (patch.port !== undefined) {
+      const port = Number(patch.port);
+      if (!Number.isInteger(port) || port < 1024 || port > 65535) throw err('Port must be a whole number between 1024 and 65535.');
+      if (RESERVED_PORTS.includes(port)) throw err(`Port ${port} is used by PersonalAI or ComfyUI; choose another (8080 is usual).`);
+      next.port = port;
+    }
+    if (patch.autoStart !== undefined) next.autoStart = !!patch.autoStart;
+    if (patch.retryWithoutVision !== undefined) next.retryWithoutVision = !!patch.retryWithoutVision;
+    if(patch.sleepIdleSeconds!==undefined){const seconds=Number(patch.sleepIdleSeconds);if(!Number.isInteger(seconds)||seconds<5||seconds>60)throw err('Sleep idle seconds must be a whole number between 5 and 60.');next.sleepIdleSeconds=seconds}
+    this.data = next;
+    await this.save();
+    return this.get();
+  }
+
+  /** Adds or updates a model entry after validating every field. */
+  async upsertModel(input) {
+    const capabilities = {text:true,vision:input.capabilities?.vision===true,tools:input.capabilities?.tools===true};
+    if(capabilities.vision && !input.mmproj) throw err('Vision requires a projector.');
+    const generation={temperature:Number(input.generation?.temperature??.8),topP:Number(input.generation?.topP??.95),maxTokens:Number(input.generation?.maxTokens??1024)};
+    if(!Number.isFinite(generation.temperature)||generation.temperature<0||generation.temperature>2||!Number.isFinite(generation.topP)||generation.topP<=0||generation.topP>1||!Number.isInteger(generation.maxTokens)||generation.maxTokens<1||generation.maxTokens>32768)throw err('Invalid generation defaults.');
+    if(input.toolFormat && !['json-block','none'].includes(input.toolFormat))throw err('Unsupported tool format. Use json-block or none.');
+    if(capabilities.tools && input.toolFormat==='none')throw err('Tools require json-block format.');
+    const model = await this.checkGguf(input.path, 'Model file', { projector: false });
+    let mmproj = null;
+    let pairing = null;
+    if (input.mmproj) {
+      const proj = await this.checkGguf(input.mmproj, 'Projector (mmproj) file', { projector: true });
+      pairing = projectorMatches(model.info, proj.info);
+      if (pairing.ok === false) throw err(`This projector does not fit the model: ${pairing.reason}`, 422, 'PROJECTOR_MISMATCH');
+      mmproj = proj.path;
+    }
+    let chatTemplateFile = null;
+    if (input.chatTemplateFile) {
+      const abs = checkAbsPath(input.chatTemplateFile, 'Chat template file');
+      if (path.extname(abs).toLowerCase() !== '.jinja') throw err('The chat template must be a .jinja file.');
+      if (!this.roots().some((r) => inside(abs, r))) throw err('The chat template file must be inside the llama.cpp folder or a model folder.', 403);
+      const st = await fsp.stat(abs).catch(() => null);
+      if (!st?.isFile() || st.size > 512 * 1024) throw err('Chat template file not found or too large (max 512 KB).');
+      chatTemplateFile = abs;
+    }
+    const ctx = Math.round(Number(input.ctx ?? 8192));
+    const ngl = Math.round(Number(input.ngl ?? 99));
+    if (!(ctx >= 512 && ctx <= 262144)) throw err('Context size must be between 512 and 262144 tokens.');
+    if (!(ngl >= 0 && ngl <= 999)) throw err('GPU layers must be between 0 and 999.');
+
+    const existing = input.id ? this.data.models.find((m) => m.id === input.id) : null;
+    if (input.id && !existing) throw err('Model entry not found.', 404);
+    const entry = {
+      id: existing?.id ?? randomUUID(),
+      name: String(input.name ?? '').trim().slice(0, 80) || model.info.name || path.basename(model.path, '.gguf'),
+      path: model.path,
+      mmproj,
+      ctx,
+      ngl,
+      chatTemplateFile,
+      capabilities, generation, toolFormat: capabilities.tools ? 'json-block' : 'none',
+      size: model.size,
+      architecture: model.info.architecture ?? null,
+      trainedContext: model.info.contextLength ?? null,
+      pairing: pairing?.reason ?? null,
+      updatedAt: new Date().toISOString(),
+    };
+    this.data.models = existing ? this.data.models.map((m) => (m.id === entry.id ? entry : m)) : [...this.data.models, entry];
+    if (!this.data.selectedId) this.data.selectedId = entry.id;
+    await this.save();
+    return entry;
+  }
+
+  async removeModel(id) {
+    if (!this.data.models.some((m) => m.id === id)) throw err('Model entry not found.', 404);
+    this.data.models = this.data.models.filter((m) => m.id !== id);
+    if (this.data.selectedId === id) this.data.selectedId = this.data.models[0]?.id ?? null;
+    await this.save();
+    return { id };
+  }
+
+  async select(id) {
+    if (!this.data.models.some((m) => m.id === id)) throw err('Model entry not found.', 404);
+    this.data.selectedId = id;
+    await this.save();
+    return this.get();
+  }
+
+  selected() {
+    return this.data.models.find((m) => m.id === this.data.selectedId) ?? null;
+  }
+
+  /** Lists .gguf files (with header info) in the allowed folders. Read-only. */
+  async scan() {
+    // Walks each model folder up to 3 levels deep, so "models\\<new-model>\\file.gguf" is found
+    // after the user drops a folder in and presses Refresh.
+    const out = [];
+    const seen = new Set();
+    const walk = async (dir, depth) => {
+      const entries = await fsp.readdir(dir, { withFileTypes: true }).catch(() => []);
+      for (const e of entries) {
+        const abs = path.join(dir, e.name);
+        if (e.isDirectory()) {
+          if (depth < 3 && !e.name.startsWith('.') && !/^(node_modules|__pycache__|\$recycle\.bin)$/i.test(e.name)) await walk(abs, depth + 1);
+          continue;
+        }
+        if (!e.isFile() || path.extname(e.name).toLowerCase() !== '.gguf') continue;
+        const key = abs.toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const st = await fsp.stat(abs);
+        // llama.cpp ships tokenizer-only test files (ggml-vocab-*.gguf); they are not models.
+        if (/^ggml-vocab-/i.test(e.name) || st.size < 20 * 1024 * 1024) continue;
+        let info = null;
+        let error = null;
+        try {
+          info = await readGgufInfo(abs);
+        } catch (x) {
+          error = x.message;
+        }
+        out.push({
+          path: abs,
+          name: e.name,
+          folder: path.basename(dir),
+          size: st.size,
+          isProjector: !!info?.isProjector,
+          architecture: info?.architecture ?? null,
+          modelName: info?.name ?? null,
+          contextLength: info?.contextLength ?? null,
+          embeddingLength: info?.embeddingLength ?? null,
+          projectionDim: info?.projectionDim ?? null,
+          error,
+        });
+      }
+    };
+    for (const root of this.roots()) await walk(root, 0);
+    return out.sort((a, b) => a.path.localeCompare(b.path));
+  }
+
+  /** Projectors that may fit a model: definite matches first, "unknown" next, mismatches left out. */
+  static suggestProjectors(model, files) {
+    const stem = (n) => n.toLowerCase().replace(/\.gguf$/, '').replace(/^mmproj[-_]?/, '').replace(/[-_.](q\d.*|f16|f32|bf16)$/i, '');
+    return files
+      .filter((f) => f.isProjector)
+      .map((f) => {
+        const pairing = projectorMatches({ embeddingLength: model.embeddingLength }, { isProjector: true, projectionDim: f.projectionDim });
+        const nameMatch = stem(model.name).startsWith(stem(f.name)) || stem(f.name).startsWith(stem(model.name));
+        return { ...f, pairing, nameMatch };
+      })
+      .filter((f) => f.pairing.ok !== false)
+      .sort((a, b) => Number(b.pairing.ok === true) - Number(a.pairing.ok === true) || Number(b.nameMatch) - Number(a.nameMatch));
+  }
+
+  /**
+   * First run on the user's PC: register the Gemma model (and its matching projector)
+   * found in <llama.cpp>\models. Nothing is started unless autoStart ends up true.
+   */
+  async autoDetect() {
+    if (!this.firstRun || this.data.models.length) return null;
+    try {
+      await checkLlamaDir(this.data.llamaDir);
+    } catch {
+      return null;
+    }
+    const files = await this.scan();
+    const models = files.filter((f) => !f.isProjector && !f.error);
+    const pick = models.find((f) => /gemma-?4.*e4b.*q4_k_m/i.test(f.name)) ?? (models.length === 1 ? models[0] : null);
+    if (!pick) {
+      await this.save();
+      return null;
+    }
+    const proj = ModelConfigStore.suggestProjectors(pick, files)[0];
+    const entry = await this.upsertModel({ path: pick.path, mmproj: proj?.nameMatch || proj?.pairing.ok ? proj.path : null, ctx: 8192, ngl: 99 });
+    this.data.autoStart = true;
+    await this.save();
+    return entry;
+  }
+
+  /** The exact argument list for llama-server. No shell is involved. */
+  buildArgs(model, { withVision = true } = {}) {
+    // Dedicated KV buffers prevent summary/image helper requests from evicting the chat prefix.
+    // Normal chat has two 8k slots (chat + helper); call mode is a separate one-slot model.
+    const parallel=this.callResident?1:2;
+    const totalContext=model.ctx*parallel;
+    const args = ['-m', model.path, '-c', String(totalContext), '-ngl', String(model.ngl), '--host', '127.0.0.1', '--port', String(this.data.port), '--jinja', '--no-kv-unified', '-np', String(parallel), '--sleep-idle-seconds', this.callResident ? '-1' : String(this.data.sleepIdleSeconds)];
+    if (withVision && model.mmproj) args.push('--mmproj', model.mmproj);
+    if (model.chatTemplateFile) args.push('--chat-template-file', model.chatTemplateFile);
+    // Extra llama-server flags for one model entry (e.g. MoE expert placement); set by hand in data/models.json.
+    if (Array.isArray(model.extraArgs)) args.push(...model.extraArgs.filter((a) => typeof a === 'string' && a.length <= 512));
+    return args;
+  }
+}

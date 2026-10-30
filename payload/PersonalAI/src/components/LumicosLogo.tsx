@@ -1,0 +1,1 @@
+export function LumicosLogo({className=""}:{className?:string}){return <span className={"lumicos-logo "+className} role="img" aria-label="Lumicos"><img src="/lumicos-logo.png" alt="Lumicos" style={{width:"100%",height:"100%",objectFit:"contain"}}/></span>}

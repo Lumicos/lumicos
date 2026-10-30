@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.runtime/
+.build/
+__pycache__/
+*.log
+# never commit a personal install
+payload/PersonalAI/data/
+payload/PersonalAI/workspace/
+models/
+last-plan.json

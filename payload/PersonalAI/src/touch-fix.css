@@ -1,0 +1,73 @@
+/* No light-blue flash / accidental text selection when tapping or double-clicking interface controls.
+   Message text, inputs and code stay selectable. */
+html { -webkit-tap-highlight-color: transparent; }
+html button, html [role="button"], html [role="tab"], html [role="menuitem"], html summary, html a,
+html .sidebar, html .side-nav, html .history-item, html .char-card, html .starter-cards, html .chip,
+html .segmented, html .icon-btn, html .fab, html .tool-btn, html .send-btn, html .act-btn, html .model-switcher,
+html .private-toggle, html .modal-header, html .page-header, html .composer-attachments {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+html input, html textarea, html [contenteditable="true"], html .msg-content, html .msg-content *, html pre, html code {
+  -webkit-user-select: text;
+  user-select: text;
+}
+/* mouse clicks don't leave a focus ring; keyboard focus still shows one */
+html :focus:not(:focus-visible) { outline: none; }
+
+/* ---- theme undo toast ---- */
+.theme-undo{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 90px);transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:10px;padding:8px 10px 8px 16px;border-radius:999px;background:var(--surface-2);color:var(--text);border:1px solid var(--border-strong);box-shadow:var(--shadow);font-size:14px;animation:m-pop .25s var(--ease) both}
+.theme-undo button{border:0;border-radius:999px;padding:6px 14px;background:var(--accent);color:var(--accent-contrast);font:inherit;font-weight:600;cursor:pointer}
+.theme-undo button.ghost{background:transparent;color:var(--muted);padding:6px 8px}
+
+/* ---- settings: AI themes ---- */
+.ct-box{display:flex;flex-direction:column;gap:10px;padding:12px 0}
+.ct-head{display:flex;flex-direction:column;gap:2px}
+.ct-head span,.ct-empty{font-size:13px;color:var(--muted);margin:0}
+.ct-actions{display:flex;gap:8px;flex-wrap:wrap}
+.ct-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ct-list li{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:var(--surface-2)}
+.ct-list li.on{outline:2px solid var(--accent)}
+.ct-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct-swatch{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.ct-swatch i{width:16px;height:22px;display:block}
+
+/* ---- gallery: filters, kind badge, placeholders ---- */
+.gallery-filters{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}
+.gallery-filters button{border:1px solid var(--border);background:transparent;color:var(--text-2);border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.gallery-filters button em{font-style:normal;font-size:12px;color:var(--muted)}
+.gallery-filters button.active{background:var(--accent-soft);color:var(--accent);border-color:var(--border-strong)}
+.gallery-kind{position:absolute;left:8px;top:8px;padding:2px 9px;border-radius:999px;font-size:11.5px;background:rgba(0,0,0,.55);color:#fff;pointer-events:none}
+.gallery-wait{display:block;width:100%;height:100%;background:var(--surface-2)}
+.gallery-open{width:100%}
+
+.imgedit-create-stage{min-height:46vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.imgedit-check{display:flex;gap:8px;align-items:center;font-size:13.5px;color:var(--text-2)}
+
+/* ---- theme library ---- */
+.themelib h2{font-size:15px;margin:22px 0 10px;color:var(--text-2);font-weight:600}
+.tl-actions{display:flex;gap:8px;flex-wrap:wrap}
+.tl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.tl-card{margin:0;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--surface)}
+.tl-card.on{outline:2px solid var(--accent)}
+.tl-preview{display:flex;flex-direction:column;gap:7px;width:100%;aspect-ratio:4/3;padding:12px;border:0;cursor:pointer;text-align:left}
+.tl-msg{font-size:11px;padding:6px 9px;max-width:80%;line-height:1.4}
+.tl-msg.me{align-self:flex-end;width:42%;height:18px;padding:0}
+.tl-bar{margin-top:auto;height:22px;display:flex;align-items:center;justify-content:flex-end;padding:0 5px}
+.tl-bar i{width:14px;height:14px;border-radius:50%}
+.tl-card figcaption{display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:14px}
+.tl-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tl-card small{color:var(--muted)}
+.tl-card em{font-style:normal;font-size:12px;color:var(--accent)}
+.themelib{padding:8px 0}.tl-title{margin:0 0 4px;font-size:15px}
+.themelib .tl-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+
+/* settings > character summary: let the description take the free width; button wraps below on phones */
+.char-summary{flex-wrap:wrap}
+.char-summary > div:not(.grow){flex:1 1 140px;min-width:0}
+@media (max-width:780px){
+  .char-summary .grow{display:none}
+  .char-summary .btn{flex:1 1 100%;justify-content:center}
+}
