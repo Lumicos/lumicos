@@ -1,0 +1,21 @@
+name: Feature request
+description: Explain a user need and a bounded proposal.
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior and alternatives
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Hardware, privacy and dependency implications
+      description: Check docs/FEATURE_STATUS.md first. No delivery date is promised.

@@ -1,149 +1,113 @@
+<p align="center"><img src="assets/lumicos-logo.png" alt="Lumicos logo" width="200"></p>
+
 # Lumicos
 
-[ภาษาไทย](README.th.md)
+**Your AI. Your Machine. Your Control.**
 
-**A local-first personal AI that runs on one mid-range gaming PC.**
-Chat, voice, web search, a local knowledge library, image generation and background agents, with no cloud service in the loop.
+A local-first AI assistant for Windows, built to make powerful AI accessible on everyday hardware.
 
-> **Status: early public snapshot (v0.2.3).** Built and tested on one machine (Windows 11, AMD RX 6600 8 GB). Expect rough edges. Some features from my day-to-day build are not in this snapshot yet (see [What's not here yet](#whats-not-here-yet)).
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![Platform: Windows 11 x64](https://img.shields.io/badge/platform-Windows%2011%20x64-blue)
+[![GitHub stars](https://img.shields.io/github/stars/Lumicos/lumicos)](https://github.com/Lumicos/lumicos)
 
----
+[ภาษาไทย](README.th.md) · [Install guide](docs/INSTALLATION.md) · [Feature status](docs/FEATURE_STATUS.md)
 
-## What it can do
+Chat with local GGUF models, keep editable memories and notes, and read replies aloud with Microsoft Pattara. The public source also includes experimental voice calls, ComfyUI image workflows and background research jobs.
 
-**Chat**
-- Everyday chat with a built-in assistant ("Nova"), your own characters and a roleplay mode, and a private mode that keeps no memory and never searches
-- Long-term memory you can view and edit; older messages that no longer fit the context window are recalled when relevant
-- Tools the model can call: web search, a sandboxed Python runner, read/write files in your workspace (writes need approval), date/time, image generation, skills
+> **Early public snapshot, version 0.2.3.** No GitHub Release or downloadable public installer has been verified as of 30 October 2026. Start with the source instructions below. This is not a hardware compatibility certification.
 
-**Voice**
-- Read answers aloud and talk hands-free in a call mode (speech-to-text → LLM → text-to-speech)
-- In this public build, speech output uses the Thai voice built into Windows (Microsoft Pattara) on the CPU
+## Demo
 
-**Knowledge & web**
-- A router decides per question: answer directly, search your local notes, search the web, or both
-- A local knowledge library (Markdown notes + SQLite index) that answers can be saved into
+A verified screenshot or recording is still needed. See the [capture guide](docs/DEMO_CAPTURE_GUIDE.md); existing benchmark charts are measurements, not screenshots of the app.
 
-**Images**
-- Create and edit images through ComfyUI running on PyTorch **ROCm** (AMD) or CUDA (NVIDIA), Z-Image Turbo in the default install
+## Why Lumicos?
 
-**Background agents**
-- "Research X and save it to my notes", scheduled summaries, trip plans and quizzes exported to Word/Excel
-- Agents always yield the GPU to chat and calls
+**Built and tested on an AMD RX 6600 8GB — because local AI shouldn't require a workstation GPU.**
 
-**Skills**
-- 14 small built-in skills (VAT, loan instalments, unit conversion, Thai baht text, Thai dates, bill splitting, …); add your own as a folder with a `SKILL.md`
+The developer's reference machine is a Ryzen 5 3600, RX 6600 8GB and 32GB RAM running Windows 11 with ROCm. That history includes a private daily build; it is not a clean-install test of every public feature.
 
-## How it works
+- Keep model inference and application data on your own machine.
+- Coordinate chat, image jobs and background work on one GPU.
+- Inspect the source, model settings and saved memory.
 
-```
- Browser / phone PWA (React + Vite)
-          │  /api
-          ▼
- Lumicos local service (Node.js, 127.0.0.1 only)
-  ├─ Chat service ── prompt builder, tool router, memory, recall
-  ├─ Knowledge router ── local library (SQLite) │ web search
-  ├─ Agents ── queue, scheduler, document export
-  ├─ Voice ── call controller, STT/TTS lifecycle
-  └─ Model manager ── starts/switches llama.cpp profiles
-          │
- ┌────────┼──────────────┬──────────────┬───────────────┐
- llama.cpp        whisper.cpp      Windows TTS      ComfyUI
- (CUDA/ROCm/       (STT)           (Pattara)        (PyTorch ROCm
-  Vulkan/CPU)                                        or CUDA)
-```
+Downloads and optional web search require internet. The Python sandbox can access the public internet. “Local-first” does not mean every operation is offline.
 
-Design rules:
+## Features
 
-- **Everything is local.** Services bind to `127.0.0.1`. No telemetry, no cloud API.
-- **The model never touches the disk directly.** It writes a tool request as text; the service validates the path, checks permissions, and asks before any write.
-- **One GPU, many jobs.** A model manager swaps llama.cpp profiles, and background work waits while you chat or talk.
-- **Code backs up the prompt.** Small models break prompt rules, so important limits (paths, permissions, private mode) are enforced in code.
+- **Local chat:** llama.cpp model management, GGUF files, Nova assistant and conversation history.
+- **Memory and knowledge:** editable memories, recall, Markdown knowledge library and routing between local notes and optional web search.
+- **Voice:** CPU speech output using **Microsoft Pattara only**; Whisper input and call orchestration are experimental.
+- **Images and agents:** experimental ComfyUI workflows, research/scheduled jobs and document exports.
+- **Tools:** workspace file operations, Windows AppContainer Python sandbox and 14 bundled utility skills.
 
-## Repository layout
+See [Feature status](docs/FEATURE_STATUS.md) for source/test evidence, configuration gates and features that are **not included**, including a general MCP client and DaVinci Resolve integration.
 
-| Path | What it is |
-|---|---|
-| `payload/PersonalAI/` | the app: Node.js service (`server/`) and React UI (`src/`) |
-| `payload/LumicosSearchMCP/` | web search helper (Python) |
-| `payload/Lumicos-Sandbox/` | sandboxed Python runner for code execution (Windows AppContainer) |
-| `payload/skills/` | built-in skills |
-| `payload/custom_nodes/` | two small ComfyUI nodes that free GPU memory between jobs |
-| `src/`, `catalog/`, `scripts/` | the Windows installer: hardware detection, pinned downloads, setup |
-| `tests/` | installer tests |
-| `docs/charts/` | benchmark charts and the script that draws them |
+## Hardware compatibility
 
-## Install (Windows 11, beta)
-
-The installer detects your hardware and picks a profile:
-
-- **NVIDIA** → llama.cpp CUDA 12.4 / 13.4 (Vulkan if the driver is too old)
-- **AMD RX 6000 / 7000 / 9000** → llama.cpp ROCm with the right `gfx` target
-- **Intel or unknown GPU** → Vulkan chat only; **no GPU** → CPU
-- Image generation only when a CUDA/ROCm card with ≥ 8 GB is verified
-
-It downloads pinned, checksum-verified runtimes (Node.js, uv/Python, llama.cpp, whisper.cpp, ComfyUI), sets up the sandbox, builds the app, then opens `MODELS.html` listing the models to download yourself from Hugging Face:
-
-| Model | Size | Licence |
+| Hardware | Installer selection | Evidence level |
 |---|---|---|
-| Google Gemma 4 E2B-it QAT Q4_0 (calls, small PCs) | 3.1 GB | Apache-2.0 |
-| Google Gemma 4 E4B-it QAT Q4_0 (chat, ≥ 12 GB VRAM) | 4.8 GB | Apache-2.0 |
-| whisper large-v3-turbo q5_0 | 0.5 GB | MIT |
-| Z-Image Turbo + Qwen3 4B encoder + VAE | ~19 GB | Apache-2.0 |
+| RX 6600 8GB | ROCm / gfx1032; CPU Whisper | Developer reference machine; public clean install pending |
+| Recognized RX 6000/7000/9000 | ROCm target selected by model | Detection logic tested, not certification |
+| NVIDIA | CUDA 12.4/13.4 or Vulkan fallback | Driver-dependent selection; target-machine tests needed |
+| Other GPU / no GPU | Vulkan chat / CPU chat | Availability and speed require validation |
 
-Free disk: 15 GB for chat + voice, 80 GB with images. Needs internet during install. Not code-signed yet, so Windows will warn you. Fully tested only on the author's PC; NVIDIA and newer AMD cards still need real-world reports.
+Image setup requires a recognized CUDA/ROCm GPU with approximately 8GiB dedicated VRAM (the selector uses a 7.5GiB threshold). Not every model fits in 8GB: larger models may use CPU/RAM offloading. Quantization, context, model architecture and configuration all affect performance. See [installation details](docs/INSTALLATION.md).
 
-**From source:** `Install.cmd` runs the installer from this folder. To build the single-file `Lumicos-Setup.exe`: `powershell -ExecutionPolicy Bypass -File scripts/build-launcher.ps1`. Tests: `npm test` (installer) and, inside `payload/PersonalAI`, `npm ci && npm run build` then `node --test server/test/<file>.test.mjs`.
+## Quick start
 
-## Benchmarks (one PC: Ryzen 5 3600, 32 GB RAM, RX 6600 8 GB)
+Windows 11 x64 is required. Use a new folder, keep enough disk space, and do not install over an existing personal setup.
 
-My own runs, 20–30 Oct 2026, mostly on my day-to-day build. Small samples on one machine: a field report, not a leaderboard. Each chart names its test and date.
+```powershell
+git clone https://github.com/Lumicos/lumicos.git
+cd lumicos
+.\Install.cmd
+```
 
-Everything below ran on AMD's ROCm stack under Windows: llama.cpp's ROCm/HIP build for language models and ComfyUI on PyTorch ROCm for images and video. No NVIDIA card involved.
+Review the detected hardware and destination. The installer downloads its runtimes and may request acceptance of CPU Whisper. After setup, review `MODELS.html`, download the selected models, run `Link Downloaded Models.cmd` if downloading manually, then `Check Installation.cmd` and `Start Lumicos.cmd` in the installed folder.
 
-![Model speed](docs/charts/01-model-speed.png)
+**Before installing:** read the [known issues and prerequisites](docs/INSTALLATION.md). A successful source test or EXE extraction is not a successful clean install. [Release checklist](docs/RELEASE_CHECKLIST.md).
 
-![MoE offload sweep](docs/charts/02-moe-offload-sweep.png)
+## Model support
 
-The trick that made a 26B model usable on 8 GB: keep the Mixture-of-Experts weights in system RAM (`-ncmoe`) instead of splitting whole layers, add the MTP draft head, and use the QAT Q4_0 file so a few more experts fit on the card.
+The [model catalog](catalog/models.json) pins Gemma 4 E2B/E4B GGUF, Whisper large-v3-turbo and the default Z-Image components. Weights are separate downloads; read the upstream model terms. Other GGUF files depend on the bundled llama.cpp build and the model's capabilities. The 26B/MTP profiles shown in developer benchmarks are not supplied as ready-to-use public profiles.
 
-![Coding accuracy](docs/charts/03-coding-accuracy.png)
+## Architecture overview
 
-![Coding settings](docs/charts/04-coding-settings.png)
+```mermaid
+flowchart TD
+  UI[React / Vite browser UI] --> API[Local Node.js service]
+  API --> Chat[Chat, memory and knowledge]
+  API --> Jobs[Background jobs and scheduling]
+  API --> Voice[Whisper input / Pattara output]
+  Chat --> Llama[llama.cpp / GGUF]
+  API --> GPU[Model lifecycle and GPU queue]
+  GPU --> Comfy[ComfyUI images]
+  API --> Tools[Workspace tools / Python sandbox]
+  Chat --> Web[Optional internet search]
+```
 
-![Long context](docs/charts/05-long-context.png)
+Source entry points and trust boundaries are in [Feature status](docs/FEATURE_STATUS.md) and [Security](SECURITY.md).
 
-![Call latency](docs/charts/06-call-latency.png)
+## Benchmarks
 
-![Image models](docs/charts/10-image-models.png)
+Existing developer results include **46.4 tok/s** for E4B Q5_K_M (`llama-bench tg128`) and **22.9 tok/s** for a 26B QAT Q4_0 offload + MTP configuration (`llama-server`). These are different workloads, not an apples-to-apples ranking or public-install guarantee. [Methods, existing charts and missing raw-data caveats](docs/BENCHMARKS.md).
 
-![Image generation](docs/charts/09-image-generation.png)
+## Current limitations
 
-![VAE decode](docs/charts/07-video-vae-decode.png)
+Thai-first; small models still make mistakes. Full calls, images, scheduling and sandbox setup need end-to-end validation on fresh machines. Optional knowledge embedding components need their own model/runtime preparation. There is no official macOS/Linux installer, signed public EXE, or complete clean-install validation in this review. [Known issues](docs/INSTALLATION.md).
 
-![Image to video](docs/charts/08-video-i2v-time.png)
+## Roadmap
 
-### AI video generation: tried, then dropped
+Proposed next steps, not delivered features: clean-install evidence on AMD/NVIDIA/CPU, reviewed screenshots, broader model/configuration tests and clearer setup diagnostics. General MCP, Resolve control, automatic durable-memory capture and newer call features remain outside this public snapshot. [Status and release gates](docs/FEATURE_STATUS.md).
 
-I spent a few days on Wan 2.2 5B Turbo (text-to-video and image-to-video) and stopped. On an 8 GB card a 4–5 second clip took 6 to 17 minutes, 832×480 crashed the GPU during decoding, and the results were not good enough: faces in text-to-video were poor, and image-to-video motion looked fast-forwarded rather than cinematic. Lumicos keeps editing tools for real footage (ffmpeg, DaVinci Resolve) instead of generating video.
+## Contributing
 
-Things that did **not** help on this card: llama.cpp `--moe-cache-mib`, letting the model "think" for coding, a DRY sampler, and 16k/32k context for everyday chat.
+Read [CONTRIBUTING.md](CONTRIBUTING.md). Bug, feature and hardware report templates are included. Please use synthetic examples and redact logs. [Code of conduct](CODE_OF_CONDUCT.md).
 
-## What's not here yet
+## Security
 
-My day-to-day build has a few newer pieces that will come to this repo after clean-up:
+Read [SECURITY.md](SECURITY.md) before sharing a vulnerability. Do not post credentials, private chats or exploit details in a public issue. Private reporting still needs maintainer activation.
 
-- Web search *during* phone calls (with page reading for live prices) and "do it after the call" task notes
-- Automatic long-term memory (notices durable facts, skips moods and one-off questions)
-- Video tools (ffmpeg stabilise/colour/reformat, Thai subtitles), DaVinci Resolve control, MCP client
-- Model profiles for the 26B MoE setup shown in the benchmarks
+## License
 
-## Honest limits
-
-- Thai-first; English works but is less tuned
-- 8 GB VRAM decides a lot: voice plus a big model don't fit at once
-- Small models can still be wrong; check facts that matter
-
-## Licence
-
-MIT for the code in this repository (see `LICENSE`). Downloaded runtimes and models keep their own licences (see `THIRD-PARTY-NOTICES.md`); the ComfyUI nodes in `payload/custom_nodes` run inside ComfyUI (GPL-3.0).
+Repository code is [MIT](LICENSE). Downloaded runtimes, models and components retain their own terms; see [third-party notices](THIRD-PARTY-NOTICES.md). A code license does not grant rights to model weights.
