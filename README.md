@@ -14,7 +14,7 @@ A local-first AI assistant for Windows, built to make powerful AI accessible on 
 
 Chat with local GGUF models, keep editable memories and notes, and read replies aloud with Microsoft Pattara. The public source also includes experimental voice calls, ComfyUI image workflows and background research jobs.
 
-> **Early public snapshot, version 0.2.3.** No GitHub Release or downloadable public installer has been verified as of 30 October 2026. Start with the source instructions below. This is not a hardware compatibility certification.
+> **Experimental Windows installer, v0.2.3-beta.** [Download the Pre-release](https://github.com/Lumicos/lumicos/releases/tag/v0.2.3-beta). **This installer has never been tested on another computer.** A complete fresh installation with runtime/model downloads has not been validated. Unsigned; not hardware compatibility certification.
 
 ## Demo
 

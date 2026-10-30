@@ -1,5 +1,7 @@
 # Release checklist â€” proposed v0.2.3-beta
 
+> Publication update (30 October 2026): the owner authorized v0.2.3-beta as an experimental Pre-release. **This installer has never been tested on another computer.** Full fresh installation remains unvalidated. Earlier unpublished/build-audit statements below describe the previous audit, not completion of those remaining checks. See [release notes](RELEASE_NOTES_v0.2.3-beta.md).
+
 **Decision: draft notes only. No release candidate certified and no release published.** This review did not perform a fresh complete install. The earlier developer-local EXE is a separate artifact and must not be presented as a tested build of this branch.
 
 ## Repository and package gates

@@ -1,16 +1,22 @@
-# v0.2.3-beta — DRAFT / NOT RELEASED
+# v0.2.3-beta — Experimental Windows Pre-release
 
-Lumicos is an early Windows 11 x64 local-first AI assistant. This proposed release would package the existing public GGUF chat, editable memory, Pattara-only speech and experimental knowledge, voice-call, ComfyUI and agent systems after clean-install validation.
+**ยังไม่เคยทดสอบติดตั้งบนเครื่องอื่น**
 
-Repository preparation adds clearer bilingual onboarding, public/private feature boundaries, contributor and security guidance, hardware/bug templates, benchmark provenance notes and exact-byte payload checkout rules. Core model, memory, agent and GPU code is unchanged by the documentation work.
+**This installer has never been tested on another computer.** A complete fresh installation, including runtime and model downloads, has not been validated. This is an unsigned Windows 11 x64 experimental installer, not a stable release or a hardware compatibility certification. Use a new installation folder.
 
-## Known limitations
+## Included
 
-- No complete fresh-install verification for this candidate yet; no download link or binary attached.
-- Hardware profiles are not compatibility guarantees. CPU/RAM offload may be required for large models.
-- Microsoft Pattara must be installed separately in Windows; Whisper input may run on CPU.
-- Weights are not bundled; upstream terms apply. Optional downloads/search/sandbox networking require internet.
-- Private 26B/MTP profiles, general MCP/Resolve integration, newer call and automatic memory features are not part of this snapshot.
-- No signed installer, broad hardware certification or end-to-end quality guarantee.
+- Public Lumicos snapshot with local GGUF chat and experimental knowledge, memory, voice-call, image and agent features; see the feature status document for boundaries.
+- Pattara-only speech option. Microsoft Pattara must be installed separately in Windows.
+- Bilingual installation and contributor documentation included in the package.
+- No model weights bundled; runtime/model downloads require internet and upstream terms apply.
 
-Before release, fill in the actual reviewed commit, build provenance, checksum, verified installation procedure and measured results. Follow [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md). Do not replace these gaps with guesses.
+## Validation and limits
+
+Installer tests, documentation link checks, embedded ZIP integrity, payload hashes and extract-only validation were performed. A CPU-fixture stage-only check was performed on the preceding packaging build. These checks do not constitute a complete installation or a GPU/inference test.
+
+No other-PC installation, full runtime download, GPU compatibility, microphone/call or image end-to-end validation is claimed. The private production application's recent fixes and newer features are not automatically included in this public snapshot.
+
+Assets: Lumicos-Setup.exe, Lumicos-Setup.exe.sha256 and BUILD-VALIDATION.json (exact source commit, checksum and validation scope).
+
+The owner authorized this experimental publication with the above limitations disclosed. Outstanding clean-install and compatibility checklist items remain open.

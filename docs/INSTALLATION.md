@@ -1,5 +1,7 @@
 # Installation and build notes
 
+> Publication update (30 October 2026): the owner authorized v0.2.3-beta as an experimental Pre-release. **This installer has never been tested on another computer.** Full fresh installation remains unvalidated. Earlier unpublished/build-audit statements below describe the previous audit, not completion of those remaining checks. See [release notes](RELEASE_NOTES_v0.2.3-beta.md).
+
 ## Current release status
 
 The repository is a source snapshot (package version 0.2.3). GitHub has no releases/assets as checked on 30 October 2026. A developer-local EXE exists outside this checkout, but it is not a verified public distribution of this commit. Do not use a fabricated download link or copy that EXE into a release without provenance and clean-install testing.

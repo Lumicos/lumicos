@@ -1,5 +1,7 @@
 # Installer build follow-up — 30 October 2026
 
+> Publication update (30 October 2026): the owner authorized v0.2.3-beta as an experimental Pre-release. **This installer has never been tested on another computer.** Full fresh installation remains unvalidated. Earlier unpublished/build-audit statements below describe the previous audit, not completion of those remaining checks. See [release notes](RELEASE_NOTES_v0.2.3-beta.md).
+
 Documentation branch commit cb230e0 was pushed with owner authorization to docs/open-source-launch-20261030. This follow-up is isolated on installer/package-readiness-20261030. Installer changes and the EXE have not been pushed/published; no GitHub Release was created.
 
 ## Changes
