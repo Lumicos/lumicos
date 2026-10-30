@@ -1,4 +1,4 @@
-# Release checklist — proposed v0.2.3-beta
+# Release checklist â€” proposed v0.2.3-beta
 
 **Decision: draft notes only. No release candidate certified and no release published.** This review did not perform a fresh complete install. The earlier developer-local EXE is a separate artifact and must not be presented as a tested build of this branch.
 
@@ -9,8 +9,8 @@
 - [x] Exact payload bytes preserved by `.gitattributes`; installer tests pass locally.
 - [x] Local scoped history/working-tree hygiene review recorded.
 - [ ] Owner reviews all branch changes and severity findings.
-- [ ] Correct stale bootstrap version label in a separate reviewed change.
-- [ ] Include README.th.md and linked docs in release packaging (current script omits them).
+- [x] Correct stale bootstrap version label in the isolated installer follow-up.
+- [x] Include README.th.md, linked docs and community policies in release packaging.
 - [ ] Address tracked source backup and generic machine-path defaults with a separate runtime/package review.
 - [ ] Verify all transitive runtime components, especially ROCm libraries/kernels, on a clean target.
 - [ ] Confirm model terms/attribution and component licensing, including ComfyUI nodes.
@@ -22,7 +22,7 @@
 - [ ] Test AMD RX6600 and separately NVIDIA / CPU; do not generalize detection tests to certified compatibility.
 - [ ] Verify selected driver/runtime, launch local GGUF, small response and clean owned-process shutdown.
 - [ ] Verify Pattara present AND absent; absent must report unavailable, never choose another voice.
-- [ ] Test microphone → Whisper → LLM → Pattara call, optional images, knowledge embedding assets and background jobs separately.
+- [ ] Test microphone â†’ Whisper â†’ LLM â†’ Pattara call, optional images, knowledge embedding assets and background jobs separately.
 - [ ] Record actual disk usage and resource consumption; estimates are not measured requirements.
 - [ ] Verify stop/uninstall/archive procedure without affecting unrelated AI services or deleting personal data.
 - [ ] Scan clean installed output and final ZIP/EXE for sensitive data; record compiler, commit and SHA256.

@@ -1,7 +1,7 @@
 param([ValidateSet('install','plan','stage')][string]$Mode='install',[string]$Root,[int]$GpuIndex=-1,[switch]$AcceptCpuWhisper,[switch]$Yes)
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
-Write-Host 'Lumicos Setup 0.2.2 - Windows 11 x64' -ForegroundColor Cyan
+Write-Host 'Lumicos Setup 0.2.3 - Windows 11 x64' -ForegroundColor Cyan
 $hardwareFile=Join-Path $PSScriptRoot 'detected-hardware.json'
 & (Join-Path $PSScriptRoot 'src\detect.ps1') -OutputPath $hardwareFile
 $hardware=Get-Content -LiteralPath $hardwareFile -Raw | ConvertFrom-Json

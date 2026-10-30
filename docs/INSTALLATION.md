@@ -25,15 +25,15 @@ ROCm/CUDA selection and runtime downloads are in [profile.mjs](../src/profile.mj
 ## Known issues and verification gates
 
 - **Windows Git line endings:** payload hashes describe repository bytes. This branch adds `.gitattributes` to prevent conversion; an older clone with `core.autocrlf=true` can fail checksum validation. Do not disable verification or regenerate hashes to conceal unexpected changes. Use a fresh checkout including the attributes.
-- **Bootstrap banner:** prints 0.2.2 while package/install state use 0.2.3. A known presentation inconsistency, not fixed by this docs-only/runtime-preserving task.
-- **Build packaging:** [release.mjs](../scripts/release.mjs) embeds the launcher and payload but does not package `README.th.md` or `docs/`; the new README links will therefore be missing in an extracted installer. Maintainer must adjust/review package inputs before release. Do not distribute an EXE built from this branch as complete documentation.
+- **Bootstrap banner:** aligned with package version 0.2.3 in the installer follow-up.
+- **Build packaging:** the installer follow-up now bundles both READMEs, community policies and `docs/`. Documentation links are checked before packaging and again after EXE extraction. See [build report](INSTALLER_BUILD_REPORT.md).
 - **ROCm dependencies:** verify that the pinned Windows ROCm archive and installation path provide hipBLAS/rocBLAS dependencies and the selected architecture kernels. The private developer's working environment does not prove a clean install will load ROCm.
 - **Knowledge setup:** embedding runtime/model configuration exists, but complete clean-install preparation is not established in this review. Do not promise offline retrieval before assets are present.
-- **Tests:** the existing `validateRoot('C:/AI/PersonalAI')` test depends on an existing personal directory; it is not a portable clean-runner assertion. No all-green application CI badge is advertised.
+- **Tests:** the root-protection test now creates a synthetic nonempty directory instead of depending on a developer installation. No all-green application CI badge is advertised.
 
-## Build the single-file installer (maintainer procedure, not executed here)
+## Build the single-file installer
 
-Requires Node.js >=24, Python 3 on PATH for ZIP packaging, Windows PowerShell, and the Windows .NET Framework C# compiler used by the scripts. Resolve the packaging gate above first.
+Requires Node.js >=24, Python 3 on PATH for ZIP packaging, Windows PowerShell, and the Windows .NET Framework C# compiler used by the scripts. Full installation validation remains a separate release gate.
 
 ```powershell
 npm test
