@@ -149,3 +149,15 @@ frame(ax, "Image-to-video render time on 8 GB (Wan 2.2 5B Turbo)",
 save(fig, "08-video-i2v-time.png")
 
 print("ok")
+
+# 9 ── image generation inside Lumicos (real jobs) ---------------------------------------------
+import matplotlib.pyplot as plt  # noqa: E402 (kept self-contained when appended)
+fig, ax = plt.subplots(figsize=(9, 3.9)); fig.subplots_adjust(left=0.27, right=0.95, top=0.78, bottom=0.18)
+labels = ["624x832 portrait  (n=101)", "832x624 landscape  (n=14)", "720x720 square  (n=10)", "1024x576 wide  (n=11)"]
+hbars(ax, labels, [37.6, 37.9, 42.8, 53.6], [BLUE, BLUE, BLUE, BLUE], lambda v: f"{v:.0f} s", 65)
+ax.set_xlabel("Median seconds per image, request to finished image")
+frame(ax, "Image generation: about 40 seconds per picture on 8 GB",
+      "Z-Image Turbo (INT8), 8 steps, ComfyUI on PyTorch ROCm under Windows",
+      "Source: Lumicos image-jobs log, 157 real images, 15-26 Oct 2026. Includes waiting for the GPU and occasional model loads; slowest single image 478 s.")
+save(fig, "09-image-generation.png")
+print("ok9")

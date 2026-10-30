@@ -23,7 +23,7 @@ Chat, voice, web search, a local knowledge library, image generation and backgro
 - A local knowledge library (Markdown notes + SQLite index) that answers can be saved into
 
 **Images**
-- Create and edit images through ComfyUI (Z-Image Turbo in the default install)
+- Create and edit images through ComfyUI running on PyTorch **ROCm** (AMD) or CUDA (NVIDIA), Z-Image Turbo in the default install
 
 **Background agents**
 - "Research X and save it to my notes", scheduled summaries, trip plans and quizzes exported to Word/Excel
@@ -47,8 +47,8 @@ Chat, voice, web search, a local knowledge library, image generation and backgro
           │
  ┌────────┼──────────────┬──────────────┬───────────────┐
  llama.cpp        whisper.cpp      Windows TTS      ComfyUI
- (CUDA/ROCm/       (STT)           (Pattara)        (images)
-  Vulkan/CPU)
+ (CUDA/ROCm/       (STT)           (Pattara)        (PyTorch ROCm
+  Vulkan/CPU)                                        or CUDA)
 ```
 
 Design rules:
@@ -97,6 +97,8 @@ Free disk: 15 GB for chat + voice, 80 GB with images. Needs internet during inst
 
 My own runs, 20–30 Oct 2026, mostly on my day-to-day build. Small samples on one machine: a field report, not a leaderboard. Each chart names its test and date.
 
+Everything below ran on AMD's ROCm stack under Windows: llama.cpp's ROCm/HIP build for language models and ComfyUI on PyTorch ROCm for images and video. No NVIDIA card involved.
+
 ![Model speed](docs/charts/01-model-speed.png)
 
 ![MoE offload sweep](docs/charts/02-moe-offload-sweep.png)
@@ -110,6 +112,8 @@ The trick that made a 26B model usable on 8 GB: keep the Mixture-of-Experts weig
 ![Long context](docs/charts/05-long-context.png)
 
 ![Call latency](docs/charts/06-call-latency.png)
+
+![Image generation](docs/charts/09-image-generation.png)
 
 ![VAE decode](docs/charts/07-video-vae-decode.png)
 
