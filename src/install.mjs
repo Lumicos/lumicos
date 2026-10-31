@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {readJson,writeJson,hash,download,extract,run,safeJoin} from './io.mjs';
 import {selectProfile} from './profile.mjs';
 import {configure,bindModels} from './configure.mjs';
-import {selectedModels} from './modelChoice.mjs';
+import {selectedModels,choiceEnables} from './modelChoice.mjs';
 const kit=path.resolve(fileURLToPath(new URL('../',import.meta.url)));
 const exists=p=>fs.access(p).then(()=>true,()=>false);
 export async function detect(){return JSON.parse(await run('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',path.join(kit,'src/detect.ps1')],{capture:true,timeout:30000}))}
@@ -26,7 +26,7 @@ async function flatten(dir,expected){
 }
 export async function install(root,profile,{stageOnly=false,acceptFallback=false}={}){
  await validateRoot(root);if(profile.errors.length)throw Error(profile.errors.join('\n'));
- if(profile.whisper==='whisper-cpu'&&profile.voice&&!acceptFallback&&!stageOnly)throw Error('This profile uses CPU Whisper. Review the plan and pass --accept-cpu-whisper to proceed.');
+ if(profile.whisper==='whisper-cpu'&&choiceEnables(profile,'stt')&&!acceptFallback&&!stageOnly)throw Error('This profile uses CPU Whisper. Review the plan and pass --accept-cpu-whisper to proceed.');
  await fs.mkdir(root,{recursive:true});
  const marker=path.join(root,'lumicos-install.json'),previous=await exists(marker)?await readJson(marker):null;
  if(previous&&previous.version!=='0.2.3')throw Error('Use a fresh folder for the public voice release; private voice installations are never migrated.');
@@ -47,7 +47,8 @@ export async function install(root,profile,{stageOnly=false,acceptFallback=false
  await step('node',()=>archive('node',path.join(root,'runtime/node'),'node.exe'));
  await step('uv',()=>archive('uv',path.join(root,'runtime/uv'),'uv.exe'));
  await step('llama',async()=>{await archive(profile.llama,path.join(root,'runtime/llama'),'llama-server.exe');if(profile.backend==='cuda')await archive(profile.llama.endsWith('13')?'cudart13':'cudart12',path.join(root,'runtime/llama'))});
- await step('whisper',()=>archive(profile.whisper,path.join(root,'runtime/whisper'),'whisper-server.exe'));
+ if(choiceEnables(profile,'stt'))await step('whisper',()=>archive(profile.whisper,path.join(root,'runtime/whisper'),'whisper-server.exe'));
+ else console.log('SKIP whisper (STT declined)');
  const node=path.join(root,'runtime/node/node.exe'),uv=path.join(root,'runtime/uv/uv.exe');
  const env={PATH:path.join(root,'runtime/node')+';'+process.env.PATH,UV_PYTHON_INSTALL_DIR:path.join(root,'runtime/python'),UV_CACHE_DIR:path.join(root,'.uv-cache')};
  const uvRun=args=>run(uv,args,{env});

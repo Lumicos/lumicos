@@ -56,6 +56,8 @@ const TABS: { id: Tab; label: string; icon: typeof Palette }[] = [
 interface Props {
   settings: Settings;
   initialTab?: 'general';
+  sttEnabled?: boolean;
+  ttsEnabled?: boolean;
   service: { online: boolean; health: ServiceHealth | null; tools: ToolDefinition[] };
   info: ServerInfo;
   character?: Character;
@@ -68,6 +70,7 @@ interface Props {
 }
 
 export function SettingsModal(p: Props) {
+  const voiceEnabled = p.sttEnabled !== false || p.ttsEnabled !== false;
   const [tab, setTab] = useState<Tab>(p.initialTab??'general');
   const [draft, setDraft] = useState<Settings>(p.settings);
   const dirty = JSON.stringify(draft) !== JSON.stringify(p.settings);
@@ -113,7 +116,7 @@ export function SettingsModal(p: Props) {
     >
       <div className="settings">
         <nav className="settings-nav">
-          {TABS.map(({ id, label, icon: Icon }) => (
+          {TABS.filter(({ id }) => id !== 'voice' || voiceEnabled).map(({ id, label, icon: Icon }) => (
             <button key={id} className={`settings-tab ${tab === id ? 'active' : ''}`} onClick={() => setTab(id)}>
               <Icon size={16} /> <span>{label}</span>
             </button>
@@ -121,7 +124,7 @@ export function SettingsModal(p: Props) {
         </nav>
 
         <div className="settings-body">
-          {tab === 'voice' && <VoiceSettings/>}
+          {tab === 'voice' && voiceEnabled && <VoiceSettings sttEnabled={p.sttEnabled !== false} ttsEnabled={p.ttsEnabled !== false}/>}
           {tab === 'developer' && <OwnerAccess/>}
           {tab === 'developer' && <SelfCheck/>}
           {tab === 'developer' && (

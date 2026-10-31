@@ -213,7 +213,7 @@ export function createApp({ config, files, ws, memory, retriever, tools, attachm
   /* ---------------- health ---------------- */
   on('GET', '/api/health', async (req, res) => {
     const remote=req.headers['x-lumicos-transport']==='tailscale';
-    send(res, 200, { ok: true, version: API_VERSION, build: BUILD_INFO, workspace: remote?'Host workspace':ws.root, dataDir: remote?'Host data':config.dataDir, tools: tools.definitions().length, autoStartComfy: comfy.autoStartComfy, features: { images: process.env.LUMICOS_IMAGES !== 'off' } });
+    send(res, 200, { ok: true, version: API_VERSION, build: BUILD_INFO, workspace: remote?'Host workspace':ws.root, dataDir: remote?'Host data':config.dataDir, tools: tools.definitions().length, autoStartComfy: comfy.autoStartComfy, features: { images: process.env.LUMICOS_IMAGES !== 'off', stt: process.env.LUMICOS_STT !== 'off', tts: process.env.LUMICOS_TTS !== 'off' } });
   });
 
   /* ---------------- files (user actions from the Workspace UI) ---------------- */

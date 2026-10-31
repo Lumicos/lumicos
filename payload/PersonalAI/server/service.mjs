@@ -34,6 +34,9 @@ import { AgentService } from './agent/agentService.mjs';
 export const legacyWebSearchEnabled = (env=process.env) => env.LUMICOS_WEB_SEARCH !== 'off';
 // Image Lab / Z-Image: installer writes LUMICOS_IMAGES=off when the user declines image models (or hardware cannot run them).
 export const imagesEnabled = (env=process.env) => env.LUMICOS_IMAGES !== 'off';
+// STT / TTS: installer writes LUMICOS_STT / LUMICOS_TTS = off when Whisper or Pattara are declined.
+export const sttEnabled = (env=process.env) => env.LUMICOS_STT !== 'off';
+export const ttsEnabled = (env=process.env) => env.LUMICOS_TTS !== 'off';
 
 export function createServices(config) {
   config.internalToken=randomUUID();

@@ -1,4 +1,3 @@
-import {cancelReactions} from '../components/avatar-stage/reactionSignal.mjs';
 import {useEffect,useRef,useState,type ReactNode} from 'react';
 import {Phone,PhoneOff} from 'lucide-react';
 import {captureUtterance} from './capture';
@@ -31,7 +30,7 @@ export function SpeechCall({conversationId,disabled,busy,onReply,onActive,onFini
  const active=useRef<AbortController|null>(null),audio=useRef<PCMPlayer|null>(null);const callbacks=useRef({onReply,onActive,onFinish});callbacks.current={onReply,onActive,onFinish};const voice=useVoice();
  const transcript=useRef<ChatMessage[]>([]);
  const flush=()=>{const turns=transcript.current;transcript.current=[];if(turns.length)callbacks.current.onFinish(conversationId,turns)};
- const hangup=()=>{cancelReactions();active.current?.abort();active.current=null;audio.current?.stop();audio.current=null;flush();setEnding(true);setPhase('กำลังวางสาย · กลับไป E4B');void endSession().catch(e=>setError(e.message)).finally(()=>{callbacks.current.onActive(false);window.dispatchEvent(new Event('lumicos-model-refresh'));setPhase('');setEnding(false)})};
+ const hangup=()=>{active.current?.abort();active.current=null;audio.current?.stop();audio.current=null;flush();setEnding(true);setPhase('กำลังวางสาย · กลับไป E4B');void endSession().catch(e=>setError(e.message)).finally(()=>{callbacks.current.onActive(false);window.dispatchEvent(new Event('lumicos-model-refresh'));setPhase('');setEnding(false)})};
  useEffect(()=>()=>{if(active.current){active.current.abort();callbacks.current.onActive(false)}audio.current?.stop();void endSession().catch(()=>{});flush()},[conversationId]);
  useEffect(()=>{if(disabled&&active.current)hangup()},[disabled]);
  useEffect(()=>{const leave=()=>{active.current?.abort();audio.current?.stop();void endSession().catch(()=>{})};window.addEventListener('pagehide',leave);return()=>window.removeEventListener('pagehide',leave)},[]);

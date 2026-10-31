@@ -43,8 +43,6 @@ interface Props {
   currentCharacterId?: string;
   /** Shown in the character picker. */
   pickerCharacter?: Character;
-  /** Avatar page is Lumicos-only. */
-  showAvatar?: boolean;
   historyFilter: 'character' | 'all';
   onHistoryFilter: (f: 'character' | 'all') => void;
   onToggle: () => void;

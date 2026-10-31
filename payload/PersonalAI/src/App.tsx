@@ -54,6 +54,9 @@ export default function App() {
   const [focusPath, setFocusPath] = useState<string>();
   const service = useLocalService();
   const imagesEnabled = service.health?.features?.images !== false;
+  const sttEnabled = service.health?.features?.stt !== false;
+  const ttsEnabled = service.health?.features?.tts !== false;
+  const voiceCallEnabled = sttEnabled && ttsEnabled;
   useEffect(() => {
     if (!imagesEnabled && (view === 'imageedit' || view === 'gallery')) setView('chat');
   }, [imagesEnabled, view]);
@@ -214,7 +217,6 @@ export default function App() {
         characters={chars.characters}
         currentCharacterId={chat.active.characterId}
         pickerCharacter={character ?? defaultCharacter}
-        showAvatar={false}
         historyFilter={settings.historyFilter}
         onHistoryFilter={(historyFilter) => update({ historyFilter })}
         onToggle={() => toggleSidebar(!settings.sidebarOpen)}
@@ -257,7 +259,9 @@ export default function App() {
       ) : (
         <ChatActionsContext.Provider value={actions}>
       <ChatView
-        callButton={character?.id !== ASSISTANT_ID ? undefined : <ComposerCall conversationId={chat.active.id} disabled={!character||!service.online||!!chat.active.private} busy={chat.isGenerating} onReply={chat.callReply} onActive={setCalling} onFinish={chat.finishCall}/>}
+        callButton={voiceCallEnabled && character?.id === ASSISTANT_ID ? <ComposerCall conversationId={chat.active.id} disabled={!character||!service.online||!!chat.active.private} busy={chat.isGenerating} onReply={chat.callReply} onActive={setCalling} onFinish={chat.finishCall}/> : undefined}
+        sttEnabled={sttEnabled}
+        ttsEnabled={ttsEnabled}
         conversation={chat.active}
         character={character}
         characterMissing={!character}
@@ -297,6 +301,8 @@ export default function App() {
         <SettingsModal
           settings={settings}
           initialTab={dialog.initialTab}
+          sttEnabled={sttEnabled}
+          ttsEnabled={ttsEnabled}
           service={{ online: service.online, health: service.health, tools: service.tools }}
           info={server.info}
           character={character ?? defaultCharacter}

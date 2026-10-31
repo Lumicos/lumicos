@@ -63,7 +63,7 @@ cd lumicos
 .\Install.cmd
 ```
 
-Review the detected hardware and destination. The installer downloads its runtimes and may request acceptance of CPU Whisper. Interactively, choose which models to prepare (chat, Whisper, Z-Image); answering No skips that model and continues. Use `--yes` for defaults, `--skip-images` / `-SkipImages` to omit Image Lab (hides that page in the app), or `--models=…` to pin a list. After setup, review `MODELS.html`, download the selected models, run `Link Downloaded Models.cmd` if downloading manually, then `Check Installation.cmd` and `Start Lumicos.cmd` in the installed folder.
+Review the detected hardware and destination. The installer downloads its runtimes and may request acceptance of CPU Whisper. Interactively, choose which models to prepare (chat, Whisper, Z-Image); answering No skips that model and continues. Use `--yes` for defaults, `--skip-images / --skip-stt / --skip-tts` / `-SkipImages` to omit Image Lab (hides that page in the app), or `--models=…` to pin a list. After setup, review `MODELS.html`, download the selected models, run `Link Downloaded Models.cmd` if downloading manually, then `Check Installation.cmd` and `Start Lumicos.cmd` in the installed folder.
 
 **Before installing:** read the [known issues and prerequisites](docs/INSTALLATION.md). A successful source test or EXE extraction is not a successful clean install. [Release checklist](docs/RELEASE_CHECKLIST.md).
 

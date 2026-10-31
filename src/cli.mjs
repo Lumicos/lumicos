@@ -7,7 +7,8 @@ import {createInterface} from 'node:readline/promises';
 import {detect,install,modelPage,writeLaunchers} from './install.mjs';
 import {selectProfile} from './profile.mjs';
 import {bindModels} from './configure.mjs';
-import {offeredModels,resolveModelChoiceFromFlags,promptModelChoice,applyModelChoice,selectedModels} from './modelChoice.mjs';
+import {offeredModels,resolveModelChoiceFromFlags,promptModelChoice,applyModelChoice,selectedModels,choiceEnables} from './modelChoice.mjs';
+import {confirmMenu} from './terminalMenu.mjs';
 import {readJson,writeJson,hash,run,safeJoin,download} from './io.mjs';
 const kit=fileURLToPath(new URL('../',import.meta.url));
 const argv=process.argv.slice(2),command=argv[0]??'plan';
@@ -33,14 +34,19 @@ async function main(){
   await writeJson(path.join(kit,'last-plan.json'),{destination:root,hardware:hw,profile,offeredModels:offered.map(m=>({id:m.id,group:m.group})),modelChoice:choice});
   if(command==='plan')return;
   if(!argv.includes('--yes')&&command!=='stage'){
-   const rl=createInterface({input:process.stdin,output:process.stdout});
-   const answer=await rl.question('Install this plan? Type INSTALL to continue: ');rl.close();if(answer!=='INSTALL')return;
+   const ok=await confirmMenu({
+    question:'ติดตั้งตามแผนนี้? / Install this plan?',
+    defaultYes:true,
+    yesLabel:'Install / ติดตั้ง',
+    noLabel:'Cancel / ยกเลิก',
+   });
+   if(!ok){console.log('Installation cancelled.');return;}
   }
   if(!choice){
    if(process.stdin.isTTY)choice=await promptModelChoice(offered,profile);
    else {console.log('Non-interactive session: using recommended model defaults (pass --yes / --models / --skip-images to pin).');choice=resolveModelChoiceFromFlags(['--yes'],process.env,offered,profile)}
   }
-  console.log('Selected models: '+choice.ids.join(', ')+(choice.images?' (Image Lab on)':' (Image Lab off)'));
+  console.log('Selected models: '+choice.ids.join(', ')+(choice.images?' · Image Lab on':' · Image Lab off')+(choice.stt?' · STT on':' · STT off')+(choice.tts?' · TTS on':' · TTS off'));
   profile=applyModelChoice(profile,choice);
   // Re-check disk with final images flag after the user declined Z-Image.
   const need=profile.images?80:15;
@@ -51,7 +57,10 @@ async function main(){
  const state=await readJson(stateFile),p=state.profile,catalog=await models();
  if(command==='download-models'){
   console.log('Read model licenses at:');for(const m of selected(catalog,p))console.log(m.id,m.page,m.license);
-  if(!argv.includes('--accept-model-licenses')){const rl=createInterface({input:process.stdin,output:process.stdout});const answer=await rl.question('Accept the upstream model terms and download? Type DOWNLOAD: ');rl.close();if(answer!=='DOWNLOAD')return}
+  if(!argv.includes('--accept-model-licenses')){
+   const ok=await confirmMenu({question:'Accept upstream model terms and download? / ยอมรับเงื่อนไขแล้วดาวน์โหลด?',defaultYes:false,yesLabel:'Download / ดาวน์โหลด',noLabel:'Cancel / ยกเลิก'});
+   if(!ok)return;
+  }
   for(const m of selected(catalog,p))for(const f of m.files){console.log('MODEL '+m.id+'/'+f.name);if(!f.sha256)throw Error('Model metadata missing SHA256: '+f.name);await download(f,safeJoin(root,f.destination))}
   const bound=await bindModels(root,p,catalog);state.status='models-linked';state.models=bound.map(x=>x.id);await writeJson(stateFile,state);console.log('Models downloaded and linked. Run Check Installation, then Start Lumicos.');return;
  }
@@ -61,7 +70,9 @@ async function main(){
  }
  if(command==='doctor'){
   const report={at:new Date().toISOString(),profile:p,checks:[],modelIssues:await checkModels(catalog,p),inferenceTest:'not-run',voiceTest:'not-run',imageTest:'not-run'};
-  for(const [name,file,args] of [['llama','runtime/llama/llama-server.exe',['--version']],['whisper','runtime/whisper/whisper-cli.exe',['--help']],['app','runtime/node/node.exe',['--version']]]){
+  const doctorBins=[['llama','runtime/llama/llama-server.exe',['--version']],['app','runtime/node/node.exe',['--version']]];
+  if(choiceEnables(p,'stt'))doctorBins.splice(1,0,['whisper','runtime/whisper/whisper-cli.exe',['--help']]);
+  for(const [name,file,args] of doctorBins){
    try{await run(path.join(root,file),args,{capture:true,timeout:20000});report.checks.push({name,status:'pass'})}catch(e){report.checks.push({name,status:'fail',error:e.message})}
   }
   for(const where of [...(p.images?['ComfyUI-Next']:[])]){

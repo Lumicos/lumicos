@@ -41,6 +41,9 @@ interface Props {
   onNewChat: () => void;
   /** Voice-call control for the composer. */
   callButton?: import('react').ReactNode;
+  /** Installer feature flags (default true for older installs without flags). */
+  sttEnabled?: boolean;
+  ttsEnabled?: boolean;
   reasoningMode:ChatReasoningMode;
   onReasoningChange:(mode:ChatReasoningMode)=>void;
 }
@@ -118,6 +121,7 @@ export function ChatView(p: Props) {
                 busy={busy||calling}
                 canRegenerate={m.id === lastAssistant?.id && !p.characterMissing}
                 showReasoning={p.showReasoning}
+                ttsEnabled={p.ttsEnabled !== false}
                 onCopy={p.onCopy}
                 onFeedback={p.onFeedback}
                 onRegenerate={p.onRegenerate}
@@ -157,6 +161,7 @@ export function ChatView(p: Props) {
         )}
         <ChatInput key={p.conversation.id}
           callButton={p.conversation.mode === 'roleplay' ? undefined : p.callButton}
+          sttEnabled={p.sttEnabled !== false}
           disabled={p.characterMissing||calling}
           isGenerating={busy}
           enterToSend={p.enterToSend}

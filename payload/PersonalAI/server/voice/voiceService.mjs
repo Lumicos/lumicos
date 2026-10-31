@@ -102,14 +102,19 @@ export class VoiceService{
  async releaseForChat(){if(this.engines.resident||this.call)return;await this.releaseGpu()}
  scheduleRelease(){if(this.call||this.engines.resident)return;clearTimeout(this.idle);this.idle=setTimeout(async()=>{let release;try{release=await this.comfy.compute.acquire();await this.worker.release()}catch(e){await this.logLifecycle({event:'health_fail',engine:this.engines.tts,operation:'scheduled-release',error:e?.message??String(e)});}finally{release?.()}},90000);this.idle.unref();}
  async status(){
+  const sttOn=process.env.LUMICOS_STT!=='off',ttsOn=process.env.LUMICOS_TTS!=='off';
   const exe=process.env.LUMICOS_WHISPER_EXE||await findWhisper(path.join(this.sttDir,'bin'));
-  this.whisper=exe&&await exists(exe)?exe:null;
+  this.whisper=sttOn&&exe&&await exists(exe)?exe:null;
   const model=await exists(this.whisperModel),rocmStt=this.sttBackend==='rocm-whisper';
-  if(rocmStt)this.whisper=await exists(this.whisperRocmExe)?this.whisperRocmExe:null;
-  let rocmTtsReady=false,rocmTtsReason=null;try{const s=await this.omniStatus();rocmTtsReady=s.ready&&await this.worker.available();if(!rocmTtsReady)rocmTtsReason=s.reason??'ระบบเสียง CPU ยังไม่พร้อม'}catch(e){rocmTtsReason=e.message}
-  return {tts:{ready:rocmTtsReady,label:'Lumicos · Microsoft Pattara · CPU',reason:rocmTtsReason},stt:{ready:!!this.whisper&&model,label:(this.engines.stt==='multi'?'Whisper หลายภาษา':'Whisper ภาษาไทย')+(rocmStt?' · ROCm':''),reason:!this.whisper?`ยังไม่พบ ${rocmStt?'whisper-server ROCm':'whisper-cli.exe'}`:!model?'ยังไม่พบโมเดล Thonburian Whisper':null}};
+  if(rocmStt)this.whisper=sttOn&&await exists(this.whisperRocmExe)?this.whisperRocmExe:null;
+  let rocmTtsReady=false,rocmTtsReason=null;
+  if(!ttsOn){rocmTtsReason='ปิด TTS ตอนติดตั้ง / TTS declined at install'}
+  else {try{const s=await this.omniStatus();rocmTtsReady=s.ready&&await this.worker.available();if(!rocmTtsReady)rocmTtsReason=s.reason??'ระบบเสียง CPU ยังไม่พร้อม'}catch(e){rocmTtsReason=e.message}}
+  const sttReason=!sttOn?'ปิด STT ตอนติดตั้ง / STT declined at install':!this.whisper?`ยังไม่พบ ${rocmStt?'whisper-server ROCm':'whisper-cli.exe'}`:!model?'ยังไม่พบโมเดล Thonburian Whisper':null;
+  return {tts:{ready:rocmTtsReady,label:'Lumicos · Microsoft Pattara · CPU',reason:rocmTtsReason},stt:{ready:!!sttOn&&!!this.whisper&&model,label:(this.engines.stt==='multi'?'Whisper หลายภาษา':'Whisper ภาษาไทย')+(rocmStt?' · ROCm':''),reason:sttReason},features:{stt:sttOn,tts:ttsOn}};
  }
  async startCall(signal){
+  if(process.env.LUMICOS_STT==='off'||process.env.LUMICOS_TTS==='off')throw fail('โทรคุยต้องการทั้ง STT และ TTS — ถูกปิดตอนติดตั้ง',503);
   if(this.call||this.callStarting||this.callEnding||this.models.pendingChats)throw fail('มีสายโทรหรืองานแชทกำลังทำงานอยู่',409);
   this.callStarting=true;
   const session={id:randomUUID(),controller:new AbortController(),whisper:this.whisperWorkerFactory(),ready:false,busy:false};

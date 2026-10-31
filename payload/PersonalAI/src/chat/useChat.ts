@@ -1,5 +1,3 @@
-import {parseReaction} from '../components/avatar-stage/reactionIntent.mjs';
-import {publishReaction} from '../components/avatar-stage/reactionSignal.mjs';
 import { stripPersonaControlText } from '../prompt/lumicosPersona.mjs';
 import {requestedQuality} from './imageQuality.mjs';
 import { runChatReply } from './runChatReply';
@@ -216,7 +214,6 @@ export function useChat({ provider, settings, resolveCharacter, defaultCharacter
       signal.throwIfAborted();if(failure)throw failure;if(stopped)throw Error('หยุดคำตอบแล้ว');
       const safeAnswer=stripPersonaControlText(answer).trim();
       if(!safeAnswer)throw Error('ไม่ได้รับคำตอบสำหรับโทรคุย');
-      publishReaction({conversationId:active.id,messageId:uid(),intent:parseReaction(answer).intent});
       return safeAnswer;
     },'call',callId);
   },[active,resolveCharacter,settings,provider]);

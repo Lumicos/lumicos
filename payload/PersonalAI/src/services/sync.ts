@@ -1,5 +1,3 @@
-import {createReactionFeed} from '../components/avatar-stage/reactionIntent.mjs';
-import {publishReaction,cancelReactions} from '../components/avatar-stage/reactionSignal.mjs';
 import type { Character, Conversation, Settings } from '../types';
 import { readSSE } from '../providers/sse';
 import {clientId} from './deviceIdentity';
@@ -22,7 +20,6 @@ window.fetch=(input,init={})=>{
  }return nativeFetch(input,init);
 };
 async function api(path:string,body?:unknown){const r=await fetch('/api/'+path,{method:body===undefined?'GET':'POST',headers:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw Error(d.error?.message??'Lumicos connection failed');return d;}
-const reactionFeed=createReactionFeed(()=>state.conversations.filter(c=>c.id===state.activeId&&c.characterId==='default-mina'),publishReaction,cancelReactions);
 function accept(event:any){
  if(event.type==='snapshot'){state={...event.state,revision:event.revision??event.state.revision,callOwner:event.callOwner===undefined?state.callOwner:event.callOwner};}
  else {if(event.revision<=state.revision)return;
@@ -45,7 +42,7 @@ async function connect(){
    connected=true;error='';notify();delay=1000;
    for await(const data of readSSE(response.body))accept(JSON.parse(data));
   }catch(e){error=(e as Error).message;}
-  connected=false;cancelReactions();notify();await new Promise(r=>setTimeout(r,delay));delay=Math.min(delay*2,15000);
+  connected=false;notify();await new Promise(r=>setTimeout(r,delay));delay=Math.min(delay*2,15000);
  }
 }
 let tail=Promise.resolve();
