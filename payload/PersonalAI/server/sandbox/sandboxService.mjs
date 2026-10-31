@@ -6,13 +6,37 @@
 //   - Network: internet only (internetClient). localhost, LAN and Tailnet stay blocked,
 //     so code cannot reach llama-server, ComfyUI or the Lumicos API.
 //   - Job Object: memory / CPU / process / time limits; everything is killed at the end.
-// Setup (ACLs, LumicosSandbox.exe, sandbox.json) is done by C:\AI\Lumicos-Sandbox\setup\setup-sandbox.ps1.
+// Setup (ACLs, LumicosSandbox.exe, sandbox.json) is done under <installRoot>/Lumicos-Sandbox (installer sandbox.ps1).
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 
-export const SANDBOX_ROOT = process.env.LUMICOS_SANDBOX_ROOT || 'C:\\AI\\Lumicos-Sandbox';
+/** Parent of PersonalAI: …/PersonalAI/server/sandbox → install root (or payload/ in the repo). */
+export const INSTALL_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+const LEGACY_SANDBOX = 'C:\\AI\\Lumicos-Sandbox';
+function readInstallEnv(installRoot = INSTALL_ROOT) {
+  try {
+    const file = path.join(installRoot, 'environment.json');
+    if (!fs.existsSync(file)) return {};
+    const data = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, ''));
+    return data && typeof data === 'object' ? data : {};
+  } catch { return {}; }
+}
+export function resolveSandboxRoot(env = process.env, installRoot = INSTALL_ROOT) {
+  const fromEnv = env.LUMICOS_SANDBOX_ROOT || readInstallEnv(installRoot).LUMICOS_SANDBOX_ROOT;
+  if (typeof fromEnv === 'string' && fromEnv.trim()) return fromEnv.trim();
+  const sibling = path.join(installRoot, 'Lumicos-Sandbox');
+  // Installed layout has python.exe / LumicosSandbox.exe; the shipped payload has setup sources before those steps run.
+  if (
+    fs.existsSync(path.join(sibling, 'bin', 'LumicosSandbox.exe'))
+    || fs.existsSync(path.join(sibling, 'python', 'python.exe'))
+    || fs.existsSync(path.join(sibling, 'setup', 'LumicosSandbox.cs'))
+  ) return sibling;
+  return LEGACY_SANDBOX;
+}
+export const SANDBOX_ROOT = resolveSandboxRoot();
 const OUTPUT_LIMIT = 6000;   // characters of stdout+stderr returned to the model
 const KEEP_RUNS = 40;        // finished run folders kept for debugging
 const SCAN_LIMIT = 5000;     // max workspace files compared before/after a run

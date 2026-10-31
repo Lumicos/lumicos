@@ -9,7 +9,11 @@ const exists=p=>fs.access(p).then(()=>true,()=>false);
 export async function detect(){return JSON.parse(await run('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',path.join(kit,'src/detect.ps1')],{capture:true,timeout:30000}))}
 export async function verifyPayload(){const entries=await readJson(path.join(kit,'catalog/payload.json'));for(const e of entries){if(await hash(safeJoin(path.join(kit,'payload'),e.path))!==e.sha256)throw Error('Payload checksum mismatch: '+e.path)}return entries}
 export async function validateRoot(root){
- if(!path.win32.isAbsolute(root)||root.startsWith('\\\\')||/[\r\n"%&|<>^!]/.test(root)||path.parse(root).root===root)throw Error('Choose a local installation subfolder without shell metacharacters.');
+ // Always use win32 semantics: path.parse on Linux does not treat C:\\ as a drive root.
+ const normalized=path.win32.normalize(String(root??''));
+ const driveRoot=path.win32.parse(normalized).root;
+ const isDriveRoot=!driveRoot||normalized===driveRoot||/^[A-Za-z]:[\\/]?$/.test(normalized);
+ if(!path.win32.isAbsolute(normalized)||normalized.startsWith('\\\\')||/[\r\n"%&|<>^!]/.test(normalized)||isDriveRoot)throw Error('Choose a local installation subfolder without shell metacharacters.');
  if(await exists(root)){
   if((await fs.lstat(root)).isSymbolicLink())throw Error('Installation root cannot be a junction.');
   const names=await fs.readdir(root);
