@@ -146,6 +146,23 @@ export function selectedModels(catalog, profile) {
     || (profile.images && m.group === 'image'));
 }
 
+
+/**
+ * When STT is selected but the profile only has CPU Whisper and the user has not
+ * accepted that fallback: drop STT and continue (never abort the install).
+ * Interactive callers should prompt first, then pass acceptCpuWhisper or call with dropStt.
+ */
+export function reconcileCpuWhisper(offered, profile, choice, {acceptCpuWhisper = false, dropStt = false} = {}) {
+  if (!choice?.stt || profile.whisper !== 'whisper-cpu') {
+    return {choice, acceptFallback: Boolean(acceptCpuWhisper && choice?.stt)};
+  }
+  if (acceptCpuWhisper && !dropStt) {
+    return {choice, acceptFallback: true};
+  }
+  const ids = choice.ids.filter(id => offered.find(m => m.id === id)?.group !== 'stt');
+  return {choice: finalizeChoice(offered, profile, ids), acceptFallback: false, droppedStt: true};
+}
+
 export function choiceEnables(profile, group) {
   const c = profile.modelChoice;
   if (!c) {

@@ -30,7 +30,15 @@ async function flatten(dir,expected){
 }
 export async function install(root,profile,{stageOnly=false,acceptFallback=false}={}){
  await validateRoot(root);if(profile.errors.length)throw Error(profile.errors.join('\n'));
- if(profile.whisper==='whisper-cpu'&&choiceEnables(profile,'stt')&&!acceptFallback&&!stageOnly)throw Error('This profile uses CPU Whisper. Review the plan and pass --accept-cpu-whisper to proceed.');
+ // Belt-and-suspenders: never abort the whole install for optional STT. Skip Whisper instead.
+ if(profile.whisper==='whisper-cpu'&&choiceEnables(profile,'stt')&&!acceptFallback&&!stageOnly){
+  console.log('CPU Whisper not accepted — skipping STT and continuing install.');
+  if(profile.modelChoice){
+   profile={...profile,modelChoice:{...profile.modelChoice,stt:false,ids:(profile.modelChoice.ids||[]).filter(id=>id!=='whisper')},voice:Boolean(profile.modelChoice.tts)};
+  }else{
+   profile={...profile,voice:false,modelChoice:{ids:[profile.chatModel||'call-e2b'],images:!!profile.images,stt:false,tts:false,chatModel:profile.chatModel||'call-e2b'}};
+  }
+ }
  await fs.mkdir(root,{recursive:true});
  const marker=path.join(root,'lumicos-install.json'),previous=await exists(marker)?await readJson(marker):null;
  if(previous&&previous.version!=='0.2.3')throw Error('Use a fresh folder for the public voice release; private voice installations are never migrated.');
