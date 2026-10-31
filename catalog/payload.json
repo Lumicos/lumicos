@@ -1470,14 +1470,14 @@
     "sha256": "f18942101d36712bd943a657e7d405897abe93ef28a10b253be9df28305f3d64"
   },
   {
-    "path": "PersonalAI/src/imageLab/templates.ts",
-    "bytes": 3123,
-    "sha256": "a00ee386ab1bc17703b44981b4743c81fbe98dc8bcfbfdd74c241ba111c44e34"
-  },
-  {
     "path": "PersonalAI/src/imageLab.css",
     "bytes": 13343,
     "sha256": "21640ced5f48d3ea56242ba63e1d32d42a438a473e6a052414d771e5681c31e7"
+  },
+  {
+    "path": "PersonalAI/src/imageLab/templates.ts",
+    "bytes": 3123,
+    "sha256": "a00ee386ab1bc17703b44981b4743c81fbe98dc8bcfbfdd74c241ba111c44e34"
   },
   {
     "path": "PersonalAI/src/index.css",
@@ -1631,8 +1631,8 @@
   },
   {
     "path": "PersonalAI/src/services/sync.ts",
-    "bytes": 5477,
-    "sha256": "07eb96727b264e263499d95803f6bd758c9944e10b02d654b70681c3ea73d53b"
+    "bytes": 5101,
+    "sha256": "c21fb1fb1bd37156d9583530345de89fa3a19ea0596f8ed896d992d784574395"
   },
   {
     "path": "PersonalAI/src/settings/ModelManager.tsx",
@@ -1670,6 +1670,16 @@
     "sha256": "9bc5b81ac6ef3a13d71974b547ece761f65925a02d68f5843c577e39faa7961a"
   },
   {
+    "path": "PersonalAI/src/theme-clean.css",
+    "bytes": 16185,
+    "sha256": "9311c99b06ec35ff3b09d64224b6e6fe6e7b3a60031a373bc124535755bae2d3"
+  },
+  {
+    "path": "PersonalAI/src/theme-mono.css",
+    "bytes": 841,
+    "sha256": "7012eae1729e240794dd0d028b9f645798183722ecd01ed12652de5483f7f04c"
+  },
+  {
     "path": "PersonalAI/src/theme/ThemeLibrary.tsx",
     "bytes": 3418,
     "sha256": "abb7051241c7d889dab606edfae4368365ba4713a5aafaaf5ad97695b89b1d02"
@@ -1683,16 +1693,6 @@
     "path": "PersonalAI/src/theme/customTheme.ts",
     "bytes": 9520,
     "sha256": "913af56078623d5768bbb36003ca76f4af92de3048432ca7f9d382dc844b7dd8"
-  },
-  {
-    "path": "PersonalAI/src/theme-clean.css",
-    "bytes": 16185,
-    "sha256": "9311c99b06ec35ff3b09d64224b6e6fe6e7b3a60031a373bc124535755bae2d3"
-  },
-  {
-    "path": "PersonalAI/src/theme-mono.css",
-    "bytes": 841,
-    "sha256": "7012eae1729e240794dd0d028b9f645798183722ecd01ed12652de5483f7f04c"
   },
   {
     "path": "PersonalAI/src/tools/toolCallParser.test.mjs",
@@ -1781,8 +1781,8 @@
   },
   {
     "path": "PersonalAI/src/voice/playbackSignal.d.mts",
-    "bytes": 336,
-    "sha256": "3a9a120f2f700a7bc5074642872c85dbaf999079659fa19c527370854f9c8e9b"
+    "bytes": 235,
+    "sha256": "487869924b63a830a4615081eec002fd5a7098dc1556cba8e3d6906c56716ca3"
   },
   {
     "path": "PersonalAI/src/voice/playbackSignal.mjs",
