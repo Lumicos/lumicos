@@ -3,75 +3,56 @@ import path from 'node:path';
 import net from 'node:net';
 import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {createInterface} from 'node:readline/promises';
 import {detect,install,modelPage,writeLaunchers} from './install.mjs';
-import {selectProfile} from './profile.mjs';
 import {bindModels} from './configure.mjs';
-import {offeredModels,resolveModelChoiceFromFlags,promptModelChoice,applyModelChoice,selectedModels,choiceEnables,reconcileCpuWhisper} from './modelChoice.mjs';
+import {selectedModels,choiceEnables} from './modelChoice.mjs';
+import {listBackendOptions} from './backendChoice.mjs';
+import {resolveInstallRoot} from './installRoot.mjs';
+import {runTwoScreenChoices} from './installWizard.mjs';
 import {confirmMenu} from './terminalMenu.mjs';
 import {readJson,writeJson,hash,run,safeJoin,download} from './io.mjs';
 const kit=fileURLToPath(new URL('../',import.meta.url));
 const argv=process.argv.slice(2),command=argv[0]??'plan';
 const arg=name=>{const i=argv.indexOf(name);return i<0?undefined:argv[i+1]};
-const root=path.resolve(arg('--root')??path.join(process.env.LOCALAPPDATA??'C:/Lumicos','Lumicos'));
+let root=path.resolve(arg('--root')??process.env.LUMICOS_ROOT??'C:/Lumicos');
 const exists=p=>fs.access(p).then(()=>true,()=>false);
 const portBusy=port=>new Promise(resolve=>{const s=net.connect({host:'127.0.0.1',port});s.setTimeout(500);s.once('connect',()=>{s.destroy();resolve(true)});s.once('error',()=>resolve(false));s.once('timeout',()=>{s.destroy();resolve(false)})});
-const stateFile=path.join(root,'lumicos-install.json');
+const statePath=()=>path.join(root,'lumicos-install.json');
 async function models(){return readJson(path.join(kit,'catalog/models.json'))}
 function selected(catalog,p){return selectedModels(catalog,p)}
 async function checkModels(catalog,p){const issues=[];for(const m of selected(catalog,p))for(const f of m.files){const file=safeJoin(root,f.destination);if(!await exists(file)){issues.push('Missing: '+f.destination);continue}if(f.bytes&&(await fs.stat(file)).size!==f.bytes){issues.push('Size mismatch: '+f.destination);continue}if(f.sha256&&await hash(file)!==f.sha256)issues.push('Checksum mismatch: '+f.destination)}return issues}
 async function main(){
  if(['plan','install','stage'].includes(command)){
+  // Default C:\Lumicos (flag/env override); fall back to %LOCALAPPDATA%\Lumicos if unwritable.
+  const resolved=await resolveInstallRoot(argv,process.env,{tryCreate:command!=='plan'});
+  root=resolved.root;
+  if(resolved.message)console.log(resolved.message);
   const hw=arg('--hardware')?await readJson(arg('--hardware')):await detect();
-  let profile=selectProfile(hw,{gpuIndex:arg('--gpu-index')===undefined?undefined:Number(arg('--gpu-index'))});
+  const gpuIndex=arg('--gpu-index')===undefined?undefined:Number(arg('--gpu-index'));
+  const auto=argv.includes('--yes')||process.env.LUMICOS_AUTO_MODELS==='1'||command==='stage'||command==='plan';
+  // Only the install command shows the two screens; plan/stage stay unattended.
+  const interactive=command==='install'&&Boolean(process.stdin.isTTY)&&!argv.includes('--yes')&&process.env.LUMICOS_AUTO_MODELS!=='1';
   const catalog=await models();
-  const offered=offeredModels(catalog,profile);
-  let choice=resolveModelChoiceFromFlags(argv,process.env,offered,profile);
-  const disk=hw.drives?.find(d=>root.toLowerCase().startsWith(d.drive.toLowerCase()));
-  const required=(choice?choice.images:profile.images)?80:15;
+
+  // Exactly two interactive screens (backend + models); then unattended.
+  const wizard=await runTwoScreenChoices(hw,catalog,{
+   gpuIndex,argv,env:process.env,auto,interactive,
+  });
+  let {profile,choice,backendId,acceptFallback}=wizard;
+
+  const disk=hw.drives?.find(d=>String(root).toLowerCase().startsWith(String(d.drive).toLowerCase()));
+  const required=profile.images?80:15;
   if(disk&&disk.freeGiB<required)profile.errors.push(`Need at least ${required} GiB free on installation drive (estimate including downloads/models).`);
-  console.log(JSON.stringify({destination:root,hardware:hw,profile,offeredModels:offered.map(m=>({id:m.id,group:m.group,recommended:!!m.recommended})),modelChoice:choice},null,2));
-  await writeJson(path.join(kit,'last-plan.json'),{destination:root,hardware:hw,profile,offeredModels:offered.map(m=>({id:m.id,group:m.group})),modelChoice:choice});
+
+  console.log(JSON.stringify({destination:root,hardware:hw,profile,backendOptions:listBackendOptions(hw,{gpuIndex}).map(o=>({id:o.id,recommended:!!o.recommended})),offeredModels:(wizard.offered||[]).map(m=>({id:m.id,group:m.group,recommended:!!m.recommended})),modelChoice:choice},null,2));
+  await writeJson(path.join(kit,'last-plan.json'),{destination:root,hardware:hw,profile,modelChoice:choice});
   if(command==='plan')return;
-  if(!argv.includes('--yes')&&command!=='stage'){
-   const ok=await confirmMenu({
-    question:'ติดตั้งตามแผนนี้? / Install this plan?',
-    defaultYes:true,
-    yesLabel:'Install / ติดตั้ง',
-    noLabel:'Cancel / ยกเลิก',
-   });
-   if(!ok){console.log('Installation cancelled.');return;}
-  }
-  if(!choice){
-   if(process.stdin.isTTY)choice=await promptModelChoice(offered,profile);
-   else {console.log('Non-interactive session: using recommended model defaults (pass --yes / --models / --skip-images to pin).');choice=resolveModelChoiceFromFlags(['--yes'],process.env,offered,profile)}
-  }
-  let acceptFallback=argv.includes('--accept-cpu-whisper');
-  if(choice.stt&&profile.whisper==='whisper-cpu'&&!acceptFallback){
-   // Do not abort: offer keep-STT vs skip-STT; non-interactive skips STT unless --accept-cpu-whisper.
-   let dropStt=true;
-   if(process.stdin.isTTY&&!argv.includes('--yes')){
-    const keep=await confirmMenu({
-     question:'โปรไฟล์นี้ใช้ Whisper บน CPU (ไม่ใช่ GPU). ติดตั้ง STT ต่อหรือข้าม? / This profile uses CPU Whisper. Keep STT or skip?',
-     defaultYes:false,
-     yesLabel:'Keep STT / ติดตั้ง STT',
-     noLabel:'Skip STT / ข้าม STT',
-    });
-    if(keep){acceptFallback=true;dropStt=false;}
-   }
-   const reconciled=reconcileCpuWhisper(offered,profile,choice,{acceptCpuWhisper:acceptFallback,dropStt});
-   choice=reconciled.choice;acceptFallback=reconciled.acceptFallback;
-   if(reconciled.droppedStt)console.log('Skipping Whisper STT (CPU fallback not accepted). Install continues.');
-  }
-  console.log('Selected models: '+choice.ids.join(', ')+(choice.images?' · Image Lab on':' · Image Lab off')+(choice.stt?' · STT on':' · STT off')+(choice.tts?' · TTS on':' · TTS off'));
-  profile=applyModelChoice(profile,choice);
-  // Re-check disk with final images flag after the user declined Z-Image.
-  const need=profile.images?80:15;
-  if(disk&&disk.freeGiB<need)profile.errors.push(`Need at least ${need} GiB free on installation drive (estimate including downloads/models).`);
+
+  console.log('Selected backend: '+backendId+' · models: '+choice.ids.join(', ')+(choice.images?' · Image Lab on':' · Image Lab off')+(choice.stt?' · STT on':' · STT off')+(choice.tts?' · TTS on':' · TTS off'));
   await install(root,profile,{stageOnly:command==='stage',acceptFallback});
   return;
  }
- const state=await readJson(stateFile),p=state.profile,catalog=await models();
+ const state=await readJson(statePath()),p=state.profile,catalog=await models();
  if(command==='download-models'){
   console.log('Read model licenses at:');for(const m of selected(catalog,p))console.log(m.id,m.page,m.license);
   if(!argv.includes('--accept-model-licenses')){
@@ -79,11 +60,11 @@ async function main(){
    if(!ok)return;
   }
   for(const m of selected(catalog,p))for(const f of m.files){console.log('MODEL '+m.id+'/'+f.name);if(!f.sha256)throw Error('Model metadata missing SHA256: '+f.name);await download(f,safeJoin(root,f.destination))}
-  const bound=await bindModels(root,p,catalog);state.status='models-linked';state.models=bound.map(x=>x.id);await writeJson(stateFile,state);console.log('Models downloaded and linked. Run Check Installation, then Start Lumicos.');return;
+  const bound=await bindModels(root,p,catalog);state.status='models-linked';state.models=bound.map(x=>x.id);await writeJson(statePath(),state);console.log('Models downloaded and linked. Run Check Installation, then Start Lumicos.');return;
  }
  if(command==='bind'){
   const issues=await checkModels(catalog,p);if(issues.length)throw Error(issues.join('\n'));
-  await bindModels(root,p,catalog);state.status='models-linked';await writeJson(stateFile,state);console.log('Models linked.');return;
+  await bindModels(root,p,catalog);state.status='models-linked';await writeJson(statePath(),state);console.log('Models linked.');return;
  }
  if(command==='doctor'){
   const report={at:new Date().toISOString(),profile:p,checks:[],modelIssues:await checkModels(catalog,p),inferenceTest:'not-run',voiceTest:'not-run',imageTest:'not-run'};

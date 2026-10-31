@@ -169,7 +169,7 @@ function itemLine(state, i, {color = true, cols} = {}) {
   const it = state.items[i];
   const on = state.selected.has(i);
   const cur = i === state.cursor;
-  const mark = state.multi ? (on ? '[x]' : '[ ]') : (on ? '(•)' : '( )');
+  const mark = state.multi ? (on ? '[x]' : '[ ]') : (on ? '(*)' : '( )');
   const pointer = cur ? '>' : ' ';
   const desc = it.hint || it.desc || it.size || '';
   const tag = it.recommended ? 'แนะนำ' : '';

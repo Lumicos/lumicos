@@ -73,7 +73,7 @@ cd lumicos
 .\Install.cmd
 ```
 
-ตรวจฮาร์ดแวร์และปลายทางที่แสดง Installer จะดาวน์โหลด runtime และอาจให้ยอมรับ Whisper บน CPU ในโหมดโต้ตอบให้เลือกโมเดลที่จะเตรียม (แชต, Whisper, Z-Image); ตอบ No จะข้ามโมเดลนั้นแล้วติดตั้งต่อ ใช้ `--yes` สำหรับค่าเริ่มต้น, `--skip-images / --skip-stt / --skip-tts` / `-SkipImages` เพื่อไม่ติดตั้ง Image Lab (แอปจะซ่อนหน้านี้) หรือ `--models=…` เพื่อระบุรายการ หลังติดตั้งอ่าน `MODELS.html` ดาวน์โหลดโมเดล ถ้าดาวน์โหลดเองให้รัน `Link Downloaded Models.cmd` จากนั้น `Check Installation.cmd` และ `Start Lumicos.cmd` ในโฟลเดอร์ที่ติดตั้ง
+โฟลเดอร์ติดตั้งเริ่มต้นคือ `C:\Lumicos` (ไม่ถาม; เปลี่ยนด้วย `--root` / `LUMICOS_ROOT`; ถ้าเขียนไม่ได้จะใช้ `%LOCALAPPDATA%\Lumicos`) โหมดโต้ตอบมี **สองหน้าเท่านั้น**: (1) เลือก GPU backend (CUDA 13 / 12.4 / Vulkan / ROCm / CPU ตามที่เครื่องรองรับ) (2) เลือกโมเดล (แชต, Whisper, TTS, Z-Image) จากนั้นติดตั้งต่อโดยไม่ถามอีก ใช้ `--yes`, `--backend=…`, `--skip-images / --skip-stt / --skip-tts` หรือ `--models=…` หลังติดตั้งอ่าน `MODELS.html` แล้ว `Check Installation.cmd` / `Start Lumicos.cmd`
 
 **อ่านก่อนติดตั้ง:** [ข้อจำกัดและสิ่งที่ต้องเตรียม](docs/INSTALLATION.md) การทดสอบซอร์สหรือแตก EXE ผ่านไม่ได้แปลว่า clean install ผ่านแล้ว ดู [release checklist](docs/RELEASE_CHECKLIST.md)
 
