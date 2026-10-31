@@ -2,15 +2,18 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {writeJson,readJson} from './io.mjs';
+import {choiceEnables} from './modelChoice.mjs';
 export async function configure(root,profile){
  const app=path.join(root,'PersonalAI'),llama=path.join(root,'runtime/llama'),models=path.join(root,'models/chat');
  for(const dir of ['models/chat','models/whisper','PersonalAI/data','PersonalAI/workspace','ComfyUI-Next/models/diffusion_models','ComfyUI-Next/models/text_encoders','ComfyUI-Next/models/vae'])await fs.mkdir(path.join(root,dir),{recursive:true});
  await writeJson(path.join(app,'personalai.config.json'),{host:'127.0.0.1',port:8787,dataDir:'data',workspaceDir:'workspace'});
  await writeJson(path.join(app,'lumicos-launcher.json'),{llamaDir:llama,modelDir:models,model:path.join(models,'gemma-4-E2B_q4_0-it.gguf'),context:profile.context,comfyDir:path.join(root,'ComfyUI-Next')});
- // SearchV6Service / SandboxService read these from environment.json via Start Lumicos (cli start).
- const env={LUMICOS_GPU_BACKEND:profile.backend,LUMICOS_SKIP_VOICE_PRELOAD:'1',LUMICOS_AUTO_COMFY:'1',LUMICOS_STT_BACKEND:'legacy-cli',LUMICOS_WHISPER_BACKEND:profile.whisper==='whisper-cuda'?'CUDA':'CPU',LUMICOS_WHISPER_CPU:profile.whisper==='whisper-cpu'?'1':'0',LUMICOS_STT_DIR:path.join(root,'models/whisper'),LUMICOS_WHISPER_EXE:path.join(root,'runtime/whisper/whisper-cli.exe'),LUMICOS_WHISPER_MODEL:path.join(root,'models/whisper/ggml-large-v3-turbo-q5_0.bin'),LUMICOS_WHISPER_MULTI_MODEL:path.join(root,'models/whisper/ggml-large-v3-turbo-q5_0.bin'),LUMICOS_SEARCH_DIR:path.join(root,'LumicosSearchMCP'),LUMICOS_SEARCH_PYTHON:path.join(root,'Lumicos-Sandbox/python/python.exe'),LUMICOS_SANDBOX_ROOT:path.join(root,'Lumicos-Sandbox'),HF_HUB_OFFLINE:'1',TRANSFORMERS_OFFLINE:'1'};
+ // Feature flags follow installer model choice (off when declined). Older installs without modelChoice keep previous defaults via !== 'off'.
+ const images=choiceEnables(profile,'image');
+ const stt=choiceEnables(profile,'stt');
+ const tts=choiceEnables(profile,'tts');
+ const env={LUMICOS_GPU_BACKEND:profile.backend,LUMICOS_SKIP_VOICE_PRELOAD:'1',LUMICOS_IMAGES:images?'on':'off',LUMICOS_AUTO_COMFY:images?'1':'0',LUMICOS_STT:stt?'on':'off',LUMICOS_TTS:tts?'on':'off',LUMICOS_STT_BACKEND:'legacy-cli',LUMICOS_WHISPER_BACKEND:profile.whisper==='whisper-cuda'?'CUDA':'CPU',LUMICOS_WHISPER_CPU:profile.whisper==='whisper-cpu'?'1':'0',LUMICOS_STT_DIR:path.join(root,'models/whisper'),LUMICOS_WHISPER_EXE:path.join(root,'runtime/whisper/whisper-cli.exe'),LUMICOS_WHISPER_MODEL:path.join(root,'models/whisper/ggml-large-v3-turbo-q5_0.bin'),LUMICOS_WHISPER_MULTI_MODEL:path.join(root,'models/whisper/ggml-large-v3-turbo-q5_0.bin'),LUMICOS_SEARCH_DIR:path.join(root,'LumicosSearchMCP'),LUMICOS_SEARCH_PYTHON:path.join(root,'Lumicos-Sandbox/python/python.exe'),LUMICOS_SANDBOX_ROOT:path.join(root,'Lumicos-Sandbox'),HF_HUB_OFFLINE:'1',TRANSFORMERS_OFFLINE:'1'};
  await writeJson(path.join(root,'environment.json'),env);
- // New installations have no chats, owner credentials, memories, model profiles or API keys copied in.
  if(!await fs.access(path.join(app,'data/voice-engines.json')).then(()=>true,()=>false))await writeJson(path.join(app,'data/voice-engines.json'),{tts:'auto',stt:'multi',resident:false});
 }
 export async function bindModels(root,profile,catalog){

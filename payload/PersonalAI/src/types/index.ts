@@ -75,7 +75,8 @@ export interface EvidenceCitation {
 export interface ChatMessage {
   /** Optional user feedback for an assistant response. */
   feedback?: 'like' | 'dislike';
-  reaction?: import('../components/avatar-stage/reactionIntent.mjs').ReactionIntent;
+  /** @deprecated Avatar stage removed; kept optional for older saved chats. */
+  reaction?: string;
   imageRequest?: {kind:'create'|'edit';prompt:string;translatedPrompt?:string;hidePrompt?:boolean};
   /** Image-job tracking persisted with the reply: root request correlation id and the server job id once created. */
   imageJob?: {requestId?:string;jobId?:string};

@@ -31,6 +31,8 @@ interface Props {
   open: boolean;
   view: View;
   serviceOnline: boolean;
+  /** When false (installer skipped Z-Image), hide Image Lab nav. Default true for older installs. */
+  showImageLab?: boolean;
   onNavigate: (view: View) => void;
   conversations: Conversation[];
   activeId: string;
@@ -41,8 +43,6 @@ interface Props {
   currentCharacterId?: string;
   /** Shown in the character picker. */
   pickerCharacter?: Character;
-  /** Avatar page is Lumicos-only. */
-  showAvatar?: boolean;
   historyFilter: 'character' | 'all';
   onHistoryFilter: (f: 'character' | 'all') => void;
   onToggle: () => void;
@@ -169,7 +169,9 @@ export function Sidebar(p: Props) {
           <HardDrive size={19} /> ไฟล์
           {!p.serviceOnline && <span className="side-nav-dot" title="Local service offline" />}
         </button>
-        <button className={p.view === 'imageedit' ? 'active' : ''} onClick={() => p.onNavigate('imageedit')}><Wand2 size={19}/> Image Lab</button>
+        {p.showImageLab !== false && (
+          <button className={p.view === 'imageedit' ? 'active' : ''} onClick={() => p.onNavigate('imageedit')}><Wand2 size={19}/> Image Lab</button>
+        )}
 
       </nav>
 

@@ -24,10 +24,3 @@ export function playbackAmplitude() {
   for (const player of players) amplitude = Math.max(amplitude, player.read());
   return amplitude;
 }
-/** The current phoneme estimate only exists while its scheduled PCM is audible. */
-export function playbackViseme() {
-  for (const player of players) {
-    try { const viseme=player.readViseme?.(); if(viseme)return viseme; } catch { /* Lip sync falls back to amplitude. */ }
-  }
-  return null;
-}

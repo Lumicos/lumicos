@@ -4,6 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {readJson,writeJson,hash,download,extract,run,safeJoin} from './io.mjs';
 import {selectProfile} from './profile.mjs';
 import {configure,bindModels} from './configure.mjs';
+import {selectedModels,choiceEnables} from './modelChoice.mjs';
 const kit=path.resolve(fileURLToPath(new URL('../',import.meta.url)));
 const exists=p=>fs.access(p).then(()=>true,()=>false);
 export async function detect(){return JSON.parse(await run('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',path.join(kit,'src/detect.ps1')],{capture:true,timeout:30000}))}
@@ -29,12 +30,13 @@ async function flatten(dir,expected){
 }
 export async function install(root,profile,{stageOnly=false,acceptFallback=false}={}){
  await validateRoot(root);if(profile.errors.length)throw Error(profile.errors.join('\n'));
- if(profile.whisper==='whisper-cpu'&&profile.voice&&!acceptFallback&&!stageOnly)throw Error('This profile uses CPU Whisper. Review the plan and pass --accept-cpu-whisper to proceed.');
+ if(profile.whisper==='whisper-cpu'&&choiceEnables(profile,'stt')&&!acceptFallback&&!stageOnly)throw Error('This profile uses CPU Whisper. Review the plan and pass --accept-cpu-whisper to proceed.');
  await fs.mkdir(root,{recursive:true});
  const marker=path.join(root,'lumicos-install.json'),previous=await exists(marker)?await readJson(marker):null;
  if(previous&&previous.version!=='0.2.3')throw Error('Use a fresh folder for the public voice release; private voice installations are never migrated.');
  if(previous&&previous.profile.id!==profile.id)throw Error('Profile changes require a fresh destination; existing environments will not be replaced.');
  const state=previous??{version:'0.2.3',root,profile,steps:{},createdAt:new Date().toISOString(),status:'installing'};
+ state.profile=profile;if(profile.modelChoice)state.modelChoice=profile.modelChoice;
  await writeJson(marker,state);
  async function step(name,fn){if(state.steps[name]==='done'){console.log('REUSE '+name);return}console.log('INSTALL '+name);try{await fn();state.steps[name]='done';state.status='installing';await writeJson(marker,state)}catch(e){state.status='failed';state.failedStep=name;state.error=e.message;await writeJson(marker,state);throw e}}
  const catalog=await readJson(path.join(kit,'catalog/downloads.json'));
@@ -49,7 +51,8 @@ export async function install(root,profile,{stageOnly=false,acceptFallback=false
  await step('node',()=>archive('node',path.join(root,'runtime/node'),'node.exe'));
  await step('uv',()=>archive('uv',path.join(root,'runtime/uv'),'uv.exe'));
  await step('llama',async()=>{await archive(profile.llama,path.join(root,'runtime/llama'),'llama-server.exe');if(profile.backend==='cuda')await archive(profile.llama.endsWith('13')?'cudart13':'cudart12',path.join(root,'runtime/llama'))});
- await step('whisper',()=>archive(profile.whisper,path.join(root,'runtime/whisper'),'whisper-server.exe'));
+ if(choiceEnables(profile,'stt'))await step('whisper',()=>archive(profile.whisper,path.join(root,'runtime/whisper'),'whisper-server.exe'));
+ else console.log('SKIP whisper (STT declined)');
  const node=path.join(root,'runtime/node/node.exe'),uv=path.join(root,'runtime/uv/uv.exe');
  const env={PATH:path.join(root,'runtime/node')+';'+process.env.PATH,UV_PYTHON_INSTALL_DIR:path.join(root,'runtime/python'),UV_CACHE_DIR:path.join(root,'.uv-cache')};
  const uvRun=args=>run(uv,args,{env});
@@ -102,7 +105,7 @@ export async function writeLaunchers(root){
 const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 export async function modelPage(root,profile){
  const rows=await readJson(path.join(kit,'catalog/models.json'));let body='';
- for(const m of rows.filter(m=>m.id===profile.chatModel||m.id==='call-e2b'||(profile.voice&&['stt','tts'].includes(m.group))||(profile.images&&m.group==='image'))){
+ for(const m of selectedModels(rows,profile)){
   body+=`<section><h2>${escape(m.id)}</h2><a href="${escape(m.page)}">Hugging Face / model card / license</a><p>Revision: ${escape(m.revision)} · License: ${escape(m.license)}</p><ul>`;
   for(const f of m.files)body+=`<li><a href="${escape(f.url)}">${escape(f.name)}</a> (${((f.bytes??0)/1073741824).toFixed(2)} GiB)<br>Save to: <code>${escape(path.join(root,f.destination))}</code></li>`;
   body+='</ul></section>';

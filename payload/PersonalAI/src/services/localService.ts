@@ -36,6 +36,8 @@ export interface ServiceHealth {
   workspace: string;
   dataDir: string;
   tools: number;
+  autoStartComfy?: boolean;
+  features?: { images?: boolean; stt?: boolean; tts?: boolean };
 }
 export interface OwnerStatus {configured:boolean;authenticated:boolean;role:'owner'|'agent';transport:'local'|'tailscale';subject:string;expiresAt:string|null;csrf?:string;challenge:string;canEnroll?:boolean}
 export interface WorkshopStatus {ready:boolean;contractVersion:'1';pluginId:string;controller:string;ownerAuthorization:string;isolation:string;executionEnabled:boolean;activationEnabled:boolean;blockers:string[];integrity:Record<string,{actual:string;expected:string;verified:boolean;adapter:boolean}>}

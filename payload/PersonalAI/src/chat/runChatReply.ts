@@ -1,7 +1,5 @@
-import {parseReaction} from '../components/avatar-stage/reactionIntent.mjs';
 import { keepExactOutput, printedBySkill } from './skillOutput';
 import { runThemeTool } from '../theme/customTheme';
-import {publishReaction,cancelReactions} from '../components/avatar-stage/reactionSignal.mjs';
 import {resolveImageIntent,requestedSize,preserveImageAspect,IMAGE_SIZES,imagePromptFromModelText,imagePrompt,SELFIE_REQUEST} from './imageRequest';
 import {existingImageReply} from './existingImage.mjs';
 import {routeChatReasoning} from './reasoningRouter.mjs';
@@ -457,7 +455,7 @@ export async function runChatReply(runtime:Runtime,conv:Conversation,history:Cha
           let finalShown = cleanOutput(toolsWanted ? visibleText(raw) : raw.trim());
           const exactShown = runtime.skillExactOutput ? keepExactOutput(finalShown, printedBySkill(msg.toolRuns, runtime.skillExactOutput)) : finalShown;
           if (exactShown !== finalShown) {
-            msg = setText({ ...msg, modelText: exactShown, promptText: exactShown, ...(character.id==='default-mina'?{reaction:parseReaction(raw).intent}:{}) }, exactShown);
+            msg = setText({ ...msg, modelText: exactShown, promptText: exactShown }, exactShown);
             break;
           }
           // One more try (at most once per reply): a failed run_python call the draft did not redo, a matched skill whose
@@ -472,7 +470,7 @@ export async function runChatReply(runtime:Runtime,conv:Conversation,history:Cha
               : undefined;
             if (note) { retried = true; turnNote = note; continue; }
           }
-          msg = setText({ ...msg, modelText: cleanOutput(raw), promptText: raw, ...(character.id==='default-mina'?{reaction:parseReaction(raw).intent}:{}) }, finalShown || committedVisible);
+          msg = setText({ ...msg, modelText: cleanOutput(raw), promptText: raw }, finalShown || committedVisible);
           break;
         }
 
@@ -642,8 +640,6 @@ export async function runChatReply(runtime:Runtime,conv:Conversation,history:Cha
         memoryCandidates: candidates.length ? candidates : undefined,
       };
       commit();
-      if(failed||stopped)cancelReactions();
-      else if(msg.reaction&&(conv.private||typeof window!=='undefined'))publishReaction({conversationId:conv.id,messageId:msg.id,intent:msg.reaction});
 
       setLastStats(failed ? undefined : stats); // undefined -> UI shows "--", never a guess
       if (failed && !conv.private) chatEvents.emit('error', { conversationId: conv.id, messageId: msg.id, error: failed });

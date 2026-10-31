@@ -20,13 +20,14 @@ interface Props {
   onGenerateImage?: (prompt:string, options?:ImageOptions) => void;
   /** Voice-call control shown next to the microphone. */
   callButton?: import('react').ReactNode;
+  sttEnabled?: boolean;
   reasoningMode:ChatReasoningMode;
   onReasoningChange:(mode:ChatReasoningMode)=>void;
 }
 
 type Pending = { key: string; name: string; status: 'uploading' | 'ready' | 'error'; part?: AttachmentPart; error?: string;original?:File };
 
-export function ChatInput({ disabled, isGenerating, enterToSend, placeholder, disabledReason, canAttach, onSend, onStop, callButton, reasoningMode, onReasoningChange }: Props) {
+export function ChatInput({ disabled, isGenerating, enterToSend, placeholder, disabledReason, canAttach, onSend, onStop, callButton, sttEnabled = true, reasoningMode, onReasoningChange }: Props) {
   const [text, setText] = useState('');
   const [voiceBusy,setVoiceBusy]=useState(false);
   const [files, setFiles] = useState<Pending[]>([]);
@@ -154,7 +155,7 @@ export function ChatInput({ disabled, isGenerating, enterToSend, placeholder, di
             {<ModelSwitcher online={canAttach} disabled={!!disabled || isGenerating || voiceBusy} reasoningMode={reasoningMode} onReasoningChange={onReasoningChange} />}
           </div>
           <div className="composer-tools composer-send-tools">
-            <MicrophoneButton disabled={!canAttach||!!disabled||isGenerating} onBusy={setVoiceBusy} onText={value=>setText(previous=>previous?previous+' '+value:value)}/>
+            {sttEnabled && <MicrophoneButton disabled={!canAttach||!!disabled||isGenerating} onBusy={setVoiceBusy} onText={value=>setText(previous=>previous?previous+' '+value:value)}/>}
             {isGenerating ? (
               <button className="send-btn stop" onClick={onStop} title="Stop generating" aria-label="Stop generating">
                 <Square size={13} fill="currentColor" />

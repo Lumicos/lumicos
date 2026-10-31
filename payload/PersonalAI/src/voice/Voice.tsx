@@ -1,4 +1,3 @@
-import {cancelReactions} from '../components/avatar-stage/reactionSignal.mjs';
 import {createContext,useCallback,useContext,useEffect,useRef,useState,type ReactNode} from 'react';
 import {Volume2,Square} from 'lucide-react';
 import {PCMPlayer} from './PCMPlayer';
@@ -10,7 +9,7 @@ export const useVoice=()=>useContext(Context);
 export function VoiceProvider({children}:{children:ReactNode}){
  const [status,setStatus]=useState<Status>();const [busy,setBusy]=useState(false);const [readingId,setReadingId]=useState<string|null>(null);const [error,setError]=useState('');const [playing,setPlaying]=useState(false);const [elapsed,setElapsed]=useState(0);const [chunks,setChunks]=useState(0);
  const abort=useRef<AbortController|null>(null);const player=useRef<PCMPlayer|null>(null);
- const stop=useCallback(()=>{cancelReactions();abort.current?.abort();abort.current=null;player.current?.stop();player.current=null;setPlaying(false);setBusy(false);setReadingId(null);setError('');setChunks(0)},[]);
+ const stop=useCallback(()=>{abort.current?.abort();abort.current=null;player.current?.stop();player.current=null;setPlaying(false);setBusy(false);setReadingId(null);setError('');setChunks(0)},[]);
  useEffect(()=>{let live=true;const refresh=()=>api('status').then(r=>r.json()).then(s=>{if(live)setStatus(s)}).catch(()=>{if(live)setStatus(undefined)});void refresh();const timer=setInterval(refresh,30000);return()=>{live=false;clearInterval(timer);abort.current?.abort();player.current?.stop()}},[]);
  const speak=useCallback(async(text:string,id:string,options?:{literal?:boolean;avatarTest?:{speed:number}})=>{
   stop();setError('');const controller=new AbortController();abort.current=controller;setBusy(true);setReadingId(id);
@@ -47,12 +46,13 @@ function EngineChooser(){
   <p className="muted small">ใช้เฉพาะ Microsoft Pattara บน CPU หากไม่พบเสียง ให้ติดตั้ง Thai text-to-speech ใน Windows Settings &gt; Language &amp; region</p>
   {error&&<div className="form-error" role="alert">{error}</div>}</div>;
 }
-export function VoiceSettings(){const v=useVoice();return <section>
- <h2>เสียง Lumicos</h2><EngineChooser/><p>{v.status?.tts.label??'กำลังตรวจระบบเสียง…'}</p><p>{v.status?.tts.ready?'พร้อมอ่านคำตอบด้วยเสียงที่เตรียมไว้':v.status?.tts.reason}</p>
- <button className="btn btn-soft" disabled={!v.status?.tts.ready||v.busy} onClick={()=>v.speak('สวัสดีค่ะ ระบบลูมิคอส พร้อมคุยกับคุณแล้วค่ะ','voice-test')}>ทดสอบเสียง Lumicos</button>
- <h3>ฟังเสียงภาษาไทย</h3><p>{v.status?.stt.ready?'พร้อมใช้ปุ่มไมค์ในช่องแชต':v.status?.stt.reason??'บริการยังไม่พร้อม'}</p>
- <p>กดไมค์แล้วพูด เมื่อพูดจบและเงียบประมาณ 1.2 วินาที ระบบจะปิดไมค์และถอดเป็นข้อความในช่องพิมพ์ให้ตรวจแก้ก่อนส่ง อัดได้ครั้งละ 60 วินาที หากไม่มีเสียงพูด 10 วินาทีจะหยุดเอง</p>
- <h3>โทรคุย</h3><p>โทรคุยด้วย Gemma E2B และเสียง Microsoft Pattara เมื่อฟังคำตอบจบจะเปิดไมค์รับรอบถัดไป กดวางสายเพื่อหยุดทุกขั้นตอน โหมดนี้ผลัดกันพูดและยังไม่รองรับพูดแทรกระหว่างคำตอบ</p>
- <p>ปุ่มอ่านคำตอบและโทรคุยใช้เสียง CPU โดยไม่ใช้เสียงอ้างอิงส่วนตัว โหมดไม่บันทึกแชตยังใช้ข้อความเท่านั้น</p>
+export function VoiceSettings({sttEnabled=true,ttsEnabled=true}:{sttEnabled?:boolean;ttsEnabled?:boolean}={}){const v=useVoice();return <section>
+ <h2>เสียง Lumicos</h2>
+ {ttsEnabled?<><EngineChooser/><p>{v.status?.tts.label??'กำลังตรวจระบบเสียง…'}</p><p>{v.status?.tts.ready?'พร้อมอ่านคำตอบด้วยเสียงที่เตรียมไว้':v.status?.tts.reason}</p>
+ <button className="btn btn-soft" disabled={!v.status?.tts.ready||v.busy} onClick={()=>v.speak('สวัสดีค่ะ ระบบลูมิคอส พร้อมคุยกับคุณแล้วค่ะ','voice-test')}>ทดสอบเสียง Lumicos</button></>:<p className="muted">TTS ถูกปิดตอนติดตั้ง / TTS was declined at install.</p>}
+ {sttEnabled?<><h3>ฟังเสียงภาษาไทย</h3><p>{v.status?.stt.ready?'พร้อมใช้ปุ่มไมค์ในช่องแชต':v.status?.stt.reason??'บริการยังไม่พร้อม'}</p>
+ <p>กดไมค์แล้วพูด เมื่อพูดจบและเงียบประมาณ 1.2 วินาที ระบบจะปิดไมค์และถอดเป็นข้อความในช่องพิมพ์ให้ตรวจแก้ก่อนส่ง อัดได้ครั้งละ 60 วินาที หากไม่มีเสียงพูด 10 วินาทีจะหยุดเอง</p></>:<p className="muted">STT ถูกปิดตอนติดตั้ง / STT was declined at install.</p>}
+ {sttEnabled&&ttsEnabled?<><h3>โทรคุย</h3><p>โทรคุยด้วย Gemma E2B และเสียง Microsoft Pattara เมื่อฟังคำตอบจบจะเปิดไมค์รับรอบถัดไป กดวางสายเพื่อหยุดทุกขั้นตอน โหมดนี้ผลัดกันพูดและยังไม่รองรับพูดแทรกระหว่างคำตอบ</p>
+ <p>ปุ่มอ่านคำตอบและโทรคุยใช้เสียง CPU โดยไม่ใช้เสียงอ้างอิงส่วนตัว โหมดไม่บันทึกแชตยังใช้ข้อความเท่านั้น</p></>:null}
  </section>}
 

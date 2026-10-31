@@ -1,4 +1,4 @@
-param([ValidateSet('install','plan','stage')][string]$Mode='install',[string]$Root,[int]$GpuIndex=-1,[switch]$AcceptCpuWhisper,[switch]$Yes)
+param([ValidateSet('install','plan','stage')][string]$Mode='install',[string]$Root,[int]$GpuIndex=-1,[switch]$AcceptCpuWhisper,[switch]$Yes,[switch]$SkipImages,[switch]$SkipStt,[switch]$SkipTts,[string]$Models)
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 Write-Host 'Lumicos Setup 0.2.3 - Windows 11 x64' -ForegroundColor Cyan
@@ -33,10 +33,10 @@ if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
 $plan=Get-Content (Join-Path $PSScriptRoot 'last-plan.json') -Raw | ConvertFrom-Json
 if($plan.profile.errors.Count){throw ($plan.profile.errors -join '; ')}
 if($Mode -eq 'plan'){exit 0}
-if($Mode -eq 'install' -and $plan.profile.voice -and $plan.profile.whisper -eq 'whisper-cpu' -and -not $AcceptCpuWhisper){
+if($Mode -eq 'install' -and -not $SkipStt -and $plan.profile.voice -and $plan.profile.whisper -eq 'whisper-cpu' -and -not $AcceptCpuWhisper){
  $answer=Read-Host 'This profile uses CPU Whisper (not GPU). Accept this fallback? Type YES';if($answer -ne 'YES'){throw 'CPU Whisper fallback was not accepted'};$AcceptCpuWhisper=$true
 }
-$extra=@();if($AcceptCpuWhisper){$extra+='--accept-cpu-whisper'};if($Yes){$extra+='--yes'}
+$extra=@();if($AcceptCpuWhisper){$extra+='--accept-cpu-whisper'};if($Yes){$extra+='--yes'};if($SkipImages){$extra+='--skip-images'};if($SkipStt){$extra+='--skip-stt'};if($SkipTts){$extra+='--skip-tts'};if($Models){$extra+=@('--models',$Models)}
 & $node $cli $Mode @common @extra
 if($LASTEXITCODE -ne 0){throw 'Installation stopped. Re-run with the same folder to resume; see lumicos-install.json.'}
 if($Mode -eq 'install'){Start-Process (Join-Path $Root 'MODELS.html')}

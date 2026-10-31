@@ -18,6 +18,7 @@ interface Props {
   busy: boolean;
   canRegenerate: boolean;
   showReasoning: boolean;
+  ttsEnabled?: boolean;
   onCopy: (m: ChatMessage) => void;
   onFeedback: (id: string, feedback: 'like' | 'dislike') => void;
   onRegenerate: (id: string) => void;
@@ -128,7 +129,7 @@ export const MessageItem = memo(function MessageItem(p: Props) {
                 <ThumbsDown size={14} />
               </IconAction>
             )}
-            {hasText && serviceOnline && <SpeakButton text={textOf(m)} id={m.id} disabled={p.busy}/>}
+            {hasText && serviceOnline && p.ttsEnabled !== false && <SpeakButton text={textOf(m)} id={m.id} disabled={p.busy}/>}
             {p.canRegenerate && (
               <IconAction label="Regenerate" onClick={() => p.onRegenerate(m.id)} disabled={p.busy}>
                 <RotateCcw size={14} />
