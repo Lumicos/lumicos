@@ -7,6 +7,7 @@ import {createInterface} from 'node:readline/promises';
 import {detect,install,modelPage,writeLaunchers} from './install.mjs';
 import {selectProfile} from './profile.mjs';
 import {bindModels} from './configure.mjs';
+import {offeredModels,resolveModelChoiceFromFlags,promptModelChoice,applyModelChoice,selectedModels} from './modelChoice.mjs';
 import {readJson,writeJson,hash,run,safeJoin,download} from './io.mjs';
 const kit=fileURLToPath(new URL('../',import.meta.url));
 const argv=process.argv.slice(2),command=argv[0]??'plan';
@@ -16,22 +17,34 @@ const exists=p=>fs.access(p).then(()=>true,()=>false);
 const portBusy=port=>new Promise(resolve=>{const s=net.connect({host:'127.0.0.1',port});s.setTimeout(500);s.once('connect',()=>{s.destroy();resolve(true)});s.once('error',()=>resolve(false));s.once('timeout',()=>{s.destroy();resolve(false)})});
 const stateFile=path.join(root,'lumicos-install.json');
 async function models(){return readJson(path.join(kit,'catalog/models.json'))}
-function selected(catalog,p){return catalog.filter(m=>m.id===p.chatModel||m.id==='call-e2b'||(p.voice&&['stt','tts'].includes(m.group))||(p.images&&m.group==='image'))}
+function selected(catalog,p){return selectedModels(catalog,p)}
 async function checkModels(catalog,p){const issues=[];for(const m of selected(catalog,p))for(const f of m.files){const file=safeJoin(root,f.destination);if(!await exists(file)){issues.push('Missing: '+f.destination);continue}if(f.bytes&&(await fs.stat(file)).size!==f.bytes){issues.push('Size mismatch: '+f.destination);continue}if(f.sha256&&await hash(file)!==f.sha256)issues.push('Checksum mismatch: '+f.destination)}return issues}
 async function main(){
  if(['plan','install','stage'].includes(command)){
   const hw=arg('--hardware')?await readJson(arg('--hardware')):await detect();
-  const profile=selectProfile(hw,{gpuIndex:arg('--gpu-index')===undefined?undefined:Number(arg('--gpu-index'))});
+  let profile=selectProfile(hw,{gpuIndex:arg('--gpu-index')===undefined?undefined:Number(arg('--gpu-index'))});
+  const catalog=await models();
+  const offered=offeredModels(catalog,profile);
+  let choice=resolveModelChoiceFromFlags(argv,process.env,offered,profile);
   const disk=hw.drives?.find(d=>root.toLowerCase().startsWith(d.drive.toLowerCase()));
-  const required=profile.images?80:15;
+  const required=(choice?choice.images:profile.images)?80:15;
   if(disk&&disk.freeGiB<required)profile.errors.push(`Need at least ${required} GiB free on installation drive (estimate including downloads/models).`);
-  console.log(JSON.stringify({destination:root,hardware:hw,profile},null,2));
-  await writeJson(path.join(kit,'last-plan.json'),{destination:root,hardware:hw,profile});
+  console.log(JSON.stringify({destination:root,hardware:hw,profile,offeredModels:offered.map(m=>({id:m.id,group:m.group,recommended:!!m.recommended})),modelChoice:choice},null,2));
+  await writeJson(path.join(kit,'last-plan.json'),{destination:root,hardware:hw,profile,offeredModels:offered.map(m=>({id:m.id,group:m.group})),modelChoice:choice});
   if(command==='plan')return;
   if(!argv.includes('--yes')&&command!=='stage'){
    const rl=createInterface({input:process.stdin,output:process.stdout});
    const answer=await rl.question('Install this plan? Type INSTALL to continue: ');rl.close();if(answer!=='INSTALL')return;
   }
+  if(!choice){
+   if(process.stdin.isTTY)choice=await promptModelChoice(offered,profile);
+   else {console.log('Non-interactive session: using recommended model defaults (pass --yes / --models / --skip-images to pin).');choice=resolveModelChoiceFromFlags(['--yes'],process.env,offered,profile)}
+  }
+  console.log('Selected models: '+choice.ids.join(', ')+(choice.images?' (Image Lab on)':' (Image Lab off)'));
+  profile=applyModelChoice(profile,choice);
+  // Re-check disk with final images flag after the user declined Z-Image.
+  const need=profile.images?80:15;
+  if(disk&&disk.freeGiB<need)profile.errors.push(`Need at least ${need} GiB free on installation drive (estimate including downloads/models).`);
   await install(root,profile,{stageOnly:command==='stage',acceptFallback:argv.includes('--accept-cpu-whisper')});
   return;
  }

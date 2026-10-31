@@ -15,8 +15,9 @@ The repository is a source snapshot (package version 0.2.3). GitHub has no relea
 3. Download checksum-pinned Node.js 24.21.0 into `.bootstrap`; no global Node installation is required for the end-user bootstrap.
 4. Show the plan and ask before installation / CPU Whisper fallback.
 5. [Installer](../src/install.mjs) copies the verified payload, downloads selected runtimes, creates isolated environments, configures sandbox ACLs and builds the app. Inspect administrative requirements for sandbox setup on a fresh machine; do not promise an entirely privilege-free install.
-6. Read generated `MODELS.html`. Either use `Download Recommended Models.cmd` after accepting upstream terms, or download manually to the listed destinations and run `Link Downloaded Models.cmd`.
-7. Run `Check Installation.cmd`, then `Start Lumicos.cmd`. Existing occupied service ports are meant to stop startup, not authorize killing other services.
+6. During interactive install, choose which catalog models to prepare (chat GGUF, Whisper STT, Z-Image / Image Lab). Answering **No** skips that model and continues; the installer never exits because a model was declined. Non-interactive runs use recommended defaults (`--yes` / `LUMICOS_AUTO_MODELS=1`), or pin with `--models=call-e2b,whisper` / `LUMICOS_MODELS`, or omit Image Lab with `--skip-images` / `-SkipImages` on Bootstrap / `LUMICOS_SKIP_IMAGES=1`. Declining Z-Image writes `LUMICOS_IMAGES=off` into `environment.json`, skips ComfyUI setup, and hides the Image Lab page in the app.
+7. Read generated `MODELS.html` (lists only the models you selected). Either use `Download Recommended Models.cmd` after accepting upstream terms, or download manually to the listed destinations and run `Link Downloaded Models.cmd`.
+8. Run `Check Installation.cmd`, then `Start Lumicos.cmd`. Existing occupied service ports are meant to stop startup, not authorize killing other services.
 
 Runtime and model network access is required during setup. The installer's disk check is an **estimate**, not a measurement: 15GiB without images, 80GiB with images ([CLI](../src/cli.mjs)). Keep headroom for downloads, Python environments and temporary files. Low RAM receives a warning; 32GB is the developer reference, not a universal requirement.
 

@@ -53,6 +53,10 @@ export default function App() {
   const [calling,setCalling]=useState(false);
   const [focusPath, setFocusPath] = useState<string>();
   const service = useLocalService();
+  const imagesEnabled = service.health?.features?.images !== false;
+  useEffect(() => {
+    if (!imagesEnabled && (view === 'imageedit' || view === 'gallery')) setView('chat');
+  }, [imagesEnabled, view]);
 
   // The only place that decides which backend is used.
   const provider = useMemo(
@@ -196,6 +200,7 @@ export default function App() {
         showRoleplayAgents={!!settings.developer.showRoleplayAgents}
         open={settings.sidebarOpen}
         view={view}
+        showImageLab={imagesEnabled}
         serviceOnline={service.online && !chat.active.private}
         onNavigate={(v) => {
           setView(v);
@@ -233,7 +238,7 @@ export default function App() {
         <div className="mobile-menu-connection"><ConnectionStatus/></div>
       </nav>}</div><button className="mobile-new-chat" aria-label="แชทใหม่" disabled={calling||chat.isGenerating} onClick={()=>{chat.newChat();setView('chat')}}><SquarePen size={20}/></button><div className="workspace-top-actions"><button className="private-toggle" disabled={calling||chat.isGenerating||chat.suggesting} aria-label={chat.active.private?'ออกจากแชทชั่วคราว':'แชทชั่วคราว'} data-tooltip={chat.active.private?'ออกจากแชทชั่วคราว':'แชทชั่วคราว'} aria-pressed={!!chat.active.private} onClick={()=>{chat.togglePrivate();setView('chat')}}><MessageCircleDashed size={18}/></button></div></header>
       {chat.active.private&&<div className="model-banner private-banner"><span className="private-info-desktop">Private · ไม่บันทึกประวัติและไม่ใช้ความจำ · รองรับข้อความเท่านั้น ปิดไฟล์ เครื่องมือ และภาพ · ออกจากโหมดหรือรีเฟรชแล้วข้อความจะหาย</span><details className="private-info-mobile"><summary>ไม่บันทึกแชท · ดูรายละเอียด</summary><p>ไม่ใช้ความจำ รองรับข้อความเท่านั้น ไม่ใช้ไฟล์ เครื่องมือ หรือภาพ ข้อความจะหายเมื่อออกจาก Private หรือรีเฟรช</p></details></div>}
-      {view === 'gallery' ? <ImageEditPage key="album" initialScreen="album" online={service.online} provider={provider} onBack={() => setView('chat')}/> : view === 'imageedit' ? <ImageEditPage key="lab" online={service.online} provider={provider} onBack={() => setView('chat')}/> : view === 'memory' ? (
+      {imagesEnabled && view === 'gallery' ? <ImageEditPage key="album" initialScreen="album" online={service.online} provider={provider} onBack={() => setView('chat')}/> : imagesEnabled && view === 'imageedit' ? <ImageEditPage key="lab" online={service.online} provider={provider} onBack={() => setView('chat')}/> : view === 'memory' ? (
         <MemoryPage
           online={service.online}
           dataDir={service.health?.dataDir}

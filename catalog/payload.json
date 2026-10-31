@@ -286,8 +286,8 @@
   },
   {
     "path": "PersonalAI/server/http/app.mjs",
-    "bytes": 29052,
-    "sha256": "44c4dafc05a82fafbbc2db3ad269a429158a285551bca7ac4f7a24f22781d703"
+    "bytes": 29112,
+    "sha256": "5c4e64fffbdce79d8c1ac7c07c1a162a446aa8ea3cf1fb69864c61398bd6f5a2"
   },
   {
     "path": "PersonalAI/server/http/remoteGateway.mjs",
@@ -651,8 +651,8 @@
   },
   {
     "path": "PersonalAI/server/service.mjs",
-    "bytes": 6514,
-    "sha256": "400d708df03118bb8e742e5c1b998899fcf9b572ab4a2a59db6b48821e262028"
+    "bytes": 6742,
+    "sha256": "c1972c3e507bea96d100071c1489523e53ba6a9e25b8faf880f0b88039d327f8"
   },
   {
     "path": "PersonalAI/server/test/agentFiles.claude.test.mjs",
@@ -1086,8 +1086,8 @@
   },
   {
     "path": "PersonalAI/src/App.tsx",
-    "bytes": 19905,
-    "sha256": "2fdc006bc6ff3cec047dc2c9ec91c6803c5b177131fee635481dcc59f940e3f6"
+    "bytes": 20182,
+    "sha256": "f7aa9e4f2a7f5a5d51cee42103e4223aea5e09cc2c8bd81d61e4187ed82bc289"
   },
   {
     "path": "PersonalAI/src/characters/CharacterManager.tsx",
@@ -1431,8 +1431,8 @@
   },
   {
     "path": "PersonalAI/src/components/Sidebar.tsx",
-    "bytes": 13506,
-    "sha256": "ac71dc0d21ad5cfc372714a46dd4ea3f46434c2ad17c201eba9b2238de14eac8"
+    "bytes": 13686,
+    "sha256": "bdcb4ee30d1b2f43a6986cafba2e6d15e76d3be8e4abaac03075b1b8c0f465db"
   },
   {
     "path": "PersonalAI/src/components/avatar-stage/reactionChat.test.mjs",
@@ -1661,8 +1661,8 @@
   },
   {
     "path": "PersonalAI/src/services/localService.ts",
-    "bytes": 13184,
-    "sha256": "67a2725794da0bc8b4182f527f4345d7c623efa35e66f1e7ab33499a4e91f3a6"
+    "bytes": 13247,
+    "sha256": "68bb3f18876f4c994953867c725871c5c270634ebc69fcd8ae61923e8cc15a50"
   },
   {
     "path": "PersonalAI/src/services/models.ts",

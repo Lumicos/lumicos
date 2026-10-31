@@ -4,12 +4,13 @@ import {fileURLToPath} from 'node:url';
 import {readJson,writeJson,hash,download,extract,run,safeJoin} from './io.mjs';
 import {selectProfile} from './profile.mjs';
 import {configure,bindModels} from './configure.mjs';
+import {selectedModels} from './modelChoice.mjs';
 const kit=path.resolve(fileURLToPath(new URL('../',import.meta.url)));
 const exists=p=>fs.access(p).then(()=>true,()=>false);
 export async function detect(){return JSON.parse(await run('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',path.join(kit,'src/detect.ps1')],{capture:true,timeout:30000}))}
 export async function verifyPayload(){const entries=await readJson(path.join(kit,'catalog/payload.json'));for(const e of entries){if(await hash(safeJoin(path.join(kit,'payload'),e.path))!==e.sha256)throw Error('Payload checksum mismatch: '+e.path)}return entries}
 export async function validateRoot(root){
- if(!path.win32.isAbsolute(root)||root.startsWith('\\\\')||/[\r\n"%&|<>^!]/.test(root)||path.parse(root).root===root)throw Error('Choose a local installation subfolder without shell metacharacters.');
+ if(!path.win32.isAbsolute(root)||root.startsWith('\\\\')||/[\r\n"%&|<>^!]/.test(root)||path.win32.parse(root).root===root)throw Error('Choose a local installation subfolder without shell metacharacters.');
  if(await exists(root)){
   if((await fs.lstat(root)).isSymbolicLink())throw Error('Installation root cannot be a junction.');
   const names=await fs.readdir(root);
@@ -31,6 +32,7 @@ export async function install(root,profile,{stageOnly=false,acceptFallback=false
  if(previous&&previous.version!=='0.2.3')throw Error('Use a fresh folder for the public voice release; private voice installations are never migrated.');
  if(previous&&previous.profile.id!==profile.id)throw Error('Profile changes require a fresh destination; existing environments will not be replaced.');
  const state=previous??{version:'0.2.3',root,profile,steps:{},createdAt:new Date().toISOString(),status:'installing'};
+ state.profile=profile;if(profile.modelChoice)state.modelChoice=profile.modelChoice;
  await writeJson(marker,state);
  async function step(name,fn){if(state.steps[name]==='done'){console.log('REUSE '+name);return}console.log('INSTALL '+name);try{await fn();state.steps[name]='done';state.status='installing';await writeJson(marker,state)}catch(e){state.status='failed';state.failedStep=name;state.error=e.message;await writeJson(marker,state);throw e}}
  const catalog=await readJson(path.join(kit,'catalog/downloads.json'));
@@ -98,7 +100,7 @@ export async function writeLaunchers(root){
 const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 export async function modelPage(root,profile){
  const rows=await readJson(path.join(kit,'catalog/models.json'));let body='';
- for(const m of rows.filter(m=>m.id===profile.chatModel||m.id==='call-e2b'||(profile.voice&&['stt','tts'].includes(m.group))||(profile.images&&m.group==='image'))){
+ for(const m of selectedModels(rows,profile)){
   body+=`<section><h2>${escape(m.id)}</h2><a href="${escape(m.page)}">Hugging Face / model card / license</a><p>Revision: ${escape(m.revision)} · License: ${escape(m.license)}</p><ul>`;
   for(const f of m.files)body+=`<li><a href="${escape(f.url)}">${escape(f.name)}</a> (${((f.bytes??0)/1073741824).toFixed(2)} GiB)<br>Save to: <code>${escape(path.join(root,f.destination))}</code></li>`;
   body+='</ul></section>';

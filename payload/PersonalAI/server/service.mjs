@@ -32,6 +32,8 @@ import { AgentService } from './agent/agentService.mjs';
 
 // Web search is ON by default (Lumicos Search v6 beside the install root). Set LUMICOS_WEB_SEARCH=off to disable.
 export const legacyWebSearchEnabled = (env=process.env) => env.LUMICOS_WEB_SEARCH !== 'off';
+// Image Lab / Z-Image: installer writes LUMICOS_IMAGES=off when the user declines image models (or hardware cannot run them).
+export const imagesEnabled = (env=process.env) => env.LUMICOS_IMAGES !== 'off';
 
 export function createServices(config) {
   config.internalToken=randomUUID();
@@ -66,7 +68,7 @@ export function createServices(config) {
   for (const t of sandboxTools(sandbox, skills)) tools.register(t);
 
   const comfy = new ComfyService(config);
-  for (const t of imageTools(comfy)) tools.register(t);
+  if (imagesEnabled()) for (const t of imageTools(comfy)) tools.register(t);
   const models = new ModelService(config,comfy);
   comfy.models = models;
   const voice = new VoiceService(comfy,models);
