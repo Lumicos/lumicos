@@ -20,7 +20,15 @@ if($smi){
  $raw=& $smi.Source 2>$null
  if(($raw -join ' ') -match 'CUDA Version:\s*([0-9.]+)'){$cuda=$Matches[1]}
  $rows=& $smi.Source --query-gpu=name,memory.total --format=csv,noheader,nounits 2>$null
- foreach($row in $rows){$parts=$row -split ',';foreach($g in $gpus){if($g.name -eq $parts[0].Trim()){$g.vramGiB=[math]::Round([double]$parts[1].Trim()/1024,2);$g.memorySource='nvidia-smi'}}}
+ function Normalize-GpuName([string]$n){ return (($n -replace 'NVIDIA( Corporation)?','' -replace '\s+',' ').Trim()) }
+ foreach($row in $rows){
+  $parts=$row -split ','; $smiName=$parts[0].Trim(); $smiNorm=Normalize-GpuName $smiName
+  foreach($g in $gpus){
+   if($g.name -eq $smiName -or (Normalize-GpuName $g.name) -eq $smiNorm){
+    $g.vramGiB=[math]::Round([double]$parts[1].Trim()/1024,2); $g.memorySource='nvidia-smi'
+   }
+  }
+ }
 }
 $result=[ordered]@{os=$os.Caption;build=[int]$os.BuildNumber;arch=[System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString();cpu=$cpu.Name;ramGiB=[math]::Round($os.TotalVisibleMemorySize/1MB,2);freeRamGiB=[math]::Round($os.FreePhysicalMemory/1MB,2);gpus=$gpus;cudaMax=$cuda;drives=@(Get-CimInstance Win32_LogicalDisk -Filter 'DriveType=3' | ForEach-Object {[ordered]@{drive=$_.DeviceID;freeGiB=[math]::Round($_.FreeSpace/1GB,2)}});detectedAt=[DateTime]::UtcNow.ToString('o')}
 $json=$result | ConvertTo-Json -Depth 6

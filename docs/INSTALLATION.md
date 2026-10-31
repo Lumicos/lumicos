@@ -32,7 +32,8 @@ ROCm/CUDA selection and runtime downloads are in [profile.mjs](../src/profile.mj
 - **Build packaging:** the installer follow-up now bundles both READMEs, community policies and `docs/`. Documentation links are checked before packaging and again after EXE extraction. See [build report](INSTALLER_BUILD_REPORT.md).
 - **ROCm dependencies:** verify that the pinned Windows ROCm archive and installation path provide hipBLAS/rocBLAS dependencies and the selected architecture kernels. The private developer's working environment does not prove a clean install will load ROCm.
 - **Knowledge setup:** embedding runtime/model configuration exists, but complete clean-install preparation is not established in this review. Do not promise offline retrieval before assets are present.
-- **Tests:** the root-protection test now creates a synthetic nonempty directory instead of depending on a developer installation. No all-green application CI badge is advertised.
+- **Tests:** the root-protection test now creates a synthetic nonempty directory instead of depending on a developer installation. Drive-root rejection uses `path.win32` so Linux CI matches Windows semantics. No all-green application CI badge is advertised.
+- **Install-root paths:** Sandbox and Search MCP resolve under the chosen install folder via `environment.json` / sibling layout; `C:/AI/...` remains a legacy fallback only. GPU VRAM from `nvidia-smi` matches Win32 adapter names after stripping an optional `NVIDIA` / `NVIDIA Corporation` prefix.
 
 ## Build the single-file installer
 

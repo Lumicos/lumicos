@@ -631,8 +631,8 @@
   },
   {
     "path": "PersonalAI/server/sandbox/sandboxService.mjs",
-    "bytes": 8181,
-    "sha256": "d4a0650f26e67d85d66b51fb3712c46d45434cc9db109ec990816a9aa67da1d6"
+    "bytes": 9472,
+    "sha256": "1968e8853411254cc1e80153bf9adae3c9b0ff0b02abea08bd95cbf7f4c49644"
   },
   {
     "path": "PersonalAI/server/security/ownerAuth.mjs",
@@ -1481,13 +1481,13 @@
   },
   {
     "path": "PersonalAI/src/index.css",
-    "bytes": 75935,
-    "sha256": "efcc375b2a1d544f90278e1e590992e1841cc05828b4bf3e9a873531f6297118"
+    "bytes": 76156,
+    "sha256": "1ad8d56e6eee6d03771abe22f8c51d1641c24762a0cd8dd4d0e44827bbd04c85"
   },
   {
     "path": "PersonalAI/src/lumicos.css",
-    "bytes": 33067,
-    "sha256": "023c1308afdd930bc8ee6a711da484810a5dd898c1ea48d36e05c4a47dbb4e47"
+    "bytes": 33125,
+    "sha256": "9d1f3451059527b8a5069f2408fc730f7a99a2be27b3d77eb5c5615bdc4ce9c9"
   },
   {
     "path": "PersonalAI/src/main.tsx",
