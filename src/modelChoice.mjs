@@ -112,7 +112,8 @@ function menuItems(offered) {
   return offered.map(m => ({
     id: m.id,
     label: m.label || `${m.id} (${m.group})`,
-    hint: m.recommended ? 'แนะนำ / recommended' : undefined,
+    hint: m.size || m.hint || (m.group === 'stt' ? 'speech-to-text' : m.group === 'tts' ? 'read-aloud' : m.group === 'image' ? 'Image Lab' : m.group === 'chat' ? 'chat' : undefined),
+    recommended: !!m.recommended,
   }));
 }
 
@@ -124,8 +125,8 @@ export async function promptModelChoice(offered, profile, {input = process.stdin
   const defaults = defaultModelIds(offered, profile);
   const selected = offered.map((m, i) => defaults.includes(m.id) ? i : -1).filter(i => i >= 0);
   const ids = await selectMenu({
-    title: 'เลือกโมเดล / Select models to prepare (Space = toggle · Enter = confirm)',
-    hint: '↑/↓ เลื่อน · Space สลับ · Enter ยืนยัน  |  ↑/↓ move · Space toggle · Enter confirm\nปฏิเสธได้ — ตัวติดตั้งไม่หยุด / Declining skips; install continues.',
+    title: 'เลือกโมเดลที่จะติดตั้ง / Select models to prepare',
+    instruction: '↑↓ เลื่อน · Space เลือก/ไม่เลือก · Enter ยืนยัน  |  ↑↓ move · Space toggle · Enter confirm',
     multi: true,
     items: menuItems(offered),
     selected,
