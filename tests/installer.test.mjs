@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {tmpdir} from 'node:os';
 import {selectProfile} from '../src/profile.mjs';
+import {configure} from '../src/configure.mjs';
 import {safeJoin,readJson} from '../src/io.mjs';
 import {verifyPayload,validateRoot} from '../src/install.mjs';
 const hardware=(name,vram=16,extra={})=>({arch:'X64',build:26100,ramGiB:32,cpu:'AMD Ryzen 9',cudaMax:'13.4',gpus:[{name,vramGiB:vram}],...extra});
@@ -17,3 +18,13 @@ test('traversal, rooted archive paths and ADS paths rejected',()=>{for(const n o
 test('never install over an unmanaged nonempty folder or a drive root',async t=>{const dir=await fs.mkdtemp(path.join(tmpdir(),'lumicos-root-test-'));t.after(()=>fs.rm(dir,{recursive:true,force:true}));await fs.writeFile(path.join(dir,'existing.txt'),'synthetic fixture');await assert.rejects(validateRoot(dir),/not empty/);await assert.rejects(validateRoot('C:\\'));await assert.rejects(validateRoot('C:/AI/unsafe&name'))});
 test('payload integrity and exclusion of personal state',async()=>{const files=await verifyPayload();assert.ok(files.length>100);for(const f of files){assert.doesNotMatch(f.path,/^PersonalAI\/(?:data|logs|\.git|node_modules|\.env|models)(?:\/|$)/);assert.doesNotMatch(f.path,/(?:^|\/)(?:owner-auth|conversations|memory)\.json$/i);assert.doesNotMatch(f.path,/\.(gguf|safetensors)$/i)}});
 test('runtime downloads are pinned hashes, models have exact revisions',async()=>{const downloads=await readJson(new URL('../catalog/downloads.json',import.meta.url));for(const x of Object.values(downloads)){assert.match(x.url,/^https:\/\//);assert.match(x.sha256,/^[a-f0-9]{64}$/)}const models=await readJson(new URL('../catalog/models.json',import.meta.url));for(const m of models){assert.match(m.revision,/^[a-f0-9]{40}$/);assert.ok(m.files.length);for(const f of m.files)assert.ok(f.url.includes(m.revision))}});
+
+test('configure writes search and sandbox paths under the install root',async t=>{
+ const dir=await fs.mkdtemp(path.join(tmpdir(),'lumicos-configure-'));
+ t.after(()=>fs.rm(dir,{recursive:true,force:true}));
+ await configure(dir,{backend:'cpu',whisper:'whisper-cpu',context:4096,ngl:0,chatModel:'call-e2b'});
+ const env=await readJson(path.join(dir,'environment.json'));
+ assert.equal(env.LUMICOS_SEARCH_DIR,path.join(dir,'LumicosSearchMCP'));
+ assert.equal(env.LUMICOS_SEARCH_PYTHON,path.join(dir,'Lumicos-Sandbox/python/python.exe'));
+ assert.equal(env.LUMICOS_SANDBOX_ROOT,path.join(dir,'Lumicos-Sandbox'));
+});

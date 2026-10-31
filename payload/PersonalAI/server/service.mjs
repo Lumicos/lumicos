@@ -30,7 +30,7 @@ import { SandboxService } from './sandbox/sandboxService.mjs';
 import { sandboxTools, SkillStore } from './tools/sandboxTools.mjs';
 import { AgentService } from './agent/agentService.mjs';
 
-// Web search is ON by default (Lumicos Search v6, C:\AI\LumicosSearchMCP). Set LUMICOS_WEB_SEARCH=off to disable.
+// Web search is ON by default (Lumicos Search v6 beside the install root). Set LUMICOS_WEB_SEARCH=off to disable.
 export const legacyWebSearchEnabled = (env=process.env) => env.LUMICOS_WEB_SEARCH !== 'off';
 
 export function createServices(config) {
