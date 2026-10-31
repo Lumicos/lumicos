@@ -23,6 +23,7 @@ Audit target: public commit `d5b43d6`, 30 October 2026. Paths below refer to thi
 | Installer | Experimental | [Bootstrap](../Bootstrap.ps1), [install](../src/install.mjs), [CLI](../src/cli.mjs), [tests](../tests/installer.test.mjs). Tests pass with exact payload bytes; no public release asset or complete clean install validated. |
 | AMD ROCm / NVIDIA / Vulkan / CPU | Available selection logic; experimental deployment | [Profile selector](../src/profile.mjs) and installer tests. Detecting a GPU does not certify runtime compatibility. |
 | 26B/MTP tuned profiles; macOS preview | Private / Not Included | Public [model catalog](../catalog/models.json) does not deliver these profiles or a Mac installer. |
+| Web UI typography / branding | Available, CSS-only | Offline Thai/Latin system font stack (~16px, line-height 1.6) in [index.css](../payload/PersonalAI/src/index.css) and [lumicos.css](../payload/PersonalAI/src/lumicos.css); Lumicos logo widths reduced ~25–40% across header/sidebar/login while keeping aspect ratio. No CDN fonts. |
 | Fresh-machine matrix, verified public demo, signed release | Planned (proposed gates) | [Release checklist](RELEASE_CHECKLIST.md); no delivery date or completion claim. |
 
 Test scope and failures are recorded in [WORK_REPORT.md](WORK_REPORT.md). None of the private local benchmark logs or personal installs were imported for this documentation change.

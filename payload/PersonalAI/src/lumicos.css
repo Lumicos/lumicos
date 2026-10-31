@@ -65,7 +65,7 @@
   --space: 10px;
 }
 .lumicos-logo {
-  width: 94px;
+  width: 66px;
   height: auto;
   flex-shrink: 0;
   filter: var(--glow);
@@ -98,7 +98,7 @@
   font-weight: 650;
 }
 .brand .lumicos-logo {
-  width: 95px;
+  width: 66px;
 }
 .new-chat {
   height: 48px;
@@ -209,7 +209,7 @@
   text-align: center;
 }
 .lumicos-welcome > .lumicos-logo {
-  width: clamp(135px, 16vw, 210px);
+  width: clamp(95px, 11vw, 145px);
 }
 .lumicos-welcome h1 {
   font-size: clamp(30px, 3.5vw, 45px);
@@ -507,7 +507,7 @@
     justify-content: center;
   }
   .lumicos-welcome > .lumicos-logo {
-    width: 120px;
+    width: 84px;
   }
   .lumicos-welcome h1 {
     font-size: 30px;
@@ -578,7 +578,7 @@
 }
 @media (max-height: 650px) {
   .lumicos-welcome > .lumicos-logo {
-    width: 80px;
+    width: 56px;
   }
   .lumicos-welcome {
     justify-content: flex-start;
@@ -600,7 +600,8 @@
 }
 
 :root {
-  font-family: "Segoe UI", Tahoma, "Leelawadee UI", sans-serif;
+  font-family: "Sarabun", "Noto Sans Thai", "Leelawadee UI", "Segoe UI", Tahoma, system-ui, sans-serif;
+  line-height: 1.6;
 }
 .app.no-right > .right-panel,
 .app.no-right > .right-rail {
@@ -1304,7 +1305,7 @@
     gap: 8px;
   }
   .sidebar-head .brand .lumicos-logo {
-    width: 32px;
+    width: 22px;
   }
   .side-nav button {
     min-height: 46px;
@@ -1420,7 +1421,7 @@
     opacity: 0.4;
   }
   .lumicos-welcome > .lumicos-logo {
-    width: 85px;
+    width: 60px;
   }
   .lumicos-welcome h1 {
     font-size: 25px;
@@ -1636,19 +1637,19 @@
 
 /* Compact branding and a centered, isolated image viewer. */
 .brand {
-  font-size: 21px;
+  font-size: 18px;
 }
 .brand .lumicos-logo {
-  width: 72px;
+  width: 50px;
 }
 .workspace-top .desktop-brand {
-  font-size: 20px;
+  font-size: 18px;
 }
 .lumicos-welcome > .lumicos-logo {
-  width: clamp(100px, 12vw, 150px);
+  width: clamp(70px, 9vw, 105px);
 }
 .lumicos-welcome h1 {
-  font-size: clamp(25px, 3vw, 34px);
+  font-size: clamp(22px, 2.7vw, 30px);
 }
 .speech-call > .tool-btn {
   display: inline-flex;
@@ -1725,10 +1726,10 @@
 }
 @media (max-width: 780px) {
   .brand .lumicos-logo {
-    width: 64px;
+    width: 44px;
   }
   .brand {
-    font-size: 20px;
+    font-size: 17px;
   }
   .image-lightbox-actions {
     right: 12px;
@@ -1749,8 +1750,8 @@
   line-height: 1.2;
 }
 .sidebar .sidebar-head .brand .lumicos-logo {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
   filter: none;
 }
