@@ -8,6 +8,7 @@ import {
   applyBackendChoice,
   defaultBackendId,
   resolveBackendFromFlags,
+  backendMenuTitle,
 } from '../src/backendChoice.mjs';
 import {runTwoScreenChoices} from '../src/installWizard.mjs';
 import {resolveInstallRoot, DEFAULT_ROOT_WIN} from '../src/installRoot.mjs';
@@ -88,6 +89,61 @@ test('recommended backend matches selectProfile auto choice', () => {
     assert.equal(applied.torch, auto.torch);
     assert.equal(applied.whisper, auto.whisper);
   }
+});
+
+
+test('AMD GPU defaults to ROCm (Vulkan/CPU as alternatives only)', () => {
+  for (const name of ['AMD Radeon RX 9070', 'AMD Radeon RX 7900 XTX', 'AMD Radeon RX 6600']) {
+    const h = hardware(name, 16, {cudaMax: null});
+    const opts = listBackendOptions(h);
+    const ids = opts.map(o => o.id);
+    assert.equal(defaultBackendId(h), 'rocm', name);
+    assert.ok(ids.includes('rocm'), name);
+    assert.ok(ids.includes('vulkan'), name);
+    assert.ok(ids.includes('cpu'), name);
+    assert.ok(!ids.includes('cuda13') && !ids.includes('cuda12'), name);
+    assert.equal(selectProfile(h).backend, 'rocm', name);
+  }
+});
+
+test('NVIDIA GPU defaults to appropriate CUDA (13 or 12.4); no ROCm offered', () => {
+  const h13 = hardware('NVIDIA GeForce RTX 4070', 12, {cudaMax: '13.0'});
+  assert.equal(defaultBackendId(h13), 'cuda13');
+  assert.equal(selectProfile(h13).llama, 'llama-cuda13');
+  assert.ok(!listBackendOptions(h13).some(o => o.id === 'rocm'));
+
+  const h12 = hardware('NVIDIA GeForce RTX 3060', 12, {cudaMax: '12.4'});
+  assert.equal(defaultBackendId(h12), 'cuda12');
+  assert.equal(selectProfile(h12).llama, 'llama-cuda12');
+
+  const h50 = hardware('NVIDIA GeForce RTX 5090', 32, {cudaMax: '13.0'});
+  assert.equal(defaultBackendId(h50), 'cuda13');
+  assert.ok(!listBackendOptions(h50).some(o => o.id === 'cuda12'));
+});
+
+test('no discrete GPU defaults to CPU (Intel/unknown get Vulkan or CPU only)', () => {
+  const none = hardware(null, 0, {gpus: [], cudaMax: null});
+  assert.deepEqual(listBackendOptions(none).map(o => o.id), ['cpu']);
+  assert.equal(defaultBackendId(none), 'cpu');
+  assert.equal(selectProfile(none).backend, 'cpu');
+
+  const intel = hardware('Intel UHD Graphics', 0, {cudaMax: null, gpus: [{name: 'Intel UHD Graphics', vramGiB: 0, driver: '31.0.101'}]});
+  const ids = listBackendOptions(intel).map(o => o.id);
+  assert.deepEqual(ids, ['vulkan', 'cpu']);
+  assert.equal(defaultBackendId(intel), 'vulkan');
+  assert.ok(!ids.includes('cuda13') && !ids.includes('rocm'));
+});
+
+test('Screen 1 header shows GPU name, VRAM, and driver/CUDA from detection', () => {
+  const h = {
+    arch: 'X64', build: 26100, ramGiB: 32, cpu: 'AMD Ryzen 9', cudaMax: '13.0',
+    gpus: [{name: 'NVIDIA GeForce RTX 4070', vramGiB: 12, driver: '560.94'}],
+  };
+  const title = backendMenuTitle(h);
+  assert.match(title, /NVIDIA GeForce RTX 4070/);
+  assert.match(title, /12 GiB VRAM/);
+  assert.match(title, /driver 560\.94/);
+  assert.match(title, /CUDA 13\.0/);
 });
 
 test('resolveBackendFromFlags reads --backend and env', () => {

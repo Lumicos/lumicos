@@ -178,13 +178,28 @@ export function resolveBackendFromFlags(argv = [], env = {}) {
   return null;
 }
 
+/** Header for Screen 1: detected GPU name, VRAM, and driver/CUDA from detect.ps1. */
+export function backendMenuTitle(hardware, {gpuIndex} = {}) {
+  const options = listBackendOptions(hardware, {gpuIndex});
+  const sample = options[0];
+  const name = sample?.gpuName || 'CPU';
+  const vram = sample?.vramGiB;
+  const vramText = Number.isFinite(vram) ? `${vram} GiB VRAM` : 'VRAM unknown';
+  const gpus = hardware.gpus ?? [];
+  const index = sample?.gpuIndex;
+  const gpu = (index != null ? gpus[index] : null) || {};
+  const parts = [name, vramText];
+  if (gpu.driver) parts.push(`driver ${gpu.driver}`);
+  if (/NVIDIA/i.test(name) && hardware.cudaMax != null && hardware.cudaMax !== '') {
+    parts.push(`CUDA ${hardware.cudaMax}`);
+  }
+  return `เลือก GPU backend / Select GPU backend — ${parts.join(' · ')}`;
+}
+
 export async function promptBackendChoice(hardware, {gpuIndex, input, output, askFn, selectMenuFn} = {}) {
   const options = listBackendOptions(hardware, {gpuIndex});
   const recommended = options.findIndex(o => o.recommended);
-  const gpu = options[0];
-  const vram = gpu?.vramGiB;
-  const vramText = Number.isFinite(vram) ? `${vram} GiB VRAM` : 'VRAM unknown';
-  const title = `เลือก GPU backend / Select GPU backend — ${gpu?.gpuName || 'CPU'} (${vramText})`;
+  const title = backendMenuTitle(hardware, {gpuIndex});
   const items = options.map(o => ({
     id: o.id,
     label: o.label,
