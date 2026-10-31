@@ -57,6 +57,16 @@ Image setup and the chat E4B model both require a recognized CUDA/ROCm GPU with 
 
 Windows 11 x64 is required. Use a new folder, keep enough disk space, and do not install over an existing personal setup.
 
+**One-line install (CMD / PowerShell — no manual ZIP download):**
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Lumicos/lumicos/main/install.ps1 | iex"
+```
+
+That fetches [`install.ps1`](install.ps1), downloads the public `main` ZIP into `%TEMP%`, runs [`Install.cmd`](Install.cmd) with the interactive console attached, then cleans temp files on success. Repo must stay **public** for unauthenticated `raw.githubusercontent.com` / ZIP URLs. No admin elevation is requested by the bootstrap script itself.
+
+**Or clone, then install:**
+
 ```powershell
 git clone https://github.com/Lumicos/lumicos.git
 cd lumicos
