@@ -28,10 +28,7 @@ function accept(event:any){
   if(event.type==='message')state.conversations=state.conversations.map(c=>c.id===event.conversationId?{...c,syncVersion:event.syncVersion,messages:c.messages.map(m=>m.id===event.message.id?event.message:m)}:c);
   if(event.type==='jobs')state.jobs=event.jobs;
   if(event.type==='call')state.callOwner=event.owner;
- }if(event.type==='snapshot')reactionFeed.reset();
- else if(event.type==='message'&&event.conversationId===state.activeId&&state.conversations.find(c=>c.id===state.activeId)?.characterId==='default-mina')reactionFeed.message(event.conversationId,event.message);
- else if(event.type==='conversation')reactionFeed.update();
- if(event.type==='call'&&!event.owner)cancelReactions();
+ }
  notify();
 }
 async function connect(){
