@@ -1,8 +1,9 @@
-// Lumicos web search = Search MCP v6 engine (C:\AI\LumicosSearchMCP\search_core.py).
+// Lumicos web search = Search MCP v6 engine (<installRoot>/LumicosSearchMCP/search_core.py).
 // One long-lived Python process (bridge.py) speaks JSON lines; no API key, no GPU.
 import fs from 'node:fs';
 import { pythonLaunch } from '../util/hiddenPython.mjs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { rewriteSearchQuery } from '../knowledge/web/queryRewrite.mjs';
@@ -12,10 +13,45 @@ import { stripWebAsk } from '../knowledge/askWords.mjs';
 
 const fail = (message, status = 502) => Object.assign(new Error(message), { status });
 
+/** Parent of PersonalAI: …/PersonalAI/server/web → install root (or payload/ in the repo). */
+export const INSTALL_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+const LEGACY_SEARCH = 'C:/AI/LumicosSearchMCP';
+const LEGACY_PYTHON = 'C:/AI/Lumicos-Sandbox/python/python.exe';
+
+function readInstallEnv(installRoot) {
+  try {
+    const file = path.join(installRoot, 'environment.json');
+    if (!fs.existsSync(file)) return {};
+    const data = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, ''));
+    return data && typeof data === 'object' ? data : {};
+  } catch { return {}; }
+}
+
+/** options → process env / install environment.json → sibling layout under install root → legacy C:/AI. */
+export function resolveSearchPaths({ root, python, installRoot = INSTALL_ROOT } = {}, env = process.env) {
+  const fileEnv = readInstallEnv(installRoot);
+  const pick = (explicit, ...keys) => {
+    if (explicit) return explicit;
+    for (const key of keys) {
+      const value = env[key] || fileEnv[key];
+      if (typeof value === 'string' && value.trim()) return value.trim();
+    }
+  };
+  const derivedRoot = path.join(installRoot, 'LumicosSearchMCP');
+  const derivedPython = path.join(installRoot, 'Lumicos-Sandbox', 'python', 'python.exe');
+  // Sibling layout under the install root (covers LOCALAPPDATA installs and the old C:/AI/PersonalAI layout).
+  const sibling = fs.existsSync(path.join(derivedRoot, 'bridge.py'));
+  return {
+    root: pick(root, 'LUMICOS_SEARCH_DIR', 'LUMICOS_SEARCH_MCP_ROOT') ?? (sibling ? derivedRoot : LEGACY_SEARCH),
+    python: pick(python, 'LUMICOS_SEARCH_PYTHON', 'LUMICOS_SANDBOX_PYTHON') ?? (sibling ? derivedPython : LEGACY_PYTHON),
+  };
+}
+
 export class SearchV6Service {
   constructor(options = {}) {
-    this.root = options.root ?? process.env.LUMICOS_SEARCH_DIR ?? 'C:/AI/LumicosSearchMCP';
-    this.python = options.python ?? process.env.LUMICOS_SEARCH_PYTHON ?? 'C:/AI/Lumicos-Sandbox/python/python.exe';
+    const paths = resolveSearchPaths(options);
+    this.root = paths.root;
+    this.python = paths.python;
     this.timeoutMs = options.timeoutMs ?? 30_000;
     this.child = null; this.pending = new Map(); this.ready = null; this.cache = new Map();
     // What each search found (and the engines' own errors) goes to this file, so "ค้นเว็บแล้วไม่เจอ" can be explained later.
