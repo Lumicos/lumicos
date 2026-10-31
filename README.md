@@ -73,7 +73,7 @@ cd lumicos
 .\Install.cmd
 ```
 
-Review the detected hardware and destination. The installer downloads its runtimes. Interactively, choose which models to prepare (chat, Whisper, TTS, Z-Image); declining skips that model and continues. If STT is kept on a CPU-Whisper profile, you can accept CPU Whisper or skip STT — neither choice aborts the install. Use `--yes` for defaults, `--skip-images / --skip-stt / --skip-tts` / `-SkipImages` to omit Image Lab (hides that page in the app), or `--models=…` to pin a list. After setup, review `MODELS.html`, download the selected models, run `Link Downloaded Models.cmd` if downloading manually, then `Check Installation.cmd` and `Start Lumicos.cmd` in the installed folder.
+Default install folder is `C:\Lumicos` (no prompt; override with `--root` / `LUMICOS_ROOT`; falls back to `%LOCALAPPDATA%\Lumicos` if unwritable). Interactively there are **exactly two screens**: (1) GPU backend — CUDA 13 / 12.4 / Vulkan / ROCm / CPU as valid for your hardware; (2) models — chat, Whisper, TTS, Z-Image. After that the install runs unattended (no plan/CPU-Whisper/folder prompts). Use `--yes` for defaults, `--backend=…`, `--skip-images / --skip-stt / --skip-tts`, or `--models=…`. After setup, review `MODELS.html`, download models, run `Link Downloaded Models.cmd` if needed, then `Check Installation.cmd` and `Start Lumicos.cmd`.
 
 **Before installing:** read the [known issues and prerequisites](docs/INSTALLATION.md). A successful source test or EXE extraction is not a successful clean install. [Release checklist](docs/RELEASE_CHECKLIST.md).
 
