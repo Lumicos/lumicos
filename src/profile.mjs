@@ -9,7 +9,7 @@ export function selectProfile(hardware,{gpuIndex}={}){
  let backend='cpu',llama='llama-cpu',torch='cpu',target=null,whisper='whisper-cpu';
  if(/NVIDIA/i.test(gpu.name)){
   const cuda=Number(hardware.cudaMax);
-  if(cuda>=13.4){backend='cuda';llama='llama-cuda13';torch='cu130';}
+  if(cuda>=13){backend='cuda';llama='llama-cuda13';torch='cu130';}
   else if(cuda>=12.4&&!/RTX\s*50\d\d/i.test(gpu.name)){backend='cuda';llama='llama-cuda12';torch='cu124';}
   else{backend='vulkan';llama='llama-vulkan';warnings.push('CUDA driver support is unverified/too old for the pinned binaries. Update the NVIDIA driver to enable GPU images.');}
   if(backend==='cuda'&&!/RTX\s*50\d\d/i.test(gpu.name))whisper='whisper-cuda';
@@ -25,5 +25,5 @@ export function selectProfile(hardware,{gpuIndex}={}){
  if(!gpuFeatures)warnings.push('Image generation needs a verified GPU with at least 8 GiB dedicated memory. Public TTS uses CPU; CPU Whisper may be slow.');
  if(whisper==='whisper-cpu')warnings.push('Whisper uses the explicit CPU profile: this pinned release has no compatible Windows GPU binary for this selection.');
  if(gpus.length>1)warnings.push('Multiple GPUs detected: backend device enumeration must confirm the selected adapter.');
- return {schema:1,id:`windows-${backend}-${target??torch}`,gpuIndex:index??null,gpu,backend,llama,torch,target,whisper,voice:true,images:gpuFeatures,context:vram>=12?8192:4096,chatModel:vram>=12?'chat-e4b':'call-e2b',ngl:backend==='cpu'?0:99,errors,warnings,validation:'Requires target-machine smoke tests; vendor detection is not certification.'};
+ return {schema:1,id:`windows-${backend}-${target??torch}`,gpuIndex:index??null,gpu,backend,llama,torch,target,whisper,voice:true,images:gpuFeatures,context:vram>=12?8192:4096,chatModel:vram>=7.5?'chat-e4b':'call-e2b',ngl:backend==='cpu'?0:99,errors,warnings,validation:'Requires target-machine smoke tests; vendor detection is not certification.'};
 }

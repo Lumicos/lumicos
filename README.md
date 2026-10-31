@@ -51,7 +51,7 @@ See [Feature status](docs/FEATURE_STATUS.md) for source/test evidence, configura
 | NVIDIA | CUDA 12.4/13.4 or Vulkan fallback | Driver-dependent selection; target-machine tests needed |
 | Other GPU / no GPU | Vulkan chat / CPU chat | Availability and speed require validation |
 
-Image setup requires a recognized CUDA/ROCm GPU with approximately 8GiB dedicated VRAM (the selector uses a 7.5GiB threshold). Not every model fits in 8GB: larger models may use CPU/RAM offloading. Quantization, context, model architecture and configuration all affect performance. See [installation details](docs/INSTALLATION.md).
+Image setup and the chat E4B model both require a recognized CUDA/ROCm GPU with approximately 8GiB dedicated VRAM (the selector uses a 7.5GiB threshold so cards that report slightly under 8GiB still qualify; below that, chat uses E2B). NVIDIA CUDA 13 binaries are selected when the driver reports CUDA 13.0 or newer (RTX 50-series / Blackwell is not eligible for the CUDA 12.4 build). Not every model fits in 8GB: larger models may use CPU/RAM offloading. Quantization, context, model architecture and configuration all affect performance. See [installation details](docs/INSTALLATION.md).
 
 ## Quick start
 
