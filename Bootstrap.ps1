@@ -33,9 +33,8 @@ if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
 $plan=Get-Content (Join-Path $PSScriptRoot 'last-plan.json') -Raw | ConvertFrom-Json
 if($plan.profile.errors.Count){throw ($plan.profile.errors -join '; ')}
 if($Mode -eq 'plan'){exit 0}
-if($Mode -eq 'install' -and -not $SkipStt -and $plan.profile.voice -and $plan.profile.whisper -eq 'whisper-cpu' -and -not $AcceptCpuWhisper){
- $answer=Read-Host 'This profile uses CPU Whisper (not GPU). Accept this fallback? Type YES';if($answer -ne 'YES'){throw 'CPU Whisper fallback was not accepted'};$AcceptCpuWhisper=$true
-}
+# CPU Whisper acceptance is handled in Node after the model menu: declining STT
+# (or answering No to keep CPU STT) skips Whisper and continues; do not abort here.
 $extra=@();if($AcceptCpuWhisper){$extra+='--accept-cpu-whisper'};if($Yes){$extra+='--yes'};if($SkipImages){$extra+='--skip-images'};if($SkipStt){$extra+='--skip-stt'};if($SkipTts){$extra+='--skip-tts'};if($Models){$extra+=@('--models',$Models)}
 & $node $cli $Mode @common @extra
 if($LASTEXITCODE -ne 0){throw 'Installation stopped. Re-run with the same folder to resume; see lumicos-install.json.'}

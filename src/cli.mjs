@@ -7,7 +7,7 @@ import {createInterface} from 'node:readline/promises';
 import {detect,install,modelPage,writeLaunchers} from './install.mjs';
 import {selectProfile} from './profile.mjs';
 import {bindModels} from './configure.mjs';
-import {offeredModels,resolveModelChoiceFromFlags,promptModelChoice,applyModelChoice,selectedModels,choiceEnables} from './modelChoice.mjs';
+import {offeredModels,resolveModelChoiceFromFlags,promptModelChoice,applyModelChoice,selectedModels,choiceEnables,reconcileCpuWhisper} from './modelChoice.mjs';
 import {confirmMenu} from './terminalMenu.mjs';
 import {readJson,writeJson,hash,run,safeJoin,download} from './io.mjs';
 const kit=fileURLToPath(new URL('../',import.meta.url));
@@ -46,12 +46,29 @@ async function main(){
    if(process.stdin.isTTY)choice=await promptModelChoice(offered,profile);
    else {console.log('Non-interactive session: using recommended model defaults (pass --yes / --models / --skip-images to pin).');choice=resolveModelChoiceFromFlags(['--yes'],process.env,offered,profile)}
   }
+  let acceptFallback=argv.includes('--accept-cpu-whisper');
+  if(choice.stt&&profile.whisper==='whisper-cpu'&&!acceptFallback){
+   // Do not abort: offer keep-STT vs skip-STT; non-interactive skips STT unless --accept-cpu-whisper.
+   let dropStt=true;
+   if(process.stdin.isTTY&&!argv.includes('--yes')){
+    const keep=await confirmMenu({
+     question:'โปรไฟล์นี้ใช้ Whisper บน CPU (ไม่ใช่ GPU). ติดตั้ง STT ต่อหรือข้าม? / This profile uses CPU Whisper. Keep STT or skip?',
+     defaultYes:false,
+     yesLabel:'Keep STT / ติดตั้ง STT',
+     noLabel:'Skip STT / ข้าม STT',
+    });
+    if(keep){acceptFallback=true;dropStt=false;}
+   }
+   const reconciled=reconcileCpuWhisper(offered,profile,choice,{acceptCpuWhisper:acceptFallback,dropStt});
+   choice=reconciled.choice;acceptFallback=reconciled.acceptFallback;
+   if(reconciled.droppedStt)console.log('Skipping Whisper STT (CPU fallback not accepted). Install continues.');
+  }
   console.log('Selected models: '+choice.ids.join(', ')+(choice.images?' · Image Lab on':' · Image Lab off')+(choice.stt?' · STT on':' · STT off')+(choice.tts?' · TTS on':' · TTS off'));
   profile=applyModelChoice(profile,choice);
   // Re-check disk with final images flag after the user declined Z-Image.
   const need=profile.images?80:15;
   if(disk&&disk.freeGiB<need)profile.errors.push(`Need at least ${need} GiB free on installation drive (estimate including downloads/models).`);
-  await install(root,profile,{stageOnly:command==='stage',acceptFallback:argv.includes('--accept-cpu-whisper')});
+  await install(root,profile,{stageOnly:command==='stage',acceptFallback});
   return;
  }
  const state=await readJson(stateFile),p=state.profile,catalog=await models();
