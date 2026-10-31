@@ -8,6 +8,20 @@ The repository is a source snapshot (package version 0.2.3). GitHub has no relea
 
 ## Prerequisites and flow
 
+### One-line install (no manual ZIP)
+
+From any CMD or PowerShell window (Windows 11 x64):
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Lumicos/lumicos/main/install.ps1 | iex"
+```
+
+[`install.ps1`](../install.ps1) forces TLS 1.2 where needed, downloads `https://github.com/Lumicos/lumicos/archive/refs/heads/main.zip` with `Invoke-WebRequest`, extracts to `%TEMP%\lumicos-<timestamp>`, runs [`Install.cmd`](../Install.cmd) with the same interactive console attached (`cmd /c`, no new window), and removes the temp ZIP/folder **only on success**. Failures keep the temp tree for diagnosis and print Thai + English messages. Paths with spaces or Thai characters use `-LiteralPath`. The bootstrap does **not** request elevation; later sandbox ACL steps may still need admin on some machines (see below). [`get.cmd`](../get.cmd) is a tiny local wrapper for the same one-liner after you already have a checkout.
+
+**Visibility caveat:** unauthenticated `raw.githubusercontent.com` and the archive ZIP require a **public** repository. If the repo is made private, this one-liner will fail until you clone with credentials or ship another distribution channel.
+
+### Install.cmd / Bootstrap flow
+
 [Install.cmd](../Install.cmd) invokes Windows PowerShell with a process-local execution-policy bypass, then [Bootstrap.ps1](../Bootstrap.ps1):
 
 1. Detect hardware and require Windows 11 x64, build 22000 or later.

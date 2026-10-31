@@ -57,6 +57,16 @@
 
 ต้องเป็น Windows 11 x64 เลือกโฟลเดอร์ใหม่และมีพื้นที่พอ ห้ามติดตั้งทับระบบส่วนตัวที่ใช้อยู่
 
+**ติดตั้งบรรทัดเดียว (CMD / PowerShell — ไม่ต้องดาวน์โหลด ZIP เอง):**
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Lumicos/lumicos/main/install.ps1 | iex"
+```
+
+คำสั่งนี้ดึง [`install.ps1`](install.ps1) ดาวน์โหลด ZIP สาขา `main` ลง `%TEMP%` รัน [`Install.cmd`](Install.cmd) แบบโต้ตอบบนคอนโซลเดิม แล้วลบไฟล์ชั่วคราวเมื่อสำเร็จ ต้องเป็น repo **สาธารณะ (public)** จึงใช้ `raw.githubusercontent.com` / ZIP โดยไม่ต้องล็อกอินได้ สคริปต์ bootstrap นี้ไม่ขอสิทธิ์แอดมินเอง
+
+**หรือ clone แล้วติดตั้ง:**
+
 ```powershell
 git clone https://github.com/Lumicos/lumicos.git
 cd lumicos
