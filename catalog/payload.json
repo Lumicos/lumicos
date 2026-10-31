@@ -1521,13 +1521,13 @@
   },
   {
     "path": "PersonalAI/src/index.css",
-    "bytes": 75935,
-    "sha256": "efcc375b2a1d544f90278e1e590992e1841cc05828b4bf3e9a873531f6297118"
+    "bytes": 76156,
+    "sha256": "1ad8d56e6eee6d03771abe22f8c51d1641c24762a0cd8dd4d0e44827bbd04c85"
   },
   {
     "path": "PersonalAI/src/lumicos.css",
-    "bytes": 33067,
-    "sha256": "023c1308afdd930bc8ee6a711da484810a5dd898c1ea48d36e05c4a47dbb4e47"
+    "bytes": 33125,
+    "sha256": "9d1f3451059527b8a5069f2408fc730f7a99a2be27b3d77eb5c5615bdc4ce9c9"
   },
   {
     "path": "PersonalAI/src/main.tsx",

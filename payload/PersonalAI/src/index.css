@@ -70,17 +70,21 @@
   --sidebar-w: 272px;
   --right-w: 304px;
   --chat-w: 780px;
-  --font-size: 15px;
+  --font-size: 16px;
+  --line-height: 1.6;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  font-family: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', 'Leelawadee UI', 'Noto Sans Thai', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', 'Cascadia Code', 'Cascadia Mono', Consolas, monospace;
+  /* Offline-friendly Thai/Latin stack: system fonts only (no CDN). */
+  font-family: 'Sarabun', 'Noto Sans Thai', 'Leelawadee UI', 'Segoe UI', 'Segoe UI Variable Text', system-ui, sans-serif;
+  --mono: 'Cascadia Mono', 'Cascadia Code', Consolas, 'Courier New', ui-monospace, monospace;
   font-size: var(--font-size);
+  line-height: var(--line-height);
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-:root[data-font-size='small'] { --font-size: 14px; }
-:root[data-font-size='large'] { --font-size: 16.5px; }
+:root[data-font-size='small'] { --font-size: 15px; }
+:root[data-font-size='large'] { --font-size: 18px; }
 :root[data-chat-width='narrow'] { --chat-w: 680px; }
 :root[data-chat-width='wide'] { --chat-w: 980px; }
 
@@ -281,7 +285,7 @@ code { font-family: var(--mono); }
 .msg-avatar { margin-top: 1px; }
 .msg-main { flex: 1; min-width: 0; }
 .msg-name { font-size: 0.8rem; font-weight: 600; color: var(--text-2); margin-bottom: 4px; }
-.msg-content { line-height: 1.72; }
+.msg-content { line-height: 1.75; font-size: 1rem; }
 .is-streaming .msg-content > .markdown > :last-child::after {
   content: ''; display: inline-block; width: 7px; height: 1em; margin-left: 3px; vertical-align: -0.12em;
   border-radius: 2px; background: var(--accent); animation: breathe 0.9s ease-in-out infinite;
@@ -359,7 +363,7 @@ code { font-family: var(--mono); }
 }
 .codeblock-bar button { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 6px; font-family: inherit; color: var(--muted); }
 .codeblock-bar button:hover { background: var(--surface-hover); color: var(--text); }
-.codeblock pre { margin: 0; padding: 14px 16px; overflow-x: auto; font-size: 0.85em; line-height: 1.6; }
+.codeblock pre { margin: 0; padding: 14px 16px; overflow-x: auto; font-size: 0.875em; line-height: 1.6; font-family: var(--mono); }
 .codeblock pre code.hljs { background: none; padding: 0; }
 :root[data-theme='light'] .hljs { color: #24292f; }
 :root[data-theme='light'] .hljs-keyword, :root[data-theme='light'] .hljs-built_in { color: #cf222e; }
