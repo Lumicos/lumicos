@@ -10,7 +10,7 @@ A local-first AI assistant for Windows, built to make powerful AI accessible on 
 ![Platform: Windows 11 x64](https://img.shields.io/badge/platform-Windows%2011%20x64-blue)
 [![GitHub stars](https://img.shields.io/github/stars/Lumicos/lumicos)](https://github.com/Lumicos/lumicos)
 
-[ภาษาไทย](README.th.md) · [Install guide](docs/INSTALLATION.md) · [Feature status](docs/FEATURE_STATUS.md)
+[ภาษาไทย](README.th.md) · [Install guide](docs/INSTALLATION.md) · [Feature status](docs/FEATURE_STATUS.md) · [Architecture](docs/ARCHITECTURE.md) · [GPU comparison](docs/GPU_COMPARISON.md) · [Benchmarks](docs/BENCHMARKS.md) · [Apollo](docs/APOLLO.md)
 
 Chat with local GGUF models, keep editable memories and notes, and read replies aloud with Microsoft Pattara. The public source also includes experimental voice calls, ComfyUI image workflows and background research jobs.
 
@@ -22,9 +22,9 @@ A verified screenshot or recording is still needed. See the [capture guide](docs
 
 ## Why Lumicos?
 
-**Built and tested on an AMD RX 6600 8GB — because local AI shouldn't require a workstation GPU.**
+**Built for ordinary Windows PCs — local AI shouldn't require a workstation GPU.**
 
-The developer's reference machine is a Ryzen 5 3600, RX 6600 8GB and 32GB RAM running Windows 11 with ROCm. That history includes a private daily build; it is not a clean-install test of every public feature.
+The developer's reference machine is a Ryzen 5 3600 with 32GB RAM on Windows 11. Through late October 2026 it ran an **AMD RX 6600 8GB (ROCm)**; on **3 November 2026** that card was replaced by an **NVIDIA RTX 5060 Ti 16GB (CUDA 13)**. Public installer detection still covers ROCm / CUDA / Vulkan / CPU. That history includes a private daily build; it is not a clean-install test of every public feature. See [architecture](docs/ARCHITECTURE.md) and [GPU before/after](docs/GPU_COMPARISON.md).
 
 - Keep model inference and application data on your own machine.
 - Coordinate chat, image jobs and background work on one GPU.
@@ -46,7 +46,8 @@ See [Feature status](docs/FEATURE_STATUS.md) for source/test evidence, configura
 
 | Hardware | Installer selection | Evidence level |
 |---|---|---|
-| RX 6600 8GB | ROCm / gfx1032; CPU Whisper | Developer reference machine; public clean install pending |
+| RX 6600 8GB | ROCm / gfx1032; CPU Whisper | Former developer reference (through 2026-10); public clean install pending |
+| RTX 5060 Ti 16GB | CUDA 13 (Blackwell) | Current developer reference since 2026-11-03; private daily build, not a public clean-install cert |
 | Recognized RX 6000/7000/9000 | ROCm target selected by model | Detection logic tested, not certification |
 | NVIDIA | CUDA 12.4/13.4 or Vulkan fallback | Driver-dependent selection; target-machine tests needed |
 | Other GPU / no GPU | Vulkan chat / CPU chat | Availability and speed require validation |
@@ -96,11 +97,15 @@ flowchart TD
   Chat --> Web[Optional internet search]
 ```
 
-Source entry points and trust boundaries are in [Feature status](docs/FEATURE_STATUS.md) and [Security](SECURITY.md).
+A fuller write-up of the post-migration developer layout is in [Architecture](docs/ARCHITECTURE.md). Source entry points and trust boundaries are in [Feature status](docs/FEATURE_STATUS.md) and [Security](SECURITY.md).
 
 ## Benchmarks
 
-Existing developer results include **46.4 tok/s** for E4B Q5_K_M (`llama-bench tg128`) and **22.9 tok/s** for a 26B QAT Q4_0 offload + MTP configuration (`llama-server`). These are different workloads, not an apples-to-apples ranking or public-install guarantee. [Methods, existing charts and missing raw-data caveats](docs/BENCHMARKS.md).
+**RX 6600 / ROCm archive:** **46.4 tok/s** for E4B Q5_K_M (`llama-bench tg128`) and **22.9 tok/s** for a 26B QAT Q4_0 offload + MTP configuration (`llama-server`).
+
+**RTX 5060 Ti / CUDA (developer daily build):** live Gemma 26B + MTP around **~80–85 tok/s** early after the move and **~82 tok/s** on the later 32k/slot profile; Z-Image NVFP4 about **9–14 s**/image in recorded health/bench runs; experimental MiniMax H3 ~5 s clips often land around **~3 minutes** depending on route. These are different workloads, not an apples-to-apples ranking or public-install guarantee. [Methods, charts, CUDA-era tables and missing raw-data caveats](docs/BENCHMARKS.md) · [GPU comparison](docs/GPU_COMPARISON.md).
+
+Optional local helper **Apollo** (engine updates / health / rollback) is documented in [APOLLO.md](docs/APOLLO.md); it is not part of the public installer.
 
 ## Current limitations
 

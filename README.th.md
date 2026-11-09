@@ -10,7 +10,7 @@
 ![Platform: Windows 11 x64](https://img.shields.io/badge/platform-Windows%2011%20x64-blue)
 [![GitHub stars](https://img.shields.io/github/stars/Lumicos/lumicos)](https://github.com/Lumicos/lumicos)
 
-[English](README.md) · [คู่มือติดตั้ง](docs/INSTALLATION.md) · [สถานะฟีเจอร์](docs/FEATURE_STATUS.md)
+[English](README.md) · [คู่มือติดตั้ง](docs/INSTALLATION.md) · [สถานะฟีเจอร์](docs/FEATURE_STATUS.md) · [สถาปัตยกรรม](docs/ARCHITECTURE.md) · [เทียบการ์ดจอ](docs/GPU_COMPARISON.md) · [Benchmark](docs/BENCHMARKS.md) · [Apollo](docs/APOLLO.md)
 
 คุยกับโมเดล GGUF ในเครื่อง เก็บความจำและโน้ตที่แก้ไขได้ และอ่านคำตอบด้วย Microsoft Pattara ซอร์ส public ยังมีระบบทดลองสำหรับโทรคุย สร้างภาพผ่าน ComfyUI และงานค้นคว้าเบื้องหลัง
 
@@ -22,9 +22,9 @@
 
 ## ทำไม Lumicos?
 
-**สร้างและทดสอบบน AMD RX 6600 8GB เพราะ Local AI ไม่ควรจำเป็นต้องใช้การ์ดระดับเวิร์กสเตชัน**
+**ออกแบบให้ใช้บนพีซี Windows ทั่วไป — Local AI ไม่ควรจำเป็นต้องใช้การ์ดระดับเวิร์กสเตชัน**
 
-เครื่องอ้างอิงของผู้พัฒนา: Ryzen 5 3600, RX 6600 8GB, RAM 32GB, Windows 11 และ ROCm ประวัติการทดสอบนี้รวมระบบส่วนตัวที่ใช้งานประจำ จึงไม่ใช่หลักฐาน clean install ของทุกฟีเจอร์ public
+เครื่องอ้างอิงของผู้พัฒนา: Ryzen 5 3600, RAM 32GB, Windows 11 จนถึงปลายตุลาคม 2026 ใช้ **AMD RX 6600 8GB (ROCm)** และเมื่อ **3 พฤศจิกายน 2026** เปลี่ยนเป็น **NVIDIA RTX 5060 Ti 16GB (CUDA 13)** ตัวติดตั้ง public ยังเลือก ROCm / CUDA / Vulkan / CPU ตามที่ตรวจพบ ประวัตินี้รวมระบบส่วนตัวที่ใช้ประจำ จึงไม่ใช่หลักฐาน clean install ของทุกฟีเจอร์ public ดู [สถาปัตยกรรม](docs/ARCHITECTURE.md) และ [เทียบก่อน/หลังเปลี่ยนการ์ด](docs/GPU_COMPARISON.md)
 
 - ประมวลผลโมเดลและเก็บข้อมูลแอปในเครื่อง
 - จัดการแชต งานภาพ และงานเบื้องหลังบน GPU ใบเดียว
@@ -46,7 +46,8 @@
 
 | ฮาร์ดแวร์ | ตัวเลือกของ installer | ระดับหลักฐาน |
 |---|---|---|
-| RX 6600 8GB | ROCm / gfx1032; Whisper บน CPU | เครื่องผู้พัฒนา; ยังไม่ยืนยัน public clean install |
+| RX 6600 8GB | ROCm / gfx1032; Whisper บน CPU | เครื่องอ้างอิงเดิม (ถึง ต.ค. 2026); ยังไม่ยืนยัน public clean install |
+| RTX 5060 Ti 16GB | CUDA 13 (Blackwell) | เครื่องอ้างอิงปัจจุบันตั้งแต่ 3 พ.ย. 2026; เป็นระบบส่วนตัว ไม่ใช่ใบรับรอง clean install สาธารณะ |
 | RX 6000/7000/9000 ที่รู้จัก | เลือก ROCm target ตามรุ่น | ทดสอบตรรกะเลือก ไม่ใช่รับรองทุกการ์ด |
 | NVIDIA | CUDA 12.4/13.4 หรือ Vulkan | ขึ้นกับไดรเวอร์; ต้องทดสอบบนเครื่องจริง |
 | GPU อื่น / ไม่มี GPU | แชต Vulkan / CPU | ต้องตรวจการทำงานและความเร็ว |
@@ -96,11 +97,15 @@ flowchart TD
   Chat --> Web[ค้นเว็บเมื่อเลือกใช้]
 ```
 
-ดูไฟล์ต้นทางและขอบเขตความปลอดภัยใน [สถานะฟีเจอร์](docs/FEATURE_STATUS.md) และ [Security](SECURITY.md)
+รายละเอียดเลย์เอาต์หลังย้ายการ์ดดูใน [สถาปัตยกรรม](docs/ARCHITECTURE.md) ดูไฟล์ต้นทางและขอบเขตความปลอดภัยใน [สถานะฟีเจอร์](docs/FEATURE_STATUS.md) และ [Security](SECURITY.md)
 
 ## Benchmark
 
-ตัวเลขเดิมที่ผู้พัฒนาเผยแพร่มี E4B Q5_K_M **46.4 tok/s** จาก `llama-bench tg128` และ 26B QAT Q4_0 offload + MTP **22.9 tok/s** จาก `llama-server` วิธีวัดต่างกัน จึงไม่ใช่การจัดอันดับแบบเทียบตรงหรือรับประกัน public installer ดู [วิธีวัด กราฟเดิม และข้อจำกัดข้อมูลดิบ](docs/BENCHMARKS.md)
+**ยุค RX 6600 / ROCm:** E4B Q5_K_M **46.4 tok/s** จาก `llama-bench tg128` และ 26B QAT Q4_0 offload + MTP **22.9 tok/s** จาก `llama-server`
+
+**ยุค RTX 5060 Ti / CUDA (ระบบที่ใช้ประจำ):** Gemma 26B + MTP ประมาณ **~80–85 tok/s** ช่วงแรกหลังย้ายการ์ด และ **~82 tok/s** ในโปรไฟล์ 32k/slot ภายหลัง; Z-Image NVFP4 ประมาณ **9–14 วินาที**/ภาพในรอบ health/bench ที่บันทึกไว้; คลิป MiniMax H3 ~5 วินาทีทดลองมักใช้เวลาประมาณ **~3 นาที** ตามเส้นทาง วิธีวัดต่างกัน จึงไม่ใช่การจัดอันดับแบบเทียบตรงหรือรับประกัน public installer ดู [วิธีวัด ตารางยุค CUDA และข้อจำกัดข้อมูลดิบ](docs/BENCHMARKS.md) · [เทียบการ์ดจอ](docs/GPU_COMPARISON.md)
+
+ตัวช่วยในเครื่องชื่อ **Apollo** (อัปเดต/ตรวจสุขภาพ/rollback เอนจิน) อยู่ใน [APOLLO.md](docs/APOLLO.md) ยังไม่รวมในตัวติดตั้งสาธารณะ
 
 ## ข้อจำกัดปัจจุบัน
 
