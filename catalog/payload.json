@@ -25,6 +25,66 @@
     "sha256": "d0ec57c8be83ca9b7bc6c065a34eeee3e580eaa791adcb7611326599acb8098a"
   },
   {
+    "path": "PersonalAI/.runtime/chat.mjs",
+    "bytes": 141628,
+    "sha256": "f9597d03d28a4b5fdda11110d28e2fd92650eb51aef38de363d579f644746118"
+  },
+  {
+    "path": "PersonalAI/.runtime/favicon.ico",
+    "bytes": 73734,
+    "sha256": "5f12c7e84741d7bc2e8350aeccc0b8a8bd5df4004c721731f52799e02e52af0a"
+  },
+  {
+    "path": "PersonalAI/.runtime/lumicos-logo.png",
+    "bytes": 1466476,
+    "sha256": "903c02d9c093176a473d2c81fac561cec4a968b9c9b1915740eb8b42d7b044c5"
+  },
+  {
+    "path": "PersonalAI/.runtime/manifest.webmanifest",
+    "bytes": 480,
+    "sha256": "b71689de72cd17daaca7ff3422b9aedf9f3fc37f35b8e268d9ee8b7a2d82bb7d"
+  },
+  {
+    "path": "PersonalAI/.runtime/sw.js",
+    "bytes": 1275,
+    "sha256": "2c8cce43398076b7b7e7880ffd6a91d0ba6a3fe39d5e57cedd6ad20e6dcc0ef0"
+  },
+  {
+    "path": "PersonalAI/dist/assets/index-Y1um2ZO2.js",
+    "bytes": 946925,
+    "sha256": "b8fd8bb27defdb14babbad36e408fb0e95e61186723f72be65b88c20830f7c9e"
+  },
+  {
+    "path": "PersonalAI/dist/assets/index-hKZK__Il.css",
+    "bytes": 136052,
+    "sha256": "e5068549bd2616ea17dd0b1acaa3db67d6062025f4ba6875b2bd179484e19b6c"
+  },
+  {
+    "path": "PersonalAI/dist/favicon.ico",
+    "bytes": 73734,
+    "sha256": "5f12c7e84741d7bc2e8350aeccc0b8a8bd5df4004c721731f52799e02e52af0a"
+  },
+  {
+    "path": "PersonalAI/dist/index.html",
+    "bytes": 1239,
+    "sha256": "50b68176ddb415494bc54b165951dd3de159b69ce32fbd246b88b17f788b1d72"
+  },
+  {
+    "path": "PersonalAI/dist/lumicos-logo.png",
+    "bytes": 1466476,
+    "sha256": "903c02d9c093176a473d2c81fac561cec4a968b9c9b1915740eb8b42d7b044c5"
+  },
+  {
+    "path": "PersonalAI/dist/manifest.webmanifest",
+    "bytes": 480,
+    "sha256": "b71689de72cd17daaca7ff3422b9aedf9f3fc37f35b8e268d9ee8b7a2d82bb7d"
+  },
+  {
+    "path": "PersonalAI/dist/sw.js",
+    "bytes": 1275,
+    "sha256": "2c8cce43398076b7b7e7880ffd6a91d0ba6a3fe39d5e57cedd6ad20e6dcc0ef0"
+  },
+  {
     "path": "PersonalAI/index.html",
     "bytes": 1141,
     "sha256": "d8493f84424d4c0efc61cdf133db86c209f34837fb6960e4b7dcee68b6a7f8a3"
@@ -301,8 +361,8 @@
   },
   {
     "path": "PersonalAI/server/index.mjs",
-    "bytes": 3417,
-    "sha256": "eb839a6206b6efc94b5d9cc390837c211b5c765ca09a856d70a67cb803fd34f4"
+    "bytes": 3496,
+    "sha256": "f8294522a3b25debbce14e12aae96c621db4326189eb8fdcec470041bc564ef2"
   },
   {
     "path": "PersonalAI/server/knowledge/adapters/localRetrieverAdapter.mjs",
@@ -605,6 +665,61 @@
     "sha256": "48ac52c642f6849dd5932e41f290c18a792566b552f856f8312c463489165ce6"
   },
   {
+    "path": "PersonalAI/server/mcp/NOTES.md",
+    "bytes": 7918,
+    "sha256": "a3f3117cd2d743e0ee07af4e092dbb955c7920b0b9cd259083a616559e9e8fae"
+  },
+  {
+    "path": "PersonalAI/server/mcp/config.mjs",
+    "bytes": 3983,
+    "sha256": "a86e111a92ff5a4d7faad218283b93dade672054033f90da7cad64d366cddf67"
+  },
+  {
+    "path": "PersonalAI/server/mcp/example-config.json",
+    "bytes": 410,
+    "sha256": "1bbb8098f517e59f187b2bdc42c220f2586a14393554a76f96c596be935b8af3"
+  },
+  {
+    "path": "PersonalAI/server/mcp/index.mjs",
+    "bytes": 359,
+    "sha256": "ae0429f54b417c59de92ac08af223c7509c21ee96eddc0a85e6ff17be896b717"
+  },
+  {
+    "path": "PersonalAI/server/mcp/loader.mjs",
+    "bytes": 1606,
+    "sha256": "7b51e773a219b48d976123e4dc4263178352d9790b08b3a8d9d2e74e1bb3bfda"
+  },
+  {
+    "path": "PersonalAI/server/mcp/manager.mjs",
+    "bytes": 7310,
+    "sha256": "dc715238a26ca8d8feaf6ec2d0a99a6a452ea870e34d80cf5128bd6d41ff3be3"
+  },
+  {
+    "path": "PersonalAI/server/mcp/protocol.mjs",
+    "bytes": 4672,
+    "sha256": "3f4ef188eba5ce80f5298fe8ef349c36ce916e25dd2f09ce2fa486254af8ce64"
+  },
+  {
+    "path": "PersonalAI/server/mcp/sanitize.mjs",
+    "bytes": 2350,
+    "sha256": "dd5531932ca8921205dc2e4c191af0ba6c9629a8ff7f49aacb291aa2eed0d816"
+  },
+  {
+    "path": "PersonalAI/server/mcp/stdio-transport.mjs",
+    "bytes": 4594,
+    "sha256": "d3ef50f7be0e12b4f6ed6a70e9021729319c5d91d27fe4e184de4e3d5c1306bd"
+  },
+  {
+    "path": "PersonalAI/server/mcp/tool-adapter.mjs",
+    "bytes": 7550,
+    "sha256": "c20d8cf2e37805b22577b6b46ec13c25248493fa538afa91adf0918eaf5c83a9"
+  },
+  {
+    "path": "PersonalAI/server/mcp/transport.mjs",
+    "bytes": 765,
+    "sha256": "95eecf2ae166d3f7997726019b726fcc88129eefdd02031ebb377bd400caaab4"
+  },
+  {
     "path": "PersonalAI/server/memory/candidates.mjs",
     "bytes": 7201,
     "sha256": "fc67dfb976fd306a43701bab84651e86a6b4d1fe309525267667b5f59f423b34"
@@ -651,8 +766,8 @@
   },
   {
     "path": "PersonalAI/server/service.mjs",
-    "bytes": 6991,
-    "sha256": "dd0098ff4bafca60d2e29ae13b41401b155902370d7016f9311467ff31586d88"
+    "bytes": 7273,
+    "sha256": "66ef2fb1a580a999162451072d7bdd1c913b0ca8e508a05eef4cfb3a60dc60d1"
   },
   {
     "path": "PersonalAI/server/test/agentFiles.claude.test.mjs",
@@ -823,6 +938,11 @@
     "path": "PersonalAI/server/test/localFold.claude.test.mjs",
     "bytes": 4180,
     "sha256": "39acd2a95ffff053c36d89db085ec04ce7b0346a58269317994a93800c90f3e8"
+  },
+  {
+    "path": "PersonalAI/server/test/mcpClient.claude.test.mjs",
+    "bytes": 1423,
+    "sha256": "7d7854185ca75941ad3e963c64cae42a15c402d02faeb882bc90d8bd37fa7b26"
   },
   {
     "path": "PersonalAI/server/test/memoryAgentSplit.claude.test.mjs",

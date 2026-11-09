@@ -10,7 +10,7 @@ A local-first AI assistant for Windows, built to make powerful AI accessible on 
 ![Platform: Windows 11 x64](https://img.shields.io/badge/platform-Windows%2011%20x64-blue)
 [![GitHub stars](https://img.shields.io/github/stars/Lumicos/lumicos)](https://github.com/Lumicos/lumicos)
 
-[ภาษาไทย](README.th.md) · [Install guide](docs/INSTALLATION.md) · [Feature status](docs/FEATURE_STATUS.md) · [Architecture](docs/ARCHITECTURE.md) · [GPU comparison](docs/GPU_COMPARISON.md) · [Benchmarks](docs/BENCHMARKS.md) · [Apollo](docs/APOLLO.md)
+[ภาษาไทย](README.th.md) · [Install guide](docs/INSTALLATION.md) · [Feature status](docs/FEATURE_STATUS.md) · [Architecture](docs/ARCHITECTURE.md) · [GPU comparison](docs/GPU_COMPARISON.md) · [Benchmarks](docs/BENCHMARKS.md) · [Apollo](docs/APOLLO.md) · [Creative pipeline](docs/CREATIVE_PIPELINE.md)
 
 Chat with local GGUF models, keep editable memories and notes, and read replies aloud with Microsoft Pattara. The public source also includes experimental voice calls, ComfyUI image workflows and background research jobs.
 
@@ -105,7 +105,7 @@ A fuller write-up of the post-migration developer layout is in [Architecture](do
 
 **RTX 5060 Ti / CUDA (developer daily build):** live Gemma 26B + MTP around **~80–85 tok/s** early after the move and **~82 tok/s** on the later 32k/slot profile; Z-Image NVFP4 about **9–14 s**/image in recorded health/bench runs; experimental MiniMax H3 ~5 s clips often land around **~3 minutes** depending on route. These are different workloads, not an apples-to-apples ranking or public-install guarantee. [Methods, charts, CUDA-era tables and missing raw-data caveats](docs/BENCHMARKS.md) · [GPU comparison](docs/GPU_COMPARISON.md).
 
-Optional local helper **Apollo** (engine updates / health / rollback) is documented in [APOLLO.md](docs/APOLLO.md); it is not part of the public installer.
+An optional **MCP client** can load user-configured stdio servers (`data/mcp-config.json`; none enabled by default). Optional local helper **Apollo** (engine updates / health / rollback) is documented in [APOLLO.md](docs/APOLLO.md); it is not part of the public installer.
 
 ## Current limitations
 

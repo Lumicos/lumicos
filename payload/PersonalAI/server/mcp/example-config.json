@@ -1,0 +1,19 @@
+{
+  "servers": [
+    {
+      "name": "example",
+      "command": "node",
+      "args": ["path/to/server.js"],
+      "env": { "EXAMPLE_ENV": "replace-me" },
+      "cwd": "/optional/cwd",
+      "enabled": true,
+      "trustAnnotations": false,
+      "timeoutMs": 30000,
+      "maxResultChars": 12000,
+      "toolPolicy": {
+        "safe_tool": "read",
+        "dangerous_tool": "destructive"
+      }
+    }
+  ]
+}
