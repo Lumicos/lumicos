@@ -81,6 +81,12 @@ Migration-day server smoke (b12032 CUDA, short prompts) also logged generation r
 | RelayVSR ×2, 1344×768 → 2688×1536, 124 frames | ~18 s warm / ~50 s cold | ~10 GB VRAM |
 | Verbal “H3 5 s ≈ 3m49s” | **ไม่มีข้อมูลในไฟล์** | Closest documented band is ~171–245 s depending on route |
 
+### Film studio sample (2026-11-08)
+
+| Measurement | Value | Conditions |
+|---|---:|---|
+| Chat-driven H3 film shot (campus-love s01) | 179.5 s | Krea still → H3 route; one recorded clip on the developer PC |
+
 ### Coding / agent quality samples (same card, CUDA era)
 
 | Suite | Result | Notes |

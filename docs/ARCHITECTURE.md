@@ -81,3 +81,18 @@ The public [model catalog](../catalog/models.json) pins installer defaults (E2B/
 - Not proof that every public installer path was clean-installed on the RTX 5060 Ti.
 - Not a license grant for model weights, ComfyUI custom nodes, or third-party runtimes.
 - Not an inventory of private personas, voice references, API keys, or chat logs (those stay off this repository).
+
+## Updates since 2026-11-07 (developer machine)
+
+These landed on the reference PC after the CUDA move. Only some pieces are in this public tree yet.
+
+| Area | Status in public repo | Notes |
+|---|---|---|
+| Optional **MCP client** (`server/mcp`) | **Included (experimental)** | Loads `data/mcp-config.json` if present; see `server/mcp/example-config.json`. No servers ship enabled. |
+| **ArtCraft** Photo/Film/Light/Effect CLI MCP | Developer-only wiring | Needs installed ArtCraft `*-cli.exe` under Program Files. Not part of the installer. |
+| Short-film studio chat tools (`film_*`) | Not ported in this snapshot | Uses ComfyUI H3/LTX graphs on the developer PC; public `comfyService` was not replaced to avoid overwriting installer-era fixes. |
+| Image Lab video (LTX 2.5 / MiniMax H3) + RelayVSR | Documented in [BENCHMARKS.md](BENCHMARKS.md) | Experimental lab path; not a certified public feature. |
+| `expand_image` (ComfyUI outpaint into PhotoCraft) | Not ported | Depends on ArtCraft + local image tool rewrites. |
+| Apollo | Documented in [APOLLO.md](APOLLO.md) | Still not shipped by the installer. |
+| OpenClaw-style plans (Telegram, overnight jobs, …) | Plans only | See private handoff notes; nothing verified in this tree. |
+

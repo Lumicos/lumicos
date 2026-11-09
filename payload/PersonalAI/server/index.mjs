@@ -11,7 +11,7 @@ import { startDataSnapshots } from './util/dataSnapshot.mjs';
 
 const config = loadConfig();
 config.projectRoot=PROJECT_ROOT;
-const { handler, ws, memory, models, voice, web,knowledge,conversations,chats,library } = createServices(config);
+const { handler, ws, memory, models, voice, web,knowledge,conversations,chats,library, mcpReady } = createServices(config);
 const gateway=startGateway(config);
 
 // Idle auto-stop (default 30 min, LUMICOS_IDLE_STOP_MINUTES=0 turns it off). Never while a chat turn or image job is running.
@@ -51,6 +51,7 @@ server.listen(config.port, config.host, async () => {
 
 const shutdown = async () => {
   chats.close();await conversations.close();gateway.close();
+  try { const mcp = await mcpReady; await mcp?.close?.(); } catch {}
   voice.close();
   await web.close();
   await knowledge.close();

@@ -29,6 +29,7 @@ import { OwnerCredentialStore } from './security/ownerAuth.mjs';
 import { SandboxService } from './sandbox/sandboxService.mjs';
 import { sandboxTools, SkillStore } from './tools/sandboxTools.mjs';
 import { AgentService } from './agent/agentService.mjs';
+import { startMcpFromFile } from './mcp/index.mjs';
 
 // Web search is ON by default (Lumicos Search v6 beside the install root). Set LUMICOS_WEB_SEARCH=off to disable.
 export const legacyWebSearchEnabled = (env=process.env) => env.LUMICOS_WEB_SEARCH !== 'off';
@@ -69,6 +70,8 @@ export function createServices(config) {
   const sandbox = new SandboxService({ workspaceRoot: ws.root });
   const skills = new SkillStore(ws.root);
   for (const t of sandboxTools(sandbox, skills)) tools.register(t);
+  // Optional MCP servers: data/mcp-config.json (see server/mcp/example-config.json). Missing/disabled = no-op.
+  const mcpReady = startMcpFromFile(path.join(config.dataDir, 'mcp-config.json'), tools).catch(() => null);
 
   const comfy = new ComfyService(config);
   if (imagesEnabled()) for (const t of imageTools(comfy)) tools.register(t);
@@ -93,5 +96,5 @@ export function createServices(config) {
   agent.startSchedules(); // scheduled agent jobs ("ทุกเช้า 7 โมง สรุปข่าว AI ให้หน่อย"): first check 90 s after start, then every 30 s
   voice.onCallEnd=()=>{devices.callOwner=null;conversations.changed({type:'call',owner:null},false)};
   const handler = createApp({ config, files, ws, memory, retriever, tools, attachments, comfy, models, voice, web, conversations, chats, devices, ownerAuth, sandbox, skills, library });
-  return { agent, library, ws, files, memory, retriever, attachments, tools, handler, models, voice, web,knowledge,conversations,chats,devices,ownerAuth,sandbox,skills };
+  return { agent, library, ws, files, memory, retriever, attachments, tools, handler, models, voice, web,knowledge,conversations,chats,devices,ownerAuth,sandbox,skills, mcpReady };
 }

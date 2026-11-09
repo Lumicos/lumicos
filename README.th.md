@@ -10,7 +10,7 @@
 ![Platform: Windows 11 x64](https://img.shields.io/badge/platform-Windows%2011%20x64-blue)
 [![GitHub stars](https://img.shields.io/github/stars/Lumicos/lumicos)](https://github.com/Lumicos/lumicos)
 
-[English](README.md) · [คู่มือติดตั้ง](docs/INSTALLATION.md) · [สถานะฟีเจอร์](docs/FEATURE_STATUS.md) · [สถาปัตยกรรม](docs/ARCHITECTURE.md) · [เทียบการ์ดจอ](docs/GPU_COMPARISON.md) · [Benchmark](docs/BENCHMARKS.md) · [Apollo](docs/APOLLO.md)
+[English](README.md) · [คู่มือติดตั้ง](docs/INSTALLATION.md) · [สถานะฟีเจอร์](docs/FEATURE_STATUS.md) · [สถาปัตยกรรม](docs/ARCHITECTURE.md) · [เทียบการ์ดจอ](docs/GPU_COMPARISON.md) · [Benchmark](docs/BENCHMARKS.md) · [Apollo](docs/APOLLO.md) · [Creative pipeline](docs/CREATIVE_PIPELINE.md)
 
 คุยกับโมเดล GGUF ในเครื่อง เก็บความจำและโน้ตที่แก้ไขได้ และอ่านคำตอบด้วย Microsoft Pattara ซอร์ส public ยังมีระบบทดลองสำหรับโทรคุย สร้างภาพผ่าน ComfyUI และงานค้นคว้าเบื้องหลัง
 
