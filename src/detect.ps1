@@ -18,7 +18,7 @@ $cuda=$null
 $smi=Get-Command nvidia-smi.exe -ErrorAction SilentlyContinue
 if($smi){
  $raw=& $smi.Source 2>$null
- if(($raw -join ' ') -match 'CUDA Version:\s*([0-9.]+)'){$cuda=$Matches[1]}
+ if(($raw -join ' ') -match 'CUDA (?:UMD )?Version:\s*([0-9.]+)'){$cuda=$Matches[1]}
  $rows=& $smi.Source --query-gpu=name,memory.total --format=csv,noheader,nounits 2>$null
  function Normalize-GpuName([string]$n){ return (($n -replace 'NVIDIA( Corporation)?','' -replace '\s+',' ').Trim()) }
  foreach($row in $rows){
